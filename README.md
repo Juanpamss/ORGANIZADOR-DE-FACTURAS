@@ -1,5 +1,6 @@
-# Proyecto_Libres2
-Programa organizador de facturas por tipos de gasto.
+# ORGANIZADOR DE FACTURAS
+
+Programa organizador de facturas por tipos de gasto y generador de reportes por periodos.
 
 INSTALACIÓN PARA USUARIOS COLABORATIVOS (CÓDIGO FUENTE):
 
