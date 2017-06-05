@@ -4,8 +4,8 @@ Programa organizador de facturas por tipos de gasto.
 Herramientas utilizadas son:
 
 ●	SQLite y SQLite Manager como gestor de base de datos.
-●	Netbeans como IDE de desarrollo de la aplicación.
-●	Mozilla Firefox, para la ejecución de SQLite Manager
+ ●	Netbeans como IDE de desarrollo de la aplicación.
+ ●	Mozilla Firefox, para la ejecución de SQLite Manager
 
 1. Para poder utilizar el programa se debe clonar el repositorio en un directorio determinado, para esto se puede utilziar la herramienta brindada por GitHub.
 2. Importar el proyecto o copiar la carpeta creada en el directorio donde se maneje los proyectos en el IDE para la ejecución, de preferencia NetBeans.
