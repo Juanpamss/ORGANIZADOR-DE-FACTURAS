@@ -43,11 +43,13 @@ public void cargarXml(String name) throws JDOMException, UnsupportedEncodingExce
             elementos.add("ambiente");
             elementos.add("razonSocial");
             elementos.add("dirMatriz");
+            
             elementos.add("ruc");
             elementos.add("estab");
             elementos.add("ptoEmi");
             elementos.add("secuencial");
             elementos.add("fechaEmision");
+            elementos.add("identificacionComprador");
             elementos.add("totalSinImpuestos");
             elementos.add("valor");
             elementos.add("descripcion");
@@ -74,7 +76,8 @@ public void cargarXml(String name) throws JDOMException, UnsupportedEncodingExce
                     ambiente = amb.getTextTrim();
                 }
             }
-
+            
+            
             Element tabla = rootNode.getChild("comprobante");
 
             if (tabla != null) {
@@ -114,7 +117,8 @@ public void cargarXml(String name) throws JDOMException, UnsupportedEncodingExce
                 if (cont != -1) {
                     dirMatriz = tributaria.getChildTextTrim(elementos.get(cont).toString());
                 }
-
+                
+                
                 cont = elementos.indexOf("ruc");
                 String ruc = "";
                 if (cont != -1) {
@@ -138,6 +142,8 @@ public void cargarXml(String name) throws JDOMException, UnsupportedEncodingExce
                 if (cont != -1) {
                     secuencial = tributaria.getChildTextTrim(elementos.get(cont).toString());
                 }
+                
+                
 
                 String numFact = estab + "-" + emision + "-" + secuencial;
 
@@ -155,6 +161,12 @@ public void cargarXml(String name) throws JDOMException, UnsupportedEncodingExce
                 String fecha = "";
                 if (cont != -1) {
                     fecha = factura.getChildTextTrim(elementos.get(cont).toString());
+                }
+                
+                cont = elementos.indexOf("identificacionComprador");
+                String ced_cliente = "";
+                if (cont != -1) {
+                    ced_cliente = factura.getChildTextTrim(elementos.get(cont).toString());
                 }
 
                 cont = elementos.indexOf("totalSinImpuestos");
@@ -176,7 +188,7 @@ public void cargarXml(String name) throws JDOMException, UnsupportedEncodingExce
 
                 
                 String facturaQ = "INSERT INTO 'main'.'factura' ('ID_FACTURA','ID_CLIENTE','ID_ENTIDAD','FECHA_EMISION','TOTAL_SIN_IVA','IVA','TOTAL_CON_IVA') VALUES ('" 
-                        + numFact + "','1004700685','" + ruc + "','"  + fecha + "'," + totalSinImp + "," + Imps + "," + totalConImps + ")";
+                        + numFact + "','" + ced_cliente + "','" + ruc + "','"  + fecha + "'," + totalSinImp + "," + Imps + "," + totalConImps + ")";
                     cp.insertar(facturaQ);
 
                     Element detalles = (Element) lista_campos.get(2);

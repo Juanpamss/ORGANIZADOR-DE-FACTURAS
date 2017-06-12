@@ -130,7 +130,7 @@ public class Facturas_XML extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargarActionPerformed
-        
+          
         Cargar_XML cargar = new Cargar_XML();
         
         try {

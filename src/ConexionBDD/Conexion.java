@@ -50,8 +50,11 @@ public class Conexion {
             pst = conn.prepareStatement(sql);
                    
             pst.execute();
+            
+            JOptionPane.showMessageDialog(null, "FACTURA CARGADA A LA BASE DE DATOS EXITOSAMENTE");
         } catch (Exception e) {
-            System.out.println(e.getMessage()+"caca");
+            
+            System.out.println(e.getMessage()+" ERROR AL CARGAR LA FACTURA");
         }
     }
     
