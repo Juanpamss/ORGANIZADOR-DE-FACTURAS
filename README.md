@@ -5,9 +5,11 @@ Programa organizador de facturas por tipos de gasto y generador de reportes por 
 INSTALACIÓN PARA USUARIOS FINALES (PRINCIPIANTES):
 
 1. Descargar el instalador que se encuentra en el repositorio con el nombre "FactSetup.exe".
-2. Abrir el instalador y proceder a instalar el programa, se sugiere elegir la opción de "Crear un icono en el escritorio".
+2. Abrir el instalador y proceder a instalar el programa, se sugiere elegir la opción de "Crear un icono en el escritorio". 
+
   -------IMPORTANTE--------
    Para el correcto funcionamiento del programa se requiere que al momento de seleccionar la carpeta de instalación del programa, se        cambie la ruta que se encuentra por defecto "C:\\ProgramFiles", en su lugar elegir un directorio en otro disco duro disponible o        alguna partición. También se puede seleccionar un directorio como el Escritorio. 
+   
 3. Una vez terminada la instalación ejecutar el programa.
 
 
