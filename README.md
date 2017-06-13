@@ -5,12 +5,27 @@ Programa organizador de facturas por tipos de gasto y generador de reportes por 
 INSTALACIÓN PARA USUARIOS FINALES (PRINCIPIANTES):
 
 1. Descargar el instalador que se encuentra en el repositorio con el nombre "FactSetup.exe".
-2. Abrir el instalador y proceder a instalar el programa, se sugiere elegir la opción de "Crear un icono en el escritorio". 
+![captura 2](https://user-images.githubusercontent.com/28027396/27064364-975b65d0-4fbc-11e7-8e27-4b845e1c87c6.PNG)
+
+2. Abrir el instalador y proceder a instalar el programa
 
   *-------IMPORTANTE--------*
-Para el correcto funcionamiento del programa se requiere cambiar la ruta de instalación que se encuentra por defecto "C:\\ProgramFiles" en su lugar elegir un directorio alterno en otro disco duro disponible o alguna partición. También se puede seleccionar un directorio como del usuario como el Escritorio. 
+Para el correcto funcionamiento del programa se requiere cambiar la ruta de instalación que se encuentra por defecto "C:\\ProgramFiles" en su lugar elegir un directorio alterno en otro disco duro disponible o alguna partición dando click en el botón "Examinar". También se puede seleccionar un directorio como del usuario como el Escritorio. 
+
+Ruta por defecto:
+
+![captura](https://user-images.githubusercontent.com/28027396/27064291-3dd8ac20-4fbc-11e7-8c96-146ee05c6265.PNG)
+
+Ruta cambiada:
+
+![captura 3](https://user-images.githubusercontent.com/28027396/27064406-c705f35e-4fbc-11e7-8cb6-6a32a3206a5b.PNG)
    
-3. Una vez terminada la instalación ejecutar el programa.
+3. Una vez seleccionada la carpeta de instalación, dar click en siguiente y seleccionar la opción de "Crear un icono en el escritorio" si se desea.
+
+![captura 4](https://user-images.githubusercontent.com/28027396/27064464-1a66c186-4fbd-11e7-87d3-377e4ae3e145.PNG)
+
+4. Dar click en siguiente y luego dar click en instalar. 
+5. Una vez terminado el proceso de instalación proceder a ejecutar el programa.
 
 
 INSTALACIÓN PARA USUARIOS COLABORATIVOS (CÓDIGO FUENTE):
