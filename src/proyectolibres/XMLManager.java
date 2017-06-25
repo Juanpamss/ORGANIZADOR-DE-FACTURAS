@@ -1088,7 +1088,7 @@ public class XMLManager extends javax.swing.JFrame {
         //AQUI VA LOS COMANDOS PARA GUARDAR LOS DATOS A LA BASE
                                 
         gastosTotales();
-        
+           
         String facturaQ = "INSERT INTO 'main'.'factura' ('ID_FACTURA','ID_CLIENTE','ID_PROVEEDOR','FECHA','TOTAL_ALIMENTACION','TOTAL_VESTIMENTA','TOTAL_VIVIENDA','TOTAL_SALUD','TOTAL_EDUCACION','TOTAL_OTROS','TOTAL_SIN_IVA','IVA','TOTAL_CON_IVA') VALUES ('" 
                         + datos.getFactura_codigo() + "','" + datos.getCliente_ci() + "','" + datos.getProveedor_ruc() + "','" + datos.getFactura_fecha()+ "'," + datos.getTotal_alimentacion()+ ","  + datos.getTotal_vestimenta()+ "," + datos.getTotal_vivienda() + 
                 ","  + datos.getTotal_salud() + ","  + datos.getTotal_educacion() + ","  + datos.getTotal_otros()+ "," + datos.getFactura_total_sin_iva() + "," + datos.getFactura_iva() + "," + datos.getFactura_total_con_iva() + ")";

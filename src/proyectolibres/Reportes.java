@@ -62,6 +62,7 @@ public class Reportes extends javax.swing.JFrame {
         jLabelSeleccionCliente = new javax.swing.JLabel();
         jLabelSeleccionTipoGasto = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jComboBoxAnio = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -179,16 +180,19 @@ public class Reportes extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
                                 .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelClienteSeleccionado)
                                     .addComponent(jLabelTipoGastoSeleccionado))
                                 .addGap(46, 46, 46)
                                 .addComponent(btn_tipoGasto))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
+                                .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
+                                .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel6))
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addGap(179, 179, 179))
         );
         jPanelRESULTADOS1Layout.setVerticalGroup(
             jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +204,8 @@ public class Reportes extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelSeleccionCliente))
+                            .addComponent(jLabelSeleccionCliente)
+                            .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(26, 26, 26)
                         .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,7 +281,7 @@ public class Reportes extends javax.swing.JFrame {
 
     private void btn_tipoGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tipoGastoActionPerformed
 
-        setPanelCliente(jComboBoxTipos.getSelectedItem().toString());
+        setPanelTipoGasto(jComboBoxTipos.getSelectedItem().toString(), jComboBoxAnio.getSelectedItem().toString());
         jLabelTipoGastoSeleccionado.setText((String)jComboBoxTipos.getSelectedItem());
     }//GEN-LAST:event_btn_tipoGastoActionPerformed
 
@@ -318,6 +323,7 @@ public class Reportes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_consultar;
     private javax.swing.JButton btn_tipoGasto;
+    private javax.swing.JComboBox<String> jComboBoxAnio;
     private javax.swing.JComboBox<String> jComboBoxClientes;
     private javax.swing.JComboBox<String> jComboBoxProveedores;
     private javax.swing.JComboBox<String> jComboBoxTipos;
@@ -346,6 +352,7 @@ public class Reportes extends javax.swing.JFrame {
         setComboProveedores();
         setComboTipoGastos();
         setComboClientes();
+        setComboAnios();
     }
    private void setComboProveedores(){
        
@@ -426,14 +433,41 @@ public class Reportes extends javax.swing.JFrame {
                            }
         });
     }
+   
+   private void setComboAnios(){
+       
+                    
+            ArrayList<String> anios = new ConexionBDD.Conexion().consultarAnios();
+            
+            
+            this.jComboBoxAnio.removeAllItems();
+            for(String anio: anios){
+                this.jComboBoxAnio.addItem(anio);
+                
+            }
+            this.jComboBoxAnio.setSelectedIndex(0);
+            
+            //jLabelClienteSeleccionado.setText((String)jComboBoxClientes.getSelectedItem());
+        
+        
+        this.jComboBoxAnio.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+               //jLabelClienteSeleccionado.setText((String)e.getItem());
+               
+            }
+        });
+                    
+    }
+   
     
-   private void setPanelCliente(String tipoGasto){
+   private void setPanelTipoGasto(String tipoGasto, String anio){
        
        conn = new Conexion();
             
             //con = Conexion.conecxionBDD();
             
-            List<String[]> datos = conn.consultarFacturaTipoGastos(tipoGasto, (String) jComboBoxClientes.getSelectedItem());
+            List<String[]> datos = conn.consultarFacturaTipoGastos(tipoGasto, (String) jComboBoxClientes.getSelectedItem(), anio);
             
             Object [][] matriz = datos(datos);
             

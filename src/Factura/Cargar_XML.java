@@ -161,6 +161,17 @@ public class Cargar_XML {
             String fecha = "";
             if (cont != -1) {
                 fecha = factura.getChildTextTrim(elementos.get(cont).toString());
+                
+                String[] split = fecha.split("/");
+                
+                String anio,mes,dia;
+                
+                anio = split[2];
+                mes = split[1];
+                dia = split[0];
+                
+                fecha = anio + "-" + mes + "-" + dia;
+                
             }
 
             cont = elementos.indexOf("razonSocialComprador");

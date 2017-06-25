@@ -150,7 +150,26 @@ public class Conexion {
         
         return clientes;
     }
-    
+      
+      public ArrayList<String> consultarAnios(){
+        String query = "SELECT strftime('%Y',fecha) as 'Anio' from FACTURA ";
+                
+        ArrayList anio= new ArrayList<String>();
+        try {
+            Statement st= conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                String temp=rs.getString("Anio");
+                anio.add(temp);
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return anio;
+    }
     
     public ArrayList<String[]> consultarFacturaPorProveedor(String proveedor){
         
@@ -201,7 +220,7 @@ public class Conexion {
         
     }
     
-    public ArrayList<String[]> consultarFacturaTipoGastos(String tipo_gasto, String nombreCliente){
+    public ArrayList<String[]> consultarFacturaTipoGastos(String tipo_gasto, String nombreCliente, String anio){
         
         String auxTipo = "";
         
@@ -239,8 +258,9 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String query = "SELECT SUM(" + auxTipo + ") from factura, cliente where factura.id_cliente = cliente.ci and cliente.nombre = " + "'" + nombreCliente + "'"; 
+        String query = "SELECT SUM(" + auxTipo + ") from factura, cliente where factura.id_cliente = cliente.ci and cliente.nombre = " + "'" + nombreCliente + "'" + "and (SELECT strftime('%Y',fecha) as 'Anio' from FACTURA) = '" + anio + "'"; 
      
+        System.out.println(query);
         ArrayList<String []> resultado= new ArrayList<String []>();
         
         try {
