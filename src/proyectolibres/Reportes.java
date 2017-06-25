@@ -63,6 +63,9 @@ public class Reportes extends javax.swing.JFrame {
         jLabelSeleccionTipoGasto = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jComboBoxAnio = new javax.swing.JComboBox<>();
+        jLabelSeleccionAnio = new javax.swing.JLabel();
+        jLabelAnio = new javax.swing.JLabel();
+        jLabelAnioSeleccioando = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -127,7 +130,7 @@ public class Reportes extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabelProveedorSeleccionado))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -164,66 +167,80 @@ public class Reportes extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel6.setText("Tipo de gasto:");
 
+        jLabelSeleccionAnio.setText("Seleccionar año:");
+
+        jLabelAnio.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabelAnio.setText("Año:");
+
+        jLabelAnioSeleccioando.setText("Sin Seleccionar");
+
         javax.swing.GroupLayout jPanelRESULTADOS1Layout = new javax.swing.GroupLayout(jPanelRESULTADOS1);
         jPanelRESULTADOS1.setLayout(jPanelRESULTADOS1Layout);
         jPanelRESULTADOS1Layout.setHorizontalGroup(
             jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
                     .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabelSeleccionCliente)
-                            .addComponent(jLabelSeleccionTipoGasto))
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
                             .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
                                 .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelSeleccionCliente)
+                                    .addComponent(jLabelSeleccionTipoGasto)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabelAnio)
+                                    .addComponent(jLabelSeleccionAnio)
+                                    .addComponent(jLabel4))
+                                .addGap(38, 38, 38)
+                                .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelClienteSeleccionado)
-                                    .addComponent(jLabelTipoGastoSeleccionado))
-                                .addGap(46, 46, 46)
-                                .addComponent(btn_tipoGasto))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
-                                .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
-                                .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel6))
-                .addGap(179, 179, 179))
+                                    .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelAnioSeleccioando)
+                                    .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
+                                        .addComponent(jLabelTipoGastoSeleccionado)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                                        .addComponent(btn_tipoGasto, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
+                        .addGap(214, 214, 214)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(59, 59, 59))
         );
         jPanelRESULTADOS1Layout.setVerticalGroup(
             jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelSeleccionCliente)
-                            .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelSeleccionTipoGasto))
-                        .addGap(23, 23, 23)
-                        .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabelClienteSeleccionado))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabelTipoGastoSeleccionado)))
-                    .addGroup(jPanelRESULTADOS1Layout.createSequentialGroup()
-                        .addComponent(btn_tipoGasto)
-                        .addGap(4, 4, 4)))
-                .addGap(25, 25, 25)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSeleccionCliente))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelSeleccionTipoGasto)
+                    .addComponent(jComboBoxTipos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelSeleccionAnio)
+                    .addComponent(jComboBoxAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabelClienteSeleccionado))
+                .addGap(5, 5, 5)
+                .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabelTipoGastoSeleccionado)
+                    .addComponent(btn_tipoGasto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelRESULTADOS1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelAnioSeleccioando)
+                    .addComponent(jLabelAnio))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Tipo de gasto", jPanelRESULTADOS1);
@@ -332,8 +349,11 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelAnio;
+    private javax.swing.JLabel jLabelAnioSeleccioando;
     private javax.swing.JLabel jLabelClienteSeleccionado;
     private javax.swing.JLabel jLabelProveedorSeleccionado;
+    private javax.swing.JLabel jLabelSeleccionAnio;
     private javax.swing.JLabel jLabelSeleccionCliente;
     private javax.swing.JLabel jLabelSeleccionTipoGasto;
     private javax.swing.JLabel jLabelTipoGastoSeleccionado;
@@ -447,13 +467,13 @@ public class Reportes extends javax.swing.JFrame {
             }
             this.jComboBoxAnio.setSelectedIndex(0);
             
-            //jLabelClienteSeleccionado.setText((String)jComboBoxClientes.getSelectedItem());
+            jLabelAnioSeleccioando.setText((String)jComboBoxAnio.getSelectedItem());
         
         
         this.jComboBoxAnio.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-               //jLabelClienteSeleccionado.setText((String)e.getItem());
+               jLabelAnioSeleccioando.setText((String)e.getItem());
                
             }
         });
