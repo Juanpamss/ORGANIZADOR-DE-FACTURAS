@@ -16,10 +16,12 @@ public class ProyectoLibres {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+       
         MainForm main = new MainForm();
        
         main.setVisible(true);
+        
+        
         
     }
     

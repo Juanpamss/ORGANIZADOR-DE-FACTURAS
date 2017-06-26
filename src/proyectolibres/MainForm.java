@@ -37,6 +37,7 @@ public class MainForm extends javax.swing.JFrame {
         String fech = formato.format(fecha);
         
         lbl_fecha.setText("FECHA: " + fech);
+         System.out.println("Commit de Pruebas Unitarias");
     }
 
     /**

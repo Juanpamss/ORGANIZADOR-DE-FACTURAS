@@ -23,6 +23,8 @@ public class Proyecto_Libres {
         Facturas_XML form = new Facturas_XML();
              
         form.show();
+        
+        
     }
     
 }
