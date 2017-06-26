@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -48,8 +49,7 @@ public class Conexion {
     
     public void insertar(String sql) {
         
-        System.out.println(sql);
-        
+                
         try {
                                    
             pst = conn.prepareStatement(sql);
@@ -151,8 +151,9 @@ public class Conexion {
         return clientes;
     }
       
-      public ArrayList<String> consultarAnios(){
-        String query = "SELECT strftime('%Y',fecha) as 'Anio' from FACTURA ";
+      public ArrayList<String> consultarAnios() {
+        
+      String query = "SELECT strftime('%Y',fecha) as 'Anio' from FACTURA ";
                 
         ArrayList anio= new ArrayList<String>();
         try {
@@ -169,7 +170,9 @@ public class Conexion {
         }
         
         return anio;
+
     }
+    
     
     public ArrayList<String[]> consultarFacturaPorProveedor(String proveedor){
         
@@ -220,7 +223,7 @@ public class Conexion {
         
     }
     
-    public ArrayList<String[]> consultarFacturaTipoGastos(String tipo_gasto, String nombreCliente, String anio){
+    public ArrayList<String[]> consultarFacturaTipoGastos(String tipo_gasto, String nombreCliente){
         
         String auxTipo = "";
         
@@ -258,9 +261,8 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String query = "SELECT SUM(" + auxTipo + ") from factura, cliente where factura.id_cliente = cliente.ci and cliente.nombre = " + "'" + nombreCliente + "'" + "and (SELECT strftime('%Y',fecha) as 'Anio' from FACTURA) = '" + anio + "'"; 
+        String query = "SELECT SUM(" + auxTipo + ") from factura, cliente where factura.id_cliente = cliente.ci and cliente.nombre = " + "'" + nombreCliente + "'"; 
      
-        System.out.println(query);
         ArrayList<String []> resultado= new ArrayList<String []>();
         
         try {
@@ -290,6 +292,140 @@ public class Conexion {
     
         conn.close();
     
+    }
+
+    
+    public ArrayList<String[]> consultarFacturaPorCliente(String nombre_cliente,String anio) {
+        /////
+        //FALTA ANADIR EL ANO EN EL QUERY
+        ///
+        
+        
+          ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            
+            conn = Conexion.conecxionBDD();
+            String query ="select factura.id_factura, proveedor.ruc, proveedor.nombre, "
+                    + "factura.total_sin_iva, factura.iva, factura.total_con_iva, "
+                    + "factura.total_alimentacion, factura.total_vestimenta, factura.total_vivienda, "
+                    + "factura.total_salud, factura.total_educacion, factura.total_otros "
+                    + "from factura,proveedor,cliente "
+                    + "where factura.id_proveedor = proveedor.ruc "
+                    + "and factura.id_cliente = cliente.ci "
+                    + "and cliente.nombre ='"+nombre_cliente + "' and (SELECT strftime('%Y',fecha) as 'Anio' from FACTURA) = '" + anio + "'";
+            
+             
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[12];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                temp[2] = rs.getString(3);
+                temp[3] = rs.getString(4);
+                temp[4] = rs.getString(5);
+                temp[5] = rs.getString(6);
+                temp[6] = rs.getString(7);
+                temp[7] = rs.getString(8);
+                temp[8] = rs.getString(9);
+                temp[9] = rs.getString(10);
+                temp[10] = rs.getString(11);
+                temp[11] = rs.getString(12);
+                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return resultado;
+    }
+
+    public List<String[]> consultarFacturaPorProveedor(String cliente, String anio, String prov) {
+             
+       ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            conn = Conexion.conecxionBDD();
+            String query = "select factura.id_factura, proveedor.ruc, proveedor.nombre, factura.total_sin_iva, factura.iva, factura.total_con_iva, "
+                    + "factura.total_alimentacion, factura.total_vestimenta, factura.total_vivienda, factura.total_salud, factura.total_educacion, "
+                    + "factura.total_otros from factura,proveedor,cliente where factura.id_proveedor = proveedor.ruc and factura.id_cliente = cliente.ci and cliente.nombre = '" 
+                    + cliente + "' and proveedor.nombre = '" + prov + "' and (SELECT strftime('%Y',fecha) as 'Anio' from FACTURA) = '" + anio + "'";
+         
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[12];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                temp[2] = rs.getString(3);
+                temp[3] = rs.getString(4);
+                temp[4] = rs.getString(5);
+                temp[5] = rs.getString(6);
+                temp[6] = rs.getString(7);
+                temp[7] = rs.getString(8);
+                temp[8] = rs.getString(9);
+                temp[9] = rs.getString(10);
+                temp[10] = rs.getString(11);
+                temp[11] = rs.getString(12);
+                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return resultado;
+    }
+       
+    
+    public ArrayList<String[]> consultarNumeroFacturas(String nombreCliente, String anio){
+   
+        try {
+            conn = Conexion.conecxionBDD();
+                    
+                    } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String query = "SELECT COUNT(id_factura) from FACTURA,CLIENTE where factura.id_cliente = cliente.ci and nombre = '" 
+                + nombreCliente + "' and (SELECT strftime('%Y',fecha) as 'Anio' from FACTURA) = '" + anio + "'";
+        
+             
+        ArrayList<String []> resultado= new ArrayList<String []>();
+        
+        try {
+          
+            
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[1];
+                               
+                temp[0] = String.valueOf(rs.getInt(1));
+                                
+               resultado.add(temp);
+                         
+               
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultado;
+
     }
        
     

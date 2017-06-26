@@ -23,6 +23,7 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
@@ -1005,8 +1006,27 @@ public class XMLManager extends javax.swing.JFrame {
             this.jLabelfac_iva.setText(datos.getFactura_iva()+"");
             this.jLabelfac_total_con_iva.setText(datos.getFactura_total_con_iva()+"");
                                       
+            
+            Object[][] aux = datos.getDatosProductos();
+            
             this.setTablaDesgloce(datos.getDatosProductos());
             
+            for(int i=0;i<aux.length;i++){
+            
+                String cadena = aux[i][0].toString();
+                
+                StringTokenizer tokens = new StringTokenizer(cadena," ");
+                
+                while(tokens.hasMoreTokens()){
+                
+                        String auxi = "";
+                        auxi = tokens.nextToken();
+                        
+                        System.out.println(auxi);
+                }
+            
+            }
+                
             }
            
         } catch (JDOMException ex) {
@@ -1088,7 +1108,7 @@ public class XMLManager extends javax.swing.JFrame {
         //AQUI VA LOS COMANDOS PARA GUARDAR LOS DATOS A LA BASE
                                 
         gastosTotales();
-           
+        
         String facturaQ = "INSERT INTO 'main'.'factura' ('ID_FACTURA','ID_CLIENTE','ID_PROVEEDOR','FECHA','TOTAL_ALIMENTACION','TOTAL_VESTIMENTA','TOTAL_VIVIENDA','TOTAL_SALUD','TOTAL_EDUCACION','TOTAL_OTROS','TOTAL_SIN_IVA','IVA','TOTAL_CON_IVA') VALUES ('" 
                         + datos.getFactura_codigo() + "','" + datos.getCliente_ci() + "','" + datos.getProveedor_ruc() + "','" + datos.getFactura_fecha()+ "'," + datos.getTotal_alimentacion()+ ","  + datos.getTotal_vestimenta()+ "," + datos.getTotal_vivienda() + 
                 ","  + datos.getTotal_salud() + ","  + datos.getTotal_educacion() + ","  + datos.getTotal_otros()+ "," + datos.getFactura_total_sin_iva() + "," + datos.getFactura_iva() + "," + datos.getFactura_total_con_iva() + ")";
@@ -1170,6 +1190,8 @@ public class XMLManager extends javax.swing.JFrame {
 
                 TableModel model = (TableModel) tme.getSource();
                 Object data = model.getValueAt(row, column);
+                
+                System.out.println(model.getValueAt(1, 1));
 
                if (!data.equals("") && column == 2) {
                     //int opc = comboBox.getSelectedIndex();
