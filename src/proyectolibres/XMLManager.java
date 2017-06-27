@@ -1176,10 +1176,12 @@ public class XMLManager extends javax.swing.JFrame {
 
                 TableModel model = (TableModel) tme.getSource();
                 Object data = model.getValueAt(row, column);
+                
+                
                                 
                if (!data.equals("") && column == 2) {
                     //int opc = comboBox.getSelectedIndex();
-                    //System.out.println(row);
+                    System.out.println(row);
 
                     if (!tipoEstado[row].equals("")) {
                         if (tipoEstado[row].equals("Vivienda")) {
