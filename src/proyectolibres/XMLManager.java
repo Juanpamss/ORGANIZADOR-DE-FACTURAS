@@ -1113,6 +1113,11 @@ public class XMLManager extends javax.swing.JFrame {
         cp.insertar(facturaQ);
         cp.insertar(proveedorQ);
         cp.insertar(clienteQ);
+        try {
+            cp.cerrarConeccion();
+        } catch (SQLException ex) {
+            Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         //TIpos de datos 
         try {
@@ -1120,7 +1125,12 @@ public class XMLManager extends javax.swing.JFrame {
                 int fila = tablaProductos.getRowCount();
         for (int i = 0; i < fila; i++) {
                         
-            cp.insertarTipos(tablaProductos.getValueAt(i, 0).toString(),tablaProductos.getValueAt(i, 2).toString());                            
+            cp.insertarTipos(tablaProductos.getValueAt(i, 0).toString(),tablaProductos.getValueAt(i, 2).toString());    
+                    try {
+                        cp.cerrarConeccion();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+                    }
         }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -1128,10 +1138,10 @@ public class XMLManager extends javax.swing.JFrame {
         
                     
         try {
-            cp.cerrarConeccion();
+            
             Conexion.conecxionBDD();
             Conexion.conecxionBDDTipos();
-        } catch (SQLException | ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -1248,37 +1258,8 @@ public class XMLManager extends javax.swing.JFrame {
             }
         });
         
-        int fila = tablaProductos.getRowCount();
-        int i;
-        String gasto;
-                   
-                    for (i = 0; i < fila; i++) {
-                        String valor = (String) tablaProductos.getValueAt(i, 0);
-                        
-            try {
-                Conexion.conecxionBDDTipos();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
-            gasto = cp.tipoGastoAutomatico(valor);
-            
-                if(cp.tipoGastoAutomatico(valor).isEmpty()){
-                    
-                    System.out.println("Es vacia");
-                    
-                    break;
-                    
-                                    
-                }else{
-                
-                    tablaProductos.setValueAt(gasto, i, 2);
-                    
-                }
-                        
-                        
-                    }
-                        
+        gastosAutomáticos();
+        
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
         tablaProductos.getColumnModel().getColumn(1).setCellRenderer(alinearDerecha);
@@ -1334,7 +1315,53 @@ public class XMLManager extends javax.swing.JFrame {
         rep.setVisible(true);
     }
 
+    private void gastosAutomáticos(){
+        
+        try {
+            Conexion.conecxionBDDTipos();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        int fila = tablaProductos.getRowCount();
+        int i;
+        String gasto;
+                   
+                    for (i = 0; i < fila; i++) {
+                        String valor = (String) tablaProductos.getValueAt(i, 0);
+                        
+            try {
+                Conexion.conecxionBDDTipos();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+            gasto = cp.tipoGastoAutomatico(valor);
+            
+                if(cp.tipoGastoAutomatico(valor).isEmpty()){
+                    
+                    System.out.println("Es vacia");
+                    
+                    break;
+                    
+                                    
+                }else{
+                
+                    tablaProductos.setValueAt(gasto, i, 2);
+                    
+                }
+                        
+                        
+        }
+            
+        try {
+            cp.cerrarConeccion();
+        } catch (SQLException ex) {
+            Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
+
+    }
     
 
 }
