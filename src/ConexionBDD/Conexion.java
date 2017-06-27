@@ -26,6 +26,7 @@ public class Conexion {
     PreparedStatement pst = null;
     public static Connection conn = null;
     
+    
     public static Connection conecxionBDD() throws ClassNotFoundException{                     
         
         try{
@@ -74,6 +75,24 @@ public class Conexion {
         try {
                                    
             pst = conn.prepareStatement(sql);
+                   
+            pst.execute();
+                                  
+            //JOptionPane.showMessageDialog(null, "FACTURA CARGADA A LA BASE DE DATOS EXITOSAMENTE");
+            
+        } catch (Exception e) {
+            
+            System.out.println(e.getMessage()+" ERROR AL CARGAR LA FACTURA");
+        }
+    }
+    
+    public void insertarTipos(String producto, String tipo) {
+        
+        String query = "insert into 'main'.'Tipos' values ('"+ producto + "','" + tipo + "')";
+                
+        try {
+                                   
+            pst = conn.prepareStatement(query);
                    
             pst.execute();
                                   
@@ -194,8 +213,8 @@ public class Conexion {
 
     }
       
-      public ArrayList<String> tipoGastoAutomatico(String item) {
-        
+      public String tipoGastoAutomatico(String item) {
+                  
         try {
             conn = Conexion.conecxionBDDTipos();
         } catch (ClassNotFoundException ex) {
@@ -204,13 +223,15 @@ public class Conexion {
           
       String query = "select TipoGast from Tipos where NombreProd like '" + item + "%' or NombreProd like '%" + item + "%' or NombreProd like '%" + item + "' order by NombreProd";
                 
-        ArrayList tipo= new ArrayList<String>();
+          //System.out.println(query);
+      
+        String tipo = "";
         try {
             Statement st= conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
                 String temp=rs.getString("TipoGast");
-                tipo.add(temp);
+                tipo = (temp);
                 
             }
             

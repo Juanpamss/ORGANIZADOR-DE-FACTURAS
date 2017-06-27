@@ -23,6 +23,7 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,8 +56,7 @@ public class XMLManager extends javax.swing.JFrame {
     DatosFactura datos=null;
     
     Conexion cp = new Conexion();
-    Conexion cp2 = new Conexion();
-    
+          
     //VARIABLE DESGLOCE
      JComboBox comboBox;
     JTable tablaProductos = new JTable();
@@ -787,6 +787,7 @@ public class XMLManager extends javax.swing.JFrame {
                 break;
             }
         }
+              
                 
         if(validado == true){
         guardarBDD();
@@ -1089,8 +1090,13 @@ public class XMLManager extends javax.swing.JFrame {
     }
 
     private void guardarBDD() {
-        //AQUI VA LOS COMANDOS PARA GUARDAR LOS DATOS A LA BASE
-                                
+        try {
+            //AQUI VA LOS COMANDOS PARA GUARDAR LOS DATOS A LA BASE
+            Conexion.conecxionBDD();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         gastosTotales();
         
         String facturaQ = "INSERT INTO 'main'.'factura' ('ID_FACTURA','ID_CLIENTE','ID_PROVEEDOR','FECHA','TOTAL_ALIMENTACION','TOTAL_VESTIMENTA','TOTAL_VIVIENDA','TOTAL_SALUD','TOTAL_EDUCACION','TOTAL_OTROS','TOTAL_SIN_IVA','IVA','TOTAL_CON_IVA') VALUES ('" 
@@ -1108,6 +1114,19 @@ public class XMLManager extends javax.swing.JFrame {
         cp.insertar(proveedorQ);
         cp.insertar(clienteQ);
         
+        //TIpos de datos 
+        try {
+                Conexion.conecxionBDDTipos();
+                int fila = tablaProductos.getRowCount();
+        for (int i = 0; i < fila; i++) {
+                        
+            cp.insertarTipos(tablaProductos.getValueAt(i, 0).toString(),tablaProductos.getValueAt(i, 2).toString());                            
+        }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+                    
         try {
             cp.cerrarConeccion();
             Conexion.conecxionBDD();
@@ -1181,7 +1200,7 @@ public class XMLManager extends javax.swing.JFrame {
                                 
                if (!data.equals("") && column == 2) {
                     //int opc = comboBox.getSelectedIndex();
-                    System.out.println(row);
+                  //System.out.println(column);
 
                     if (!tipoEstado[row].equals("")) {
                         if (tipoEstado[row].equals("Vivienda")) {
@@ -1229,6 +1248,37 @@ public class XMLManager extends javax.swing.JFrame {
             }
         });
         
+        int fila = tablaProductos.getRowCount();
+        int i;
+        String gasto;
+                   
+                    for (i = 0; i < fila; i++) {
+                        String valor = (String) tablaProductos.getValueAt(i, 0);
+                        
+            try {
+                Conexion.conecxionBDDTipos();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
+            gasto = cp.tipoGastoAutomatico(valor);
+            
+                if(cp.tipoGastoAutomatico(valor).isEmpty()){
+                    
+                    System.out.println("Es vacia");
+                    
+                    break;
+                    
+                                    
+                }else{
+                
+                    tablaProductos.setValueAt(gasto, i, 2);
+                    
+                }
+                        
+                        
+                    }
+                        
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
         tablaProductos.getColumnModel().getColumn(1).setCellRenderer(alinearDerecha);
