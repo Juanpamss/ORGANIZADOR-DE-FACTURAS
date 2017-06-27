@@ -55,6 +55,7 @@ public class XMLManager extends javax.swing.JFrame {
     DatosFactura datos=null;
     
     Conexion cp = new Conexion();
+    Conexion cp2 = new Conexion();
     
     //VARIABLE DESGLOCE
      JComboBox comboBox;
@@ -1006,27 +1007,10 @@ public class XMLManager extends javax.swing.JFrame {
             this.jLabelfac_iva.setText(datos.getFactura_iva()+"");
             this.jLabelfac_total_con_iva.setText(datos.getFactura_total_con_iva()+"");
                                       
-            
-            Object[][] aux = datos.getDatosProductos();
-            
+            Object[][] aux = datos.getDatosProductos();   
+                               
             this.setTablaDesgloce(datos.getDatosProductos());
-            
-            for(int i=0;i<aux.length;i++){
-            
-                String cadena = aux[i][0].toString();
-                
-                StringTokenizer tokens = new StringTokenizer(cadena," ");
-                
-                while(tokens.hasMoreTokens()){
-                
-                        String auxi = "";
-                        auxi = tokens.nextToken();
-                        
-                        System.out.println(auxi);
-                }
-            
-            }
-                
+           
             }
            
         } catch (JDOMException ex) {
@@ -1127,6 +1111,7 @@ public class XMLManager extends javax.swing.JFrame {
         try {
             cp.cerrarConeccion();
             Conexion.conecxionBDD();
+            Conexion.conecxionBDDTipos();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1169,6 +1154,33 @@ public class XMLManager extends javax.swing.JFrame {
                 return column == 2;
             }
         };
+        
+         /*for(int i=0;i<aux.length;i++){
+            
+                String cadena = aux[i][0].toString();
+                
+                StringTokenizer tokens = new StringTokenizer(cadena," ");
+                
+                while(tokens.hasMoreTokens()){
+                
+                        String auxi = "";
+                        auxi = tokens.nextToken();
+                        
+                        if(cp.tipoGastoAutomatico(auxi).isEmpty()){
+                        
+                            System.out.println("Está vacia");
+                            
+                            String sql = "insert into 'main'.'Tipos' values ('" + auxi + );
+                            
+                            cp.insertar(auxi);
+                            
+                        
+                            break;
+                        }
+                                                
+                }
+            
+            }*/
         
         panel_gastos.setViewportView(tablaProductos);
 

@@ -460,7 +460,7 @@ public class Reportes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        setPanelCantidadFacturas(jComboBoxClientes.getSelectedItem().toString());
+        setPanelCantidadFacturas(jComboBoxReporteCliente.getSelectedItem().toString());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -775,8 +775,13 @@ private void setPanelReportes(String proveedor){
                 if (datos.isEmpty()){
                     
                     JOptionPane.showMessageDialog(null, "No hay facturas con los campos seleccionados");
+                    
+                    this.jScrollPaneReporteCountAnual.setVisible(false);
+                    
                 
                 }else{
+                    
+                    this.jScrollPaneReporteCountAnual.setVisible(true);
                 
                String header[]={
                    "Codigo Factura",
@@ -806,6 +811,8 @@ private void setPanelReportes(String proveedor){
                 }
             }
             else {
+                
+                this.jScrollPaneReporteCountAnual.setVisible(true);
 
                String year =(String)this.jComboBoxReporteAnio.getSelectedItem();
                String cliente=(String) this.jComboBoxReporteCliente.getSelectedItem();
@@ -815,9 +822,13 @@ private void setPanelReportes(String proveedor){
                  if (datos.isEmpty()){
                     
                     JOptionPane.showMessageDialog(null, "No hay facturas con los campos seleccionados");
+                    
+                    this.jScrollPaneReporteCountAnual.setVisible(false);
                 
                 }else{
                 
+                this.jScrollPaneReporteCountAnual.setVisible(true);     
+                     
                 String header[]={
                    "Codigo Factura",
                    "RUC",
