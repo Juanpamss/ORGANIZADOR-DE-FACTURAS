@@ -22,9 +22,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
@@ -56,6 +55,7 @@ public class XMLManager extends javax.swing.JFrame {
     DatosFactura datos=null;
     
     Conexion cp = new Conexion();
+    Conexion cp2 = new Conexion();
           
     //VARIABLE DESGLOCE
      JComboBox comboBox;
@@ -79,9 +79,6 @@ public class XMLManager extends javax.swing.JFrame {
         jLabel5.setVisible(false);
         jLabelprov_ciu.setVisible(false);
         
-        /*dim=super.getToolkit().getScreenSize();
-        super.setSize(dim);
-        this.setLocationRelativeTo(null);*/
     }
 
     /**
@@ -791,6 +788,7 @@ public class XMLManager extends javax.swing.JFrame {
                 
         if(validado == true){
         guardarBDD();
+        guardarBDDTipos();
         XMLManager nuevo = new XMLManager();
         nuevo.show();
         this.dispose();
@@ -1090,13 +1088,13 @@ public class XMLManager extends javax.swing.JFrame {
     }
 
     private void guardarBDD() {
+        
         try {
-            //AQUI VA LOS COMANDOS PARA GUARDAR LOS DATOS A LA BASE
             Conexion.conecxionBDD();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+                
         gastosTotales();
         
         String facturaQ = "INSERT INTO 'main'.'factura' ('ID_FACTURA','ID_CLIENTE','ID_PROVEEDOR','FECHA','TOTAL_ALIMENTACION','TOTAL_VESTIMENTA','TOTAL_VIVIENDA','TOTAL_SALUD','TOTAL_EDUCACION','TOTAL_OTROS','TOTAL_SIN_IVA','IVA','TOTAL_CON_IVA') VALUES ('" 
@@ -1113,21 +1111,31 @@ public class XMLManager extends javax.swing.JFrame {
         cp.insertar(facturaQ);
         cp.insertar(proveedorQ);
         cp.insertar(clienteQ);
+                
         try {
             cp.cerrarConeccion();
+            Conexion.conecxionBDD();
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        //TIpos de datos 
+        JOptionPane.showMessageDialog(null,"FACTURA CARGADA A LA BASE DE DATOS EXITOSAMENTE");
+    }
+    
+    public void guardarBDDTipos(){
+        
+           //TIpos de datos 
         try {
                 Conexion.conecxionBDDTipos();
                 int fila = tablaProductos.getRowCount();
         for (int i = 0; i < fila; i++) {
                         
-            cp.insertarTipos(tablaProductos.getValueAt(i, 0).toString(),tablaProductos.getValueAt(i, 2).toString());    
+            cp2.insertarTipos(tablaProductos.getValueAt(i, 0).toString(),tablaProductos.getValueAt(i, 2).toString());    
                     try {
-                        cp.cerrarConeccion();
+                        cp2.cerrarConeccion();
                     } catch (SQLException ex) {
                         Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -1136,16 +1144,16 @@ public class XMLManager extends javax.swing.JFrame {
                 Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         
-                    
         try {
-            
-            Conexion.conecxionBDD();
-            Conexion.conecxionBDDTipos();
-        } catch (ClassNotFoundException ex) {
+            cp2.cerrarConeccion();
+            try {
+                Conexion.conecxionBDDTipos();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        JOptionPane.showMessageDialog(null,"FACTURA CARGADA A LA BASE DE DATOS EXITOSAMENTE");
     }
     
     public String convertFileToUTF8String(File file, String originalEncoding) {
@@ -1328,6 +1336,7 @@ public class XMLManager extends javax.swing.JFrame {
         String gasto;
                    
                     for (i = 0; i < fila; i++) {
+                                                            
                         String valor = (String) tablaProductos.getValueAt(i, 0);
                         
             try {
@@ -1353,14 +1362,13 @@ public class XMLManager extends javax.swing.JFrame {
                         
                         
         }
-            
+                    
         try {
             cp.cerrarConeccion();
         } catch (SQLException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-
+         
     }
     
 

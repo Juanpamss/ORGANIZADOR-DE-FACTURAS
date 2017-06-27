@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 public class Conexion {
     
     PreparedStatement pst = null;
-    public static Connection conn = null;
+    public static Connection conn,conn2 = null;
     
     
     public static Connection conecxionBDD() throws ClassNotFoundException{                     
@@ -54,11 +54,11 @@ public class Conexion {
             
             Class.forName("org.sqlite.JDBC");
             String fileBDD="src/BaseDatos/TipoGasto.sqlite";
-            conn = DriverManager.getConnection("jdbc:sqlite:"+fileBDD);
+            conn2 = DriverManager.getConnection("jdbc:sqlite:"+fileBDD);
             
             //JOptionPane.showMessageDialog(null, "CONEXION A LA BASE DE DATOS ESTABLECIDA","CONEXION",JOptionPane.INFORMATION_MESSAGE);
                      
-            return conn;
+            return conn2;
             
         }catch(Exception ex){
         
@@ -66,7 +66,7 @@ public class Conexion {
                     
         }
         
-        return conn;
+        return conn2;
     }
     
     public void insertar(String sql) {
@@ -92,7 +92,7 @@ public class Conexion {
                 
         try {
                                    
-            pst = conn.prepareStatement(query);
+            pst = conn2.prepareStatement(query);
                    
             pst.execute();
                                   
@@ -136,6 +136,12 @@ public class Conexion {
     }
     
     public String consultar(String tabla) {
+        
+        try {
+            Conexion.conecxionBDD();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
                                 
         try {
             
@@ -148,6 +154,12 @@ public class Conexion {
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }     
+        
+        try {
+            cerrarConeccion();
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return "";
         
@@ -193,7 +205,7 @@ public class Conexion {
       
       public ArrayList<String> consultarAnios() {
         
-      String query = "SELECT strftime('%Y',fecha) as 'Anio' from FACTURA ";
+      String query = "SELECT strftime('%Y',fecha) as Anio from FACTURA group by Anio";
                 
         ArrayList anio= new ArrayList<String>();
         try {
@@ -216,7 +228,7 @@ public class Conexion {
       public String tipoGastoAutomatico(String item) {
                   
         try {
-            conn = Conexion.conecxionBDDTipos();
+            conn2 = Conexion.conecxionBDDTipos();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -227,7 +239,7 @@ public class Conexion {
       
         String tipo = "";
         try {
-            Statement st= conn.createStatement();
+            Statement st= conn2.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
                 String temp=rs.getString("TipoGast");

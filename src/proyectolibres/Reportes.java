@@ -776,13 +776,8 @@ private void setPanelReportes(String proveedor){
                     
                     JOptionPane.showMessageDialog(null, "No hay facturas con los campos seleccionados");
                     
-                    this.jScrollPaneReporteCountAnual.setVisible(false);
-                    
-                
                 }else{
                     
-                    this.jScrollPaneReporteCountAnual.setVisible(true);
-                
                String header[]={
                    "Codigo Factura",
                    "RUC",
@@ -811,9 +806,7 @@ private void setPanelReportes(String proveedor){
                 }
             }
             else {
-                
-                this.jScrollPaneReporteCountAnual.setVisible(true);
-
+               
                String year =(String)this.jComboBoxReporteAnio.getSelectedItem();
                String cliente=(String) this.jComboBoxReporteCliente.getSelectedItem();
                temaReporte[3]=prov;
@@ -823,12 +816,8 @@ private void setPanelReportes(String proveedor){
                     
                     JOptionPane.showMessageDialog(null, "No hay facturas con los campos seleccionados");
                     
-                    this.jScrollPaneReporteCountAnual.setVisible(false);
-                
                 }else{
                 
-                this.jScrollPaneReporteCountAnual.setVisible(true);     
-                     
                 String header[]={
                    "Codigo Factura",
                    "RUC",
