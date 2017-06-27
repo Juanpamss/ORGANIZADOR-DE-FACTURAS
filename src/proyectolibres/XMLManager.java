@@ -1154,33 +1154,7 @@ public class XMLManager extends javax.swing.JFrame {
                 return column == 2;
             }
         };
-        
-         /*for(int i=0;i<aux.length;i++){
-            
-                String cadena = aux[i][0].toString();
-                
-                StringTokenizer tokens = new StringTokenizer(cadena," ");
-                
-                while(tokens.hasMoreTokens()){
-                
-                        String auxi = "";
-                        auxi = tokens.nextToken();
-                        
-                        if(cp.tipoGastoAutomatico(auxi).isEmpty()){
-                        
-                            System.out.println("Está vacia");
-                            
-                            String sql = "insert into 'main'.'Tipos' values ('" + auxi + );
-                            
-                            cp.insertar(auxi);
-                            
-                        
-                            break;
-                        }
-                                                
-                }
-            
-            }*/
+                 
         
         panel_gastos.setViewportView(tablaProductos);
 
@@ -1202,9 +1176,7 @@ public class XMLManager extends javax.swing.JFrame {
 
                 TableModel model = (TableModel) tme.getSource();
                 Object data = model.getValueAt(row, column);
-                
-                System.out.println(model.getValueAt(1, 1));
-
+                                
                if (!data.equals("") && column == 2) {
                     //int opc = comboBox.getSelectedIndex();
                     //System.out.println(row);
@@ -1299,13 +1271,7 @@ public class XMLManager extends javax.swing.JFrame {
 
         total = Double.parseDouble(txtField.getText());
         total = BigDecimal.valueOf(total).setScale(3, RoundingMode.HALF_UP).doubleValue();
-
-        /*query = "INSERT INTO TIPO_GASTO (id_factura,tipo,total)"
-                + "VALUES('" + numFac + "','" + lblLabel.getText() + "'," + total + ")";
         
-       
-        System.out.println(query);*/
-       // conTipo.insertar(query);
 
         return total;
     }
