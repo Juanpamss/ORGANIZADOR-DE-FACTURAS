@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -1101,16 +1102,46 @@ public class XMLManager extends javax.swing.JFrame {
                         + datos.getFactura_codigo() + "','" + datos.getCliente_ci() + "','" + datos.getProveedor_ruc() + "','" + datos.getFactura_fecha()+ "'," + datos.getTotal_alimentacion()+ ","  + datos.getTotal_vestimenta()+ "," + datos.getTotal_vivienda() + 
                 ","  + datos.getTotal_salud() + ","  + datos.getTotal_educacion() + ","  + datos.getTotal_otros()+ "," + datos.getFactura_total_sin_iva() + "," + datos.getFactura_iva() + "," + datos.getFactura_total_con_iva() + ")";
         
-        String proveedorQ = "INSERT INTO 'main'.'proveedor' ('RUC','NOMBRE','DIRECCION','CIUDAD') VALUES ('" 
-                        + datos.getProveedor_ruc() + "','" + datos.getProveedor_nombre()+ "','" + datos.getProveedor_direccion()+ "',"  + datos.getProveedor_ciudad() + ")";
-
+       
         String clienteQ = "INSERT INTO 'main'.'cliente' ('CI','NOMBRE') VALUES ('" 
                         + datos.getCliente_ci()+ "','" + datos.getCliente_nombre()+ "')";
 
+       
         
-        cp.insertar(facturaQ);
-        cp.insertar(proveedorQ);
-        cp.insertar(clienteQ);
+        
+        if(cp.isNuevoProveedor(datos.getProveedor_ruc())){
+            
+            String tiposGastos [] = {"Vivienda","Salud","Educacion","Alimentacion","Vestimenta", "Gastos de Negocio"};
+           JFrame frame = new JFrame("Seleccion de tipo para el nuevo proveedor");
+    String tipoProveedor = (String) JOptionPane.showInputDialog(frame, 
+        "Selecciona el tipo de gasto para el proveedor",
+        "Tipo de Proveedor",
+        JOptionPane.QUESTION_MESSAGE, 
+        null, 
+        tiposGastos, 
+        tiposGastos[0]);
+    
+        if(tipoProveedor != null){
+              String proveedorQ = "INSERT INTO 'main'.'proveedor' ('RUC','NOMBRE','DIRECCION','CIUDAD','TIPOGASTO') VALUES ('" 
+                        + datos.getProveedor_ruc() + "','" + datos.getProveedor_nombre()+ "','" + datos.getProveedor_direccion()+ "',"  + datos.getProveedor_ciudad() + ",'"+tipoProveedor+"')";
+              cp.insertar(facturaQ);
+              cp.insertar(proveedorQ);
+              cp.insertar(clienteQ);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "La factura que estas ingresando es de un nuevo proveedor, debes seleccionar un tipo","Error de Usuario",JOptionPane.ERROR_MESSAGE);
+        }
+    
+
+            
+              
+        }
+        else{
+            cp.insertar(facturaQ);
+            cp.insertar(clienteQ);
+        }
+       
+       
                 
         try {
             cp.cerrarConeccion();

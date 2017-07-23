@@ -86,6 +86,31 @@ public class Conexion {
         }
     }
     
+    public boolean isNuevoProveedor(String ruc){
+        String query = "Select count(*) from 'main'.'proveedor' where proveedor.ruc ='"+ruc+"'";
+        
+        try {
+            conn = Conexion.conecxionBDD();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+               if(rs.getInt(1) == 0){
+         
+             return true;
+             
+         }else{
+         
+             return false;
+         }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Mirar inNuevoProveedor en Conexion.java");
+        return true;
+        
+    }
+    
     public void insertarTipos(String producto, String tipo) {
         
         String query = "insert into 'main'.'Tipos' values ('"+ producto + "','" + tipo + "')";
