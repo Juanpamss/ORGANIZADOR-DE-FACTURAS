@@ -1235,6 +1235,7 @@ public class XMLManager extends javax.swing.JFrame {
         comboBox.addItem("Alimentacion");
         comboBox.addItem("Vestimenta");
         comboBox.addItem("Otros gastos");
+      
 
         tablaProductos.getModel().addTableModelListener(new TableModelListener() {
             @Override
@@ -1270,6 +1271,7 @@ public class XMLManager extends javax.swing.JFrame {
                         if (tipoEstado[row].equals("Otros gastos")) {
                             restarAgregado(jLabelgasto_otros,txt_otros, row);
                         }
+                       
                        
                     }
 
@@ -1372,6 +1374,7 @@ public class XMLManager extends javax.swing.JFrame {
                         
             try {
                 Conexion.conecxionBDDTipos();
+                Conexion.conecxionBDD();
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1380,7 +1383,11 @@ public class XMLManager extends javax.swing.JFrame {
             
                 if(cp.tipoGastoAutomatico(valor).isEmpty()){
                     
-                    System.out.println("Es vacia");
+                    System.out.println("Es vacia, Asumindo tipo de gasto general del proveedor");
+                    gasto = cp.tipoGastoGeneral(datos.getProveedor_ruc());
+                    
+                
+                    tablaProductos.setValueAt(gasto, i, 2);
                     
                     break;
                     

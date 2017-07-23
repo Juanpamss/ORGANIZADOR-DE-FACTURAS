@@ -286,6 +286,27 @@ public class Conexion {
 
     }
     
+      public String tipoGastoGeneral(String ruc){
+          String query = "select * from 'main'.proveedor where proveedor.ruc ='"+ruc+"'";
+        String tipo ="Error";
+          try {
+            conn = conecxionBDD();
+            Statement st = conn.createStatement();
+            ResultSet rs =st.executeQuery(query);
+            tipo = rs.getString("tipogasto");
+            
+            return tipo;
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          System.out.println("Error en tipo de gasto general por proveedor ");
+          return tipo;
+          
+          
+      }
     
     public ArrayList<String[]> consultarFacturaPorProveedor(String proveedor){
         
@@ -404,6 +425,8 @@ public class Conexion {
     public void cerrarConeccion() throws SQLException{
     
         conn.close();
+        conn2.close();
+        
     
     }
 
