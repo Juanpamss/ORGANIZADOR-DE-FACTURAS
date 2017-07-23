@@ -165,6 +165,28 @@ public class Conexion {
         
     }
     
+    public String consultarProveedor(String query){
+        try {
+            Conexion.conecxionBDD();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            if (rs.next())
+               return rs.getString("TipoGasto");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return "";
+    }
+    
     public ArrayList<String> consultarProveedores(){
         String query = "SELECT nombre FROM 'main'.'proveedor'";
         ArrayList proveedores= new ArrayList<String>();
@@ -233,9 +255,9 @@ public class Conexion {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
           
-      String query = "select TipoGast from Tipos where NombreProd like '" + item + "%' or NombreProd like '%" + item + "%' or NombreProd like '%" + item + "' order by NombreProd";
+        String query = "select TipoGast from Tipos where NombreProd like '" + item + "%' or NombreProd like '%" + item + "%' or NombreProd like '%" + item + "' order by NombreProd";
                 
-          //System.out.println(query);
+        //System.out.println(query);
       
         String tipo = "";
         try {
