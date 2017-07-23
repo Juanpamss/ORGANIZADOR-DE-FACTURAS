@@ -819,12 +819,9 @@ private void setPanelReportes(String proveedor){
                 }else{
                 
                 String header[]={
-                   "Codigo Factura",
+                   "Numero Facturas",
                    "RUC",
                    "Proveedor",
-                   "Valor sin IVA",
-                   "IVA",
-                   "Valor con IVA",
                    "Gasto Alimentacion",
                     "Gasto Vestimenta",
                     "Gasto Vivienda",

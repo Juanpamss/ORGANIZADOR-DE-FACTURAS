@@ -76,7 +76,7 @@ public class ExportaReportes {
        salida+="Cliente:\t"+tema[1]+"\n";
        if(!tema[3].equals("khe"))
        salida+="Proveedor\t"+tema[3]+"\n\n";
-       salida+="Fecha\t"+fecha;
+       salida+="Fecha de generacion:\t"+fecha;
        salida+="\n\n";
   
        

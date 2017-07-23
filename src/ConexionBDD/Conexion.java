@@ -442,13 +442,17 @@ public class Conexion {
         try {
           
             conn = Conexion.conecxionBDD();
+            
+            String query2 = "select COUNT(factura.id_factura), proveedor.ruc, proveedor.nombre, SUM(factura.total_alimentacion),  SUM(factura.total_vestimenta), SUM(factura.total_vivienda), SUM(factura.total_salud), SUM(factura.total_educacion), SUM(factura.total_otros) from factura,proveedor,cliente where factura.id_proveedor = proveedor.ruc and factura.id_cliente = cliente.ci and cliente.nombre = '" + cliente + "' and proveedor.nombre = '" + prov + "' and (SELECT strftime('%Y',fecha) as 'Anio' from FACTURA where factura.id_cliente = cliente.ci) = '" + anio + "'"; 
+            
+            
             String query = "select factura.id_factura, proveedor.ruc, proveedor.nombre, factura.total_sin_iva, factura.iva, factura.total_con_iva, "
                     + "factura.total_alimentacion, factura.total_vestimenta, factura.total_vivienda, factura.total_salud, factura.total_educacion, "
                     + "factura.total_otros from factura,proveedor,cliente where factura.id_proveedor = proveedor.ruc and factura.id_cliente = cliente.ci and cliente.nombre = '" 
                     + cliente + "' and proveedor.nombre = '" + prov + "' and (SELECT strftime('%Y',fecha) as 'Anio' from FACTURA where factura.id_cliente = cliente.ci) = '" + anio + "'";
          
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(query);
+            ResultSet rs = st.executeQuery(query2);
             while(rs.next()){
                
                 String temp[] = new String[12];
@@ -462,9 +466,6 @@ public class Conexion {
                 temp[6] = rs.getString(7);
                 temp[7] = rs.getString(8);
                 temp[8] = rs.getString(9);
-                temp[9] = rs.getString(10);
-                temp[10] = rs.getString(11);
-                temp[11] = rs.getString(12);
                 
                 resultado.add(temp);
                    

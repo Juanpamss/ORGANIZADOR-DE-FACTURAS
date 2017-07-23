@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
@@ -1334,32 +1335,37 @@ public class XMLManager extends javax.swing.JFrame {
         int fila = tablaProductos.getRowCount();
         int i;
         String gasto;
+        String aux = "";
                    
                     for (i = 0; i < fila; i++) {
                                                             
                         String valor = (String) tablaProductos.getValueAt(i, 0);
                         
-            try {
-                Conexion.conecxionBDDTipos();
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                        StringTokenizer tokens = new StringTokenizer(valor, " ");
+                          
+                        while(tokens.hasMoreTokens()){
+                            
+                            aux = tokens.nextToken();
+                        
+                    try {
+                        Conexion.conecxionBDDTipos();
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+                    }
            
-            gasto = cp.tipoGastoAutomatico(valor);
+                gasto = cp.tipoGastoAutomatico(aux);
             
-                if(cp.tipoGastoAutomatico(valor).isEmpty()){
+                if(cp.tipoGastoAutomatico(aux).isEmpty()){
                     
                     System.out.println("Es vacia");
-                    
-                    break;
-                    
-                                    
+                             
                 }else{
                 
                     tablaProductos.setValueAt(gasto, i, 2);
                     
                 }
                         
+            }
                         
         }
                     
