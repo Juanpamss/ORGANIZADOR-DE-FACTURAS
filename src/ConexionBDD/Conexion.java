@@ -540,5 +540,75 @@ public class Conexion {
 
     }
     
+    
+    public String tipoGastoGeneral(String ruc){
+          String query = "select * from 'main'.proveedor where proveedor.ruc ='"+ruc+"'";
+        String tipo ="Error";
+          try {
+            conn = conecxionBDD();
+            Statement st = conn.createStatement();
+            ResultSet rs =st.executeQuery(query);
+            tipo = rs.getString("tipogasto");
+            
+            return tipo;
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          System.out.println("Error en tipo de gasto general por proveedor ");
+          return tipo;
+          
+          
+      }
+    
+    public boolean isNuevoProveedor(String ruc){
+        String query = "Select count(*) from 'main'.'proveedor' where proveedor.ruc ='"+ruc+"'";
+        
+        try {
+            conn = Conexion.conecxionBDD();
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+               if(rs.getInt(1) == 0){
+         
+             return true;
+             
+         }else{
+         
+             return false;
+         }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Mirar inNuevoProveedor en Conexion.java");
+        return true;
+        
+    }
+    
+    public String consultarProveedor(String query){
+        try {
+            Conexion.conecxionBDD();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            
+            if (rs.next())
+               return rs.getString("TipoGasto");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return "";
+    }
+    
          
 }
