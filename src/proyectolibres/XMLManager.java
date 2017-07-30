@@ -1444,57 +1444,22 @@ ArrayList<TipoItem> lista;
                 Object data = model.getValueAt(row, column);
                            System.out.println("linea 1443 "+jComboBoxTipoFactura.getSelectedItem().toString());
                if (!data.equals("") && column == 2) {
-                   System.out.println("anterior"+tipoEstado[row]+"actual"+(String)data);
+                   //System.out.println("anterior"+tipoEstado[row]+"actual"+(String)data);
                     if (!tipoEstado[row].equals("")) {
                         
-                        if (tipoEstado[row].equals("Vivienda")) {
-                            restarAgregado(jLabelgasto_vivienda,txt_vivienda, row);
-                        }
-                        if (tipoEstado[row].equals("Salud")) {
-                            restarAgregado(jLabelgasto_salud,txt_salud, row);
-                        }
-                        if (tipoEstado[row].equals("Educacion")) {
-                            restarAgregado(jLabelgasto_educacion,txt_educacion, row);
-                        }
-                        if (tipoEstado[row].equals("Alimentacion")) {
-                            restarAgregado(jLabelgasto_alimentacion,txt_alimentacion, row);
-                        }
-                        if (tipoEstado[row].equals("Vestimenta")) {
-                            restarAgregado(jLabelgasto_vestimenta,txt_vestimenta, row);
-                        }
-                        if (tipoEstado[row].equals("Otros gastos")) {
-                            restarAgregado(jLabelgasto_otros,txt_otros, row);
-                        }
+                      
+                       
+                        restarTipo(lista,tipoEstado[row],row);
                         
-                        
-                        
-                        ////////////////
-                        restarTipo(lista,(String)data,tablaNegocio.getValueAt(row,1));
-                        ///////////////////
                        
                     }
-                    
-                    sumarTipo(lista,(String)data,tablaNegocio.getValueAt(row,1));
+                   
+                         sumarTipo(lista,(String)data,row);
 
-                    if (data.equals("Vivienda")) {
-                        sumarAgregado(jLabelgasto_vivienda,txt_vivienda, row, "Vivienda");
-                    }
-                    if (data.equals("Salud")) {
-                        sumarAgregado(jLabelgasto_salud,txt_salud, row, "Salud");
-                    }
-                    if (data.equals("Educacion")) {
-                        sumarAgregado(jLabelgasto_educacion,txt_educacion, row, "Educacion");
-                    }
-                    if (data.equals("Alimentacion")) {
-                        sumarAgregado(jLabelgasto_alimentacion,txt_alimentacion, row, "Alimentacion");
-                    }
-                    if (data.equals("Vestimenta")) {
-                        sumarAgregado(jLabelgasto_vestimenta,txt_vestimenta, row, "Vestimenta");
-                    }
-                    if (data.equals("Otros gastos")) {
-                        sumarAgregado(jLabelgasto_otros, txt_otros, row, "Otros gastos");
-                    }
+                   
                     
+                   
+                   
                 }
                
                if(data.equals("Agregar Gasto de Negocio")){
@@ -1546,11 +1511,15 @@ ArrayList<TipoItem> lista;
         
         
     }
-    public void restarTipo(ArrayList<TipoItem> listaT, String tipo,Object valor){
-        
+    public void restarTipo(ArrayList<TipoItem> listaT, String tipo,int row){
+        Object valor =tablaNegocio.getValueAt(row,1);
         for(int i=0;i<listaT.size();i++){
             if(listaT.get(i).tipo.equals(tipo)){
+                
                 listaT.get(i).total-=(Double)valor;
+                if(listaT.get(i).total==0){
+                    listaT.remove(listaT.get(i));
+                }
                 setTablaSumaNegocios(listaT);
                 return;
             }
@@ -1558,16 +1527,19 @@ ArrayList<TipoItem> lista;
         
         
     }
-    public void sumarTipo(ArrayList<TipoItem> listaT, String tipo,Object valor){
+    public void sumarTipo(ArrayList<TipoItem> listaT, String tipo,int row){
+         Object valor =tablaNegocio.getValueAt(row,1);
         for(int i=0;i<listaT.size();i++){
             if(listaT.get(i).tipo.equals(tipo)){
                 listaT.get(i).total+=(Double)valor;
                  imprimir(listaT);
                  setTablaSumaNegocios(listaT);
+                 this.tipoEstado[row]=tipo;
                 return;
             }
         }
         listaT.add(new TipoItem(tipo,(Double)valor));
+        this.tipoEstado[row]=tipo;
         setTablaSumaNegocios(listaT);
          imprimir(listaT);
     }
