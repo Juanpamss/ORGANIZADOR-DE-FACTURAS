@@ -43,7 +43,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
+
 import javax.swing.table.TableModel;
 import org.jdom2.JDOMException;
 
@@ -59,6 +59,12 @@ public class XMLManager extends javax.swing.JFrame {
     String pathFile=null;
     DatosFactura datos=null;
     
+String tiposPersonal []={"Vivienda","Alimentacion","Salud","Educacion","Vestimenta","Otros"};
+String tiposNegocios []={"Mercaderia","Arriendo","Servicios básicos","Sueldos","Movilización","Viáticos",
+"Capacitación","Suministros de oficina","Herramientas de trabajo","Agregar Gasto de Negocio"};
+ArrayList<TipoItem> listaTiposPersonal;
+ArrayList<TipoItem> listaTiposNegocios;
+ArrayList<TipoItem> lista;
     Conexion cp = new Conexion();
     Conexion cp2 = new Conexion();
           
@@ -84,6 +90,16 @@ public class XMLManager extends javax.swing.JFrame {
     
     public XMLManager() {
         initComponents();
+        this.lista = new ArrayList<>();
+        this.listaTiposNegocios = new ArrayList<>();
+        for(String aux : this.tiposNegocios){
+            listaTiposNegocios.add(new TipoItem(aux, 0));
+        }
+        this.listaTiposPersonal = new ArrayList<>();
+        for(String aux : this.tiposPersonal){
+            listaTiposPersonal.add(new TipoItem(aux, 0));
+        }
+        
         
         datosLista.addElement("Mercaderia");
         datosLista.addElement("Arriendo");
@@ -149,6 +165,9 @@ public class XMLManager extends javax.swing.JFrame {
         lbl_salud = new javax.swing.JLabel();
         lbl_otros = new javax.swing.JLabel();
         txt_otros = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        jScrollNegocioTotales = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -216,6 +235,12 @@ public class XMLManager extends javax.swing.JFrame {
 
         jLabel23.setText("Tipo de gasto del proveedor:");
 
+        jComboBoxTipoFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTipoFacturaActionPerformed(evt);
+            }
+        });
+
         jLabel24.setText("Tipo de factura:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -242,7 +267,7 @@ public class XMLManager extends javax.swing.JFrame {
                             .addComponent(jLabelprov_ciu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBoxTipoGasto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBoxTipoFactura, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(437, Short.MAX_VALUE))
+                .addContainerGap(448, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,7 +332,7 @@ public class XMLManager extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelcliente_nom)
                             .addComponent(jLabelcliente_ci))))
-                .addContainerGap(567, Short.MAX_VALUE))
+                .addContainerGap(605, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,7 +387,7 @@ public class XMLManager extends javax.swing.JFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(340, Short.MAX_VALUE)
+                .addContainerGap(130, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_educacion)
                     .addComponent(lbl_otros))
@@ -387,7 +412,7 @@ public class XMLManager extends javax.swing.JFrame {
                         .addComponent(txt_salud))
                     .addGap(117, 117, 117)
                     .addComponent(lbl_vestimenta)
-                    .addContainerGap(237, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,17 +449,48 @@ public class XMLManager extends javax.swing.JFrame {
                     .addContainerGap(52, Short.MAX_VALUE)))
         );
 
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel25.setText("Totales");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel25)
+                        .addGap(0, 206, Short.MAX_VALUE))
+                    .addComponent(jScrollNegocioTotales))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel25)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollNegocioTotales)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel22)
-                    .addComponent(panel_gastos, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel22)
+                        .addComponent(panel_gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,8 +500,10 @@ public class XMLManager extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(panel_gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Items", jPanel7);
@@ -746,7 +804,7 @@ public class XMLManager extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -874,6 +932,10 @@ public class XMLManager extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarCargaActionPerformed
 
+    private void jComboBoxTipoFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxTipoFacturaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -931,6 +993,7 @@ public class XMLManager extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -969,8 +1032,10 @@ public class XMLManager extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollNegocioTotales;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbl_Vivienda;
@@ -1134,6 +1199,9 @@ public class XMLManager extends javax.swing.JFrame {
             datos.setTotal_otros(Double.parseDouble(jLabelgasto_otros.getText()));
            
         }
+        
+        
+        
           
     }
 
@@ -1312,6 +1380,9 @@ public class XMLManager extends javax.swing.JFrame {
                         sumarAgregado(jLabelgasto_otros, txt_otros, row, "Otros gastos");
                     }
                     
+                    
+                    
+                    
                 }
                
             }
@@ -1371,10 +1442,11 @@ public class XMLManager extends javax.swing.JFrame {
 
                 TableModel model = (TableModel) tme.getSource();
                 Object data = model.getValueAt(row, column);
-                           
+                           System.out.println("linea 1443 "+jComboBoxTipoFactura.getSelectedItem().toString());
                if (!data.equals("") && column == 2) {
-
+                   System.out.println("anterior"+tipoEstado[row]+"actual"+(String)data);
                     if (!tipoEstado[row].equals("")) {
+                        
                         if (tipoEstado[row].equals("Vivienda")) {
                             restarAgregado(jLabelgasto_vivienda,txt_vivienda, row);
                         }
@@ -1393,8 +1465,16 @@ public class XMLManager extends javax.swing.JFrame {
                         if (tipoEstado[row].equals("Otros gastos")) {
                             restarAgregado(jLabelgasto_otros,txt_otros, row);
                         }
+                        
+                        
+                        
+                        ////////////////
+                        restarTipo(lista,(String)data,tablaNegocio.getValueAt(row,1));
+                        ///////////////////
                        
                     }
+                    
+                    sumarTipo(lista,(String)data,tablaNegocio.getValueAt(row,1));
 
                     if (data.equals("Vivienda")) {
                         sumarAgregado(jLabelgasto_vivienda,txt_vivienda, row, "Vivienda");
@@ -1442,6 +1522,61 @@ public class XMLManager extends javax.swing.JFrame {
         setLocationRelativeTo(getParent());
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+     // restarTipo(lista,tipoEstado[row],tablaNegocio.getValueAt(row,1));
+    public void setTablaSumaNegocios(ArrayList<TipoItem> listaT){
+        Object[][] matriz = new Object[listaT.size()][2];
+        for(int i=0;i<listaT.size();i++){
+            matriz[i][0]=listaT.get(i).tipo;
+            matriz[i][1]=listaT.get(i).total;
+        }
+        
+        JTable tablaNegocioTotales;
+        String header [] ={"Categoria","Total"};
+        tablaNegocioTotales = new JTable(matriz,header){
+             @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2;
+            }
+            
+        };
+        
+        this.jScrollNegocioTotales.setViewportView(tablaNegocioTotales);
+        
+        
+        
+    }
+    public void restarTipo(ArrayList<TipoItem> listaT, String tipo,Object valor){
+        
+        for(int i=0;i<listaT.size();i++){
+            if(listaT.get(i).tipo.equals(tipo)){
+                listaT.get(i).total-=(Double)valor;
+                setTablaSumaNegocios(listaT);
+                return;
+            }
+        }
+        
+        
+    }
+    public void sumarTipo(ArrayList<TipoItem> listaT, String tipo,Object valor){
+        for(int i=0;i<listaT.size();i++){
+            if(listaT.get(i).tipo.equals(tipo)){
+                listaT.get(i).total+=(Double)valor;
+                 imprimir(listaT);
+                 setTablaSumaNegocios(listaT);
+                return;
+            }
+        }
+        listaT.add(new TipoItem(tipo,(Double)valor));
+        setTablaSumaNegocios(listaT);
+         imprimir(listaT);
+    }
+    
+    
+    public void imprimir(ArrayList<TipoItem> listaT){
+        for(TipoItem ti: listaT){
+            System.out.println(listaT.toString()+"hola"+lista.size());
+        }
     }
     
     public void restarAgregado(JLabel label,JTextField txtField, int row) {
@@ -1520,6 +1655,7 @@ public class XMLManager extends javax.swing.JFrame {
                 }else{
                 
                     tablaProductos.setValueAt(gasto, i, 2);
+                    System.out.println("linea 1592"+gasto);
                     
                 }
                         
