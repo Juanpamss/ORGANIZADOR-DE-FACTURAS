@@ -18,7 +18,7 @@ public class ProyectoLibres {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println("Commit de Jairo");
+        System.out.println("Commit de tabla");
         
         MainForm main = new MainForm();
        
