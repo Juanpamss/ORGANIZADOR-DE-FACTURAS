@@ -1258,8 +1258,6 @@ public class XMLManager extends javax.swing.JFrame {
         comboBox.addItem("Alimentacion");
         comboBox.addItem("Vestimenta");
         comboBox.addItem("Otros gastos");
-        comboBox.addItem("Gasto Negocio");
-        
 
         tablaProductos.getModel().addTableModelListener(new TableModelListener() {
             
@@ -1316,12 +1314,6 @@ public class XMLManager extends javax.swing.JFrame {
                     
                 }
                
-               if(data.equals("Gasto Negocio")){
-                   
-                   agregarGastoNegocio(tme.getFirstRow(),tablaProductos.getValueAt(tme.getFirstRow(), 2));
-                   
-               }
-
             }
         });
         
