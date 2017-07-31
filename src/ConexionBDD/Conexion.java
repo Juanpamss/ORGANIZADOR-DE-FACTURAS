@@ -247,6 +247,29 @@ public class Conexion {
 
     }
       
+      public ArrayList<String> consultarFacturas() {
+        
+      String query = "SELECT id_factura from factura";
+                
+        ArrayList anio= new ArrayList<String>();
+        try {
+            Statement st= conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                String temp=rs.getString("id_factura");
+                anio.add(temp);
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return anio;
+
+    }
+      
+            
       public String tipoGastoAutomatico(String item) {
                   
         try {
@@ -561,7 +584,187 @@ public class Conexion {
                 
          return resultado;
     }
-       
+    
+    public List<String[]> consultarInfoProveedor(String factura) {
+             
+       ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            conn = Conexion.conecxionBDD();
+            
+            String query = "SELECT ruc,nombre,direccion,tipogasto from proveedor,factura where proveedor.ruc = factura.id_proveedor and factura.id_factura = '" + factura + "'"; 
+            
+            System.out.println(query);
+           
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[4];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                temp[2] = rs.getString(3);
+                temp[3] = rs.getString(4);
+                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            cerrarConeccion();
+            try {
+                conecxionBDD();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+         return resultado;
+    }
+    
+    public List<String[]> consultarInfoCliente(String factura) {
+             
+       ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            conn = Conexion.conecxionBDD();
+            
+            String query = "SELECT ci,nombre from cliente,factura where cliente.ci = factura.id_cliente and factura.id_factura = '" + factura + "'"; 
+            
+            System.out.println(query);
+           
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[2];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            cerrarConeccion();
+            try {
+                conecxionBDD();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+         return resultado;
+    }
+    
+    public List<String[]> consultarDetalleProductos (String factura) {
+             
+       ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            conn = Conexion.conecxionBDD();
+            
+            String query = "SELECT item,tipogasto,sum(totalgasto) from detalle,factura where detalle.id_factura = factura.id_factura and detalle.id_factura = '" + factura + "' group by item"; 
+            
+            System.out.println(query);
+           
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[3];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                temp[2] = rs.getString(3);
+                                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            cerrarConeccion();
+            try {
+                conecxionBDD();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+         return resultado;
+    }
+    
+    public List<String[]> consultarTotalesFactura (String factura) {
+             
+       ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            conn = Conexion.conecxionBDD();
+            
+            String query = "SELECT total_sin_iva,iva,total_con_iva from factura where id_factura = '" + factura + "'"; 
+            
+            System.out.println(query);
+           
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[3];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                temp[2] = rs.getString(3);
+                                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            cerrarConeccion();
+            try {
+                conecxionBDD();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+         return resultado;
+    }
+            
     
     public ArrayList<String[]> consultarNumeroFacturas(String nombreCliente, String anio){
    
