@@ -225,6 +225,28 @@ public class Conexion {
 
     }
       
+      public ArrayList<String> consultarTipoGastos() {
+        
+      String query = "SELECT tipoGasto from detalle group by tipoGasto";
+                
+        ArrayList anio= new ArrayList<String>();
+        try {
+            Statement st= conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+                String temp=rs.getString("tipoGasto");
+                anio.add(temp);
+                
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return anio;
+
+    }
+      
       public String tipoGastoAutomatico(String item) {
                   
         try {
@@ -466,6 +488,55 @@ public class Conexion {
                 temp[6] = rs.getString(7);
                 temp[7] = rs.getString(8);
                 temp[8] = rs.getString(9);
+                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            cerrarConeccion();
+            try {
+                conecxionBDD();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+         return resultado;
+    }
+    
+    public List<String[]> consultarFacturaNegocio(String cliente, String anio, String tipo) {
+             
+       ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            conn = Conexion.conecxionBDD();
+            
+            String query = "SELECT item,proveedor.nombre, count(item) as Cantidad, sum(totalgasto) as Total from detalle,factura,proveedor,cliente "
+                    + "where detalle.tipogasto = '" + tipo + "'" + "and strftime('%Y',fecha) = '" + anio + "'" 
+                    + "and cliente.nombre = '" + cliente + "'" 
+                    + "and detalle.id_factura = factura.id_factura and factura.id_proveedor = proveedor.ruc and factura.id_cliente = cliente.ci group by item"; 
+            
+            System.out.println(query);
+           
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[4];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                temp[2] = rs.getString(3);
+                temp[3] = rs.getString(4);
                 
                 resultado.add(temp);
                    

@@ -73,6 +73,7 @@ ArrayList<TipoItem> lista;
     JComboBox comboBoxNegocio;
     JTable tablaProductos = new JTable();
     JTable tablaNegocio = new JTable();
+    JTable tablaNegocioTotales;
     String tipoEstado[];
     DefaultComboBoxModel modelo;
 
@@ -83,6 +84,8 @@ ArrayList<TipoItem> lista;
     int anio;
     String cedula, tipo;
     //
+    
+    String detalleQ = "";
     
     DefaultListModel datosLista = new DefaultListModel();
  
@@ -197,6 +200,7 @@ ArrayList<TipoItem> lista;
         jLabelfac_fecha = new javax.swing.JLabel();
         jButtonCancelarCarga = new javax.swing.JButton();
         jButtonGuardarDatosFactura = new javax.swing.JButton();
+        prueba = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuSeleccionarFactura = new javax.swing.JMenuItem();
@@ -706,21 +710,28 @@ ArrayList<TipoItem> lista;
             }
         });
 
+        prueba.setText("jButton1");
+        prueba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pruebaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(240, 240, 240)
+                .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(92, 92, 92)
+                .addComponent(prueba)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -731,7 +742,8 @@ ArrayList<TipoItem> lista;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prueba))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -867,9 +879,8 @@ ArrayList<TipoItem> lista;
 
     private void jButtonGuardarDatosFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarDatosFacturaActionPerformed
       
-        //gastosTotales();
         
-        if(tablaProductos.getRowCount()==0){
+        if(/*tablaProductos.getRowCount()==0 || */tablaNegocio.getRowCount() == 0){
         
             JOptionPane.showMessageDialog(null, "No se han seleccionado facturas");
         }else{
@@ -883,9 +894,19 @@ ArrayList<TipoItem> lista;
                 break;
             }
         }
+        
+        int filasTotales2 = tablaNegocio.getRowCount();
+        boolean validado2 = true;
+
+        for (int i = 0; i < filasTotales2; i++) {
+            if (tablaNegocio.getValueAt(i, 2).equals("")) {
+                validado2 = false;
+                break;
+            }
+        }
               
                 
-        if(validado == true){
+        if(/*validado == true || */validado2 == true){
         guardarBDD();
         guardarBDDTipos();
         XMLManager nuevo = new XMLManager();
@@ -935,6 +956,11 @@ ArrayList<TipoItem> lista;
     private void jComboBoxTipoFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoFacturaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxTipoFacturaActionPerformed
+
+    private void pruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pruebaActionPerformed
+       
+        imprimirQuery();
+    }//GEN-LAST:event_pruebaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1045,6 +1071,7 @@ ArrayList<TipoItem> lista;
     private javax.swing.JLabel lbl_salud;
     private javax.swing.JLabel lbl_vestimenta;
     private javax.swing.JScrollPane panel_gastos;
+    private javax.swing.JButton prueba;
     private javax.swing.JTextField txt_alimentacion;
     private javax.swing.JTextField txt_educacion;
     private javax.swing.JTextField txt_otros;
@@ -1218,21 +1245,25 @@ ArrayList<TipoItem> lista;
         String facturaQ = "INSERT INTO 'main'.'factura' ('ID_FACTURA','ID_CLIENTE','ID_PROVEEDOR','FECHA','TOTAL_ALIMENTACION','TOTAL_VESTIMENTA','TOTAL_VIVIENDA','TOTAL_SALUD','TOTAL_EDUCACION','TOTAL_OTROS','TOTAL_SIN_IVA','IVA','TOTAL_CON_IVA') VALUES ('" 
                         + datos.getFactura_codigo() + "','" + datos.getCliente_ci() + "','" + datos.getProveedor_ruc() + "','" + datos.getFactura_fecha()+ "'," + datos.getTotal_alimentacion()+ ","  + datos.getTotal_vestimenta()+ "," + datos.getTotal_vivienda() + 
                 ","  + datos.getTotal_salud() + ","  + datos.getTotal_educacion() + ","  + datos.getTotal_otros()+ "," + datos.getFactura_total_sin_iva() + "," + datos.getFactura_iva() + "," + datos.getFactura_total_con_iva() + ")";
-        
-        /*String proveedorQ = "INSERT INTO 'main'.'proveedor' ('RUC','NOMBRE','DIRECCION','CIUDAD') VALUES ('" 
-                        + datos.getProveedor_ruc() + "','" + datos.getProveedor_nombre()+ "','" + datos.getProveedor_direccion()+ "',"  + datos.getProveedor_ciudad() + ")";
-        */
-        
+       
         String proveedorQ = "INSERT INTO 'main'.'proveedor' ('RUC','NOMBRE','DIRECCION','TIPOGASTO') VALUES ('" 
                         + datos.getProveedor_ruc() + "','" + datos.getProveedor_nombre()+ "','" + datos.getProveedor_direccion()+ "','" + jComboBoxTipoGasto.getSelectedItem().toString()+"')";
         
         String clienteQ = "INSERT INTO 'main'.'cliente' ('CI','NOMBRE') VALUES ('" 
                         + datos.getCliente_ci()+ "','" + datos.getCliente_nombre()+ "')";
-
         
         cp.insertar(facturaQ);
         cp.insertar(proveedorQ);
         cp.insertar(clienteQ);
+        
+        for(int i=0; i < tablaNegocio.getRowCount(); i++){
+        
+         detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('" 
+                        + datos.getFactura_codigo() + "','"+ tablaNegocio.getValueAt(i, 0) +"','" + tablaNegocio.getValueAt(i, 2) + "','" + tablaNegocio.getValueAt(i, 1) + "')";
+                 
+         cp.insertar(detalleQ);
+        
+        }
                 
         try {
             cp.cerrarConeccion();
@@ -1245,6 +1276,22 @@ ArrayList<TipoItem> lista;
         }
         
         JOptionPane.showMessageDialog(null,"FACTURA CARGADA A LA BASE DE DATOS EXITOSAMENTE");
+    }
+    
+    public void imprimirQuery(){
+    
+        System.out.println(lista.size());
+        
+        
+        
+        for(int i=0; i < tablaNegocio.getRowCount(); i++){
+        
+         detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('" 
+                        + datos.getFactura_codigo() + "','"+ tablaNegocio.getValueAt(i, 0) +"','" + tablaNegocio.getValueAt(i, 2) + "','" + tablaNegocio.getValueAt(i, 1) + "')";
+        
+            System.out.println(detalleQ);
+        }
+        
     }
     
     public void guardarBDDTipos(){
@@ -1490,13 +1537,13 @@ ArrayList<TipoItem> lista;
     }
      // restarTipo(lista,tipoEstado[row],tablaNegocio.getValueAt(row,1));
     public void setTablaSumaNegocios(ArrayList<TipoItem> listaT){
+
         Object[][] matriz = new Object[listaT.size()][2];
         for(int i=0;i<listaT.size();i++){
             matriz[i][0]=listaT.get(i).tipo;
             matriz[i][1]=listaT.get(i).total;
         }
         
-        JTable tablaNegocioTotales;
         String header [] ={"Categoria","Total"};
         tablaNegocioTotales = new JTable(matriz,header){
              @Override
@@ -1507,9 +1554,7 @@ ArrayList<TipoItem> lista;
         };
         
         this.jScrollNegocioTotales.setViewportView(tablaNegocioTotales);
-        
-        
-        
+                
     }
     public void restarTipo(ArrayList<TipoItem> listaT, String tipo,int row){
         Object valor =tablaNegocio.getValueAt(row,1);
@@ -1520,6 +1565,7 @@ ArrayList<TipoItem> lista;
                 if(listaT.get(i).total==0){
                     listaT.remove(listaT.get(i));
                 }
+                
                 setTablaSumaNegocios(listaT);
                 return;
             }
@@ -1764,12 +1810,16 @@ ArrayList<TipoItem> lista;
                     
                     }
                     
+                    jPanel8.setVisible(false);
+                    jPanel6.setVisible(true);
                     setTablaNegocio(datos.getDatosProductos());             
                     tablaProductos.setVisible(false);
                     tablaNegocio.setVisible(true);
                 
                 }else{
                 
+                    jPanel8.setVisible(true);
+                    jPanel6.setVisible(false);
                     setTablaDesgloce(datos.getDatosProductos());
                     tablaProductos.setVisible(true);                    
                     tablaNegocio.setVisible(false);

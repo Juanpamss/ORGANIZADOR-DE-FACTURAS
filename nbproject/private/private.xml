@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/jairo/Documents/github/Libres/ORGANIZADOR-DE-FACTURAS/src/proyectolibres/XMLManager.java</file>
-            <file>file:/home/jairo/Documents/github/Libres/ORGANIZADOR-DE-FACTURAS/src/proyectolibres/TipoItem.java</file>
+            <file>file:/D:/Datos/Documentos/NetBeansProjects/Proyecto_Libres/src/proyectolibres/ListaGastos.java</file>
+            <file>file:/D:/Datos/Documentos/NetBeansProjects/Proyecto_Libres/src/proyectolibres/XMLManager.java</file>
+            <file>file:/D:/Datos/Documentos/NetBeansProjects/Proyecto_Libres/src/ConexionBDD/Conexion.java</file>
+            <file>file:/D:/Datos/Documentos/NetBeansProjects/Proyecto_Libres/src/Factura/Cargar_XML.java</file>
+            <file>file:/D:/Datos/Documentos/NetBeansProjects/Proyecto_Libres/src/proyectolibres/GastoNegocio.java</file>
+            <file>file:/D:/Datos/Documentos/NetBeansProjects/Proyecto_Libres/src/proyectolibres/ExportaReportes.java</file>
+            <file>file:/D:/Datos/Documentos/NetBeansProjects/Proyecto_Libres/src/Factura/DatosFactura.java</file>
         </group>
     </open-files>
 </project-private>

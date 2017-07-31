@@ -88,6 +88,17 @@ public class Reportes extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jComboBoxClienteNegocio = new javax.swing.JComboBox<>();
+        jComboBoxAnioNegocio = new javax.swing.JComboBox<>();
+        jComboBoxTipoGasto = new javax.swing.JComboBox<>();
+        jButtonConsultar = new javax.swing.JButton();
+        jScrollPaneGastoNegocio = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -135,7 +146,7 @@ public class Reportes extends javax.swing.JFrame {
                                 .addComponent(jComboBoxProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(182, 182, 182)
                                 .addComponent(btn_consultar)))
-                        .addGap(0, 457, Short.MAX_VALUE)))
+                        .addGap(0, 543, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelRESULTADOSLayout.setVerticalGroup(
@@ -152,7 +163,7 @@ public class Reportes extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabelProveedorSeleccionado))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -375,7 +386,7 @@ public class Reportes extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 315, Short.MAX_VALUE)))
+                        .addGap(0, 395, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -386,13 +397,97 @@ public class Reportes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneReporteCountAnual, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPaneReporteCountAnual, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Anual", jPanel1);
+
+        jLabel11.setText("Filtros:");
+
+        jLabel12.setText("Cliente:");
+
+        jLabel13.setText("Año:");
+
+        jLabel14.setText("Tipo de Gasto:");
+
+        jButtonConsultar.setText("Consultar");
+        jButtonConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConsultarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(121, 121, 121)
+                        .addComponent(jComboBoxClienteNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButtonConsultar)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(81, 81, 81)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jComboBoxAnioNegocio, 0, 140, Short.MAX_VALUE)
+                                .addComponent(jComboBoxTipoGasto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jComboBoxClienteNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jComboBoxAnioNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jComboBoxTipoGasto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonConsultar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Gastos de Negocio", jPanel4);
 
         jMenu1.setText("Archivo");
 
@@ -426,7 +521,7 @@ public class Reportes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addGap(250, 250, 250))
         );
 
         pack();
@@ -462,6 +557,11 @@ public class Reportes extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         setPanelCantidadFacturas(jComboBoxReporteCliente.getSelectedItem().toString());
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
+       
+        setPanelReporteNegocios();
+    }//GEN-LAST:event_jButtonConsultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -504,14 +604,22 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonConsultar;
+    private javax.swing.JComboBox<String> jComboBoxAnioNegocio;
+    private javax.swing.JComboBox<String> jComboBoxClienteNegocio;
     private javax.swing.JComboBox<String> jComboBoxClientes;
     private javax.swing.JComboBox<String> jComboBoxProveedores;
     private javax.swing.JComboBox<String> jComboBoxReporteAnio;
     private javax.swing.JComboBox<String> jComboBoxReporteCliente;
     private javax.swing.JComboBox<String> jComboBoxReporteProveedor;
+    private javax.swing.JComboBox<String> jComboBoxTipoGasto;
     private javax.swing.JComboBox<String> jComboBoxTipos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -532,10 +640,13 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelRESULTADOS;
     private javax.swing.JPanel jPanelRESULTADOS1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneGastoNegocio;
     private javax.swing.JScrollPane jScrollPaneReporteCountAnual;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
@@ -576,6 +687,9 @@ public class Reportes extends javax.swing.JFrame {
        this.setComboReporteAnual();
        this.setComboReporteCliente();
        this.setComboReporteProveedor();
+       this.setComboClientesNegocio();
+       this.setComboAniosNegocio();
+       this.setComboTipoGastosNegocio();
        
    }
    
@@ -617,6 +731,41 @@ public class Reportes extends javax.swing.JFrame {
      }
      this.jComboBoxReporteAnio.setSelectedIndex(0);
     }
+   
+   private void setComboClientesNegocio() {
+     //Aquiva la consulta de los anios en la base 
+     ArrayList<String> anios = new ConexionBDD.Conexion().consultarClientes();
+     this.jComboBoxClienteNegocio.removeAllItems();
+     
+     for (String prov:anios){
+         this.jComboBoxClienteNegocio.addItem(prov);
+     }
+     this.jComboBoxClienteNegocio.setSelectedIndex(0);
+    }
+   
+    private void setComboAniosNegocio() {
+     //Aquiva la consulta de los anios en la base 
+     ArrayList<String> anios = new ConexionBDD.Conexion().consultarAnios();
+     this.jComboBoxAnioNegocio.removeAllItems();
+     
+     for (String prov:anios){
+         this.jComboBoxAnioNegocio.addItem(prov);
+     }
+     this.jComboBoxAnioNegocio.setSelectedIndex(0);
+    }
+    
+    private void setComboTipoGastosNegocio() {
+     //Aquiva la consulta de los anios en la base 
+     ArrayList<String> anios = new ConexionBDD.Conexion().consultarTipoGastos();
+     this.jComboBoxTipoGasto.removeAllItems();
+     
+     for (String prov:anios){
+         this.jComboBoxTipoGasto.addItem(prov);
+     }
+     this.jComboBoxTipoGasto.setSelectedIndex(0);
+    }
+   
+   
    
    private void setComboClientes(){
        
@@ -696,37 +845,37 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPane2.setViewportView(reporteTipoGasto);
        
     }
-private void setPanelReportes(String proveedor){
-    
-    //SE INSTANCIAL LA tabla reporteProveedores
-    //en el panel jPanelRESULTADOS
-    
-                // TODO add your handling code here:
-            conn = new Conexion();
-            
-            //con = Conexion.conecxionBDD();
-            
-            List<String[]> datos = conn.consultarFacturaPorProveedor(proveedor);
-            
-            Object [][] matriz = datos(datos);
-            
-            String nombreCabeceras[] = {"ID FACTURA","NOMBRE CLIENTE" ,"NOMBRE PROVEEDOR","FECHA","TOTAL ALIMENTACION", "TOTAL VESTIMENTA","TOTAL VIVIENDA",
-                "TOTAL SALUD", "TOTAL EDUCACION" ,"TOTAL OTROS","TOTAL SIN IVA", "IVA","TOTAL CON IVA"};
+        private void setPanelReportes(String proveedor){
 
-        
+            //SE INSTANCIAL LA tabla reporteProveedores
+            //en el panel jPanelRESULTADOS
 
-        reporteProveedor = new JTable(matriz, nombreCabeceras) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 2;
-            }
-        };
-        
-        jScrollPane1.setViewportView(reporteProveedor);
-            
-        
-    
-}
+                        // TODO add your handling code here:
+                    conn = new Conexion();
+
+                    //con = Conexion.conecxionBDD();
+
+                    List<String[]> datos = conn.consultarFacturaPorProveedor(proveedor);
+
+                    Object [][] matriz = datos(datos);
+
+                    String nombreCabeceras[] = {"ID FACTURA","NOMBRE CLIENTE" ,"NOMBRE PROVEEDOR","FECHA","TOTAL ALIMENTACION", "TOTAL VESTIMENTA","TOTAL VIVIENDA",
+                        "TOTAL SALUD", "TOTAL EDUCACION" ,"TOTAL OTROS","TOTAL SIN IVA", "IVA","TOTAL CON IVA"};
+
+
+
+                reporteProveedor = new JTable(matriz, nombreCabeceras) {
+                    @Override
+                    public boolean isCellEditable(int row, int column) {
+                        return column == 2;
+                    }
+                };
+
+                jScrollPane1.setViewportView(reporteProveedor);
+
+
+
+        }
 
         public Object [][] datos (List<String []> llegada){
 
@@ -847,6 +996,49 @@ private void setPanelReportes(String proveedor){
             }
                  
             }
+
+        }
+        
+        private void setPanelReporteNegocios() {
+            String cabecera[];
+            List<String[]> datos;
+            conn = new Conexion();
+            String prov=(String)this.jComboBoxReporteProveedor.getSelectedItem();
+            if (prov.equals("Todos")){
+
+                String year =(String)this.jComboBoxAnioNegocio.getSelectedItem();
+                String cliente=(String) this.jComboBoxClienteNegocio.getSelectedItem();
+                String tipoGasto =(String) this.jComboBoxTipoGasto.getSelectedItem();
+                
+                datos=conn.consultarFacturaNegocio(cliente, year, tipoGasto);
+                
+                if (datos.isEmpty()){
+                    
+                    JOptionPane.showMessageDialog(null, "No hay facturas con los campos seleccionados");
+                    
+                }else{
+                    
+               String header[]={
+                   "Nombre Producto",
+                   "Nombre Proveedor",
+                   "Cantidad total comprada",
+                   "Valor total"};
+                   
+               Object[][] matriz=datos(datos);
+               this.reporteMatriz=matriz;
+               this.reporteCabezera=header;
+               String anio=year;
+
+                temaReporte[0]="cliente";
+                temaReporte[1]=cliente;
+                temaReporte[2]=anio;
+                temaReporte[3]="khe";
+
+               JTable reporteNegocio = new JTable(matriz,header);
+               this.jScrollPaneGastoNegocio.setViewportView(reporteNegocio);
+                }
+            }
+            
 
         }
     
