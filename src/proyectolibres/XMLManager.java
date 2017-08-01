@@ -341,16 +341,16 @@ public class XMLManager extends javax.swing.JFrame {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(340, Short.MAX_VALUE)
+                .addContainerGap(350, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_educacion)
-                    .addComponent(lbl_otros))
+                    .addComponent(lbl_otros)
+                    .addComponent(lbl_vestimenta))
                 .addGap(34, 34, 34)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_vestimenta, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_otros)
-                        .addComponent(txt_educacion, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_vestimenta, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
+                    .addComponent(txt_otros)
+                    .addComponent(txt_educacion, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
                 .addGap(125, 125, 125))
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel8Layout.createSequentialGroup()
@@ -364,15 +364,15 @@ public class XMLManager extends javax.swing.JFrame {
                         .addComponent(txt_vivienda, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                         .addComponent(txt_alimentacion)
                         .addComponent(txt_salud))
-                    .addGap(117, 117, 117)
-                    .addComponent(lbl_vestimenta)
-                    .addContainerGap(237, Short.MAX_VALUE)))
+                    .addContainerGap(431, Short.MAX_VALUE)))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(txt_vestimenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_vestimenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_vestimenta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_educacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,14 +381,13 @@ public class XMLManager extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_otros)
                     .addComponent(txt_otros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel8Layout.createSequentialGroup()
                     .addGap(51, 51, 51)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_vivienda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_Vivienda)
-                        .addComponent(lbl_vestimenta))
+                        .addComponent(lbl_Vivienda))
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel8Layout.createSequentialGroup()
                             .addGap(42, 42, 42)
@@ -1256,6 +1255,7 @@ public class XMLManager extends javax.swing.JFrame {
         comboBox.addItem("Alimentacion");
         comboBox.addItem("Vestimenta");
         comboBox.addItem("Otros gastos");
+        comboBox.addItem("Gasto negocio");
 
         tablaProductos.getModel().addTableModelListener(new TableModelListener() {
             @Override
@@ -1291,7 +1291,7 @@ public class XMLManager extends javax.swing.JFrame {
                         if (tipoEstado[row].equals("Otros gastos")) {
                             restarAgregado(jLabelgasto_otros,txt_otros, row);
                         }
-                       
+
                     }
 
                     if (data.equals("Vivienda")) {
@@ -1323,14 +1323,12 @@ public class XMLManager extends javax.swing.JFrame {
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
         tablaProductos.getColumnModel().getColumn(1).setCellRenderer(alinearDerecha);
-
         tablaProductos.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(comboBox));
-
+        
         tablaProductos.getColumnModel().getColumn(1).setMinWidth(100);
         tablaProductos.getColumnModel().getColumn(1).setMaxWidth(100);
         tablaProductos.getColumnModel().getColumn(2).setMinWidth(150);
         tablaProductos.getColumnModel().getColumn(2).setMaxWidth(150);
-
                 
         setLocationRelativeTo(getParent());
         setResizable(false);

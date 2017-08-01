@@ -462,18 +462,17 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace pref="340" max="32767" attributes="0"/>
+                              <EmptySpace pref="350" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbl_educacion" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_otros" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_vestimenta" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txt_vestimenta" min="-2" pref="69" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txt_otros" max="32767" attributes="0"/>
-                                      <Component id="txt_educacion" pref="69" max="32767" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txt_vestimenta" pref="69" max="32767" attributes="0"/>
+                                  <Component id="txt_otros" max="32767" attributes="0"/>
+                                  <Component id="txt_educacion" pref="69" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                           </Group>
@@ -491,9 +490,7 @@
                                       <Component id="txt_alimentacion" alignment="0" max="32767" attributes="0"/>
                                       <Component id="txt_salud" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                                  <Component id="lbl_vestimenta" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="237" max="32767" attributes="0"/>
+                                  <EmptySpace pref="431" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -502,7 +499,10 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="txt_vestimenta" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txt_vestimenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_vestimenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txt_educacion" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -513,7 +513,7 @@
                                   <Component id="lbl_otros" min="-2" max="-2" attributes="0"/>
                                   <Component id="txt_otros" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="58" max="32767" attributes="0"/>
+                              <EmptySpace pref="64" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -521,7 +521,6 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="txt_vivienda" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="lbl_Vivienda" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lbl_vestimenta" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
