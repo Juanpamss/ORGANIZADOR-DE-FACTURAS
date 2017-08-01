@@ -5,6 +5,7 @@
  */
 package proyectolibres;
 
+import com.itextpdf.testutils.ITextTest;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -22,6 +23,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -126,6 +129,89 @@ public class ExportaReportes {
             }
     }
         return table;
+    }
+
+    void generarReporteFactura(String path, ArrayList<SeccionReporte> datosExportar) {
+      this.generarReporteFacturaPDF(path,datosExportar);
+      this.generarReporteFacturaExcel(path,datosExportar);
+    }
+    
+    void generarReporteFacturaExcel(String path, ArrayList<SeccionReporte> datosExportar){
+       String salida="\tReporte por de factura\n";
+       
+     
+       salida+="\n\n";
+  
+       
+        /*for (int i = 0; i < header.length; i++) {
+            salida+="\t"+header[i];
+        }
+        salida+="\n";
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                salida+="\t"+matriz[i][j];
+            }
+            salida+="\n";
+        }*/
+        
+        for(SeccionReporte sr:datosExportar){
+            salida+="\t"+sr.tema;
+            salida+="\n";
+            for (String s : sr.cabezera) {
+                salida+="\t"+s;
+            }
+            salida+="\n";
+            for (int i = 0; i < sr.datos.length; i++) {
+                for (int j = 0; j < sr.datos[0].length; j++) {
+                    salida+="\t"+sr.datos[i][j];
+                    
+                }
+                salida+="\n";
+            }
+            
+            salida+="\n";
+            
+        }
+                
+        
+        String arch=path+"Reporte"+"Excel.xls";
+        try {
+            PrintWriter pw = new PrintWriter(arch);
+            pw.write(salida);
+            pw.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+       
+        
+    }
+    void generarReporteFacturaPDF(String path, ArrayList<SeccionReporte> datosExportar){
+          try {
+            System.out.println("hola 1"+path+"\t"+Arrays.toString(datosExportar.toArray()));
+            FileOutputStream archivo = new FileOutputStream(path+"Reporte de factura"+".pdf");
+            Document doc = new Document(PageSize.A4.rotate());
+           String encabezado="";
+           encabezado+="Reporte de Factura\n\n";
+           System.out.println("Hola x2");
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+            
+            doc.add(new Paragraph(encabezado));
+           
+            for(SeccionReporte sr : datosExportar){
+                doc.add(new Paragraph(sr.tema+"\n"));
+               
+                doc.add(tablaDesglocePDF(sr.cabezera, sr.datos));
+                 doc.add(new Paragraph("\n\n"));
+            }
+                     
+            doc.close();
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
