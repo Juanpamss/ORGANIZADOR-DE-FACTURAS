@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  *
@@ -34,6 +34,7 @@ public class Reportes extends javax.swing.JFrame {
     JTable reporteTipoGasto;
     JTable reporteCantidadFacturas;
     Conexion conn;
+    ArrayList<SeccionReporte> datosExportar;
     /**
      * Creates new form Reportes
      * 
@@ -107,6 +108,7 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPaneDetalleProductos = new javax.swing.JScrollPane();
         jScrollPaneTotales = new javax.swing.JScrollPane();
         jButtonConsultarFacturas = new javax.swing.JButton();
+        jButtonExportarFactura = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -506,6 +508,13 @@ public class Reportes extends javax.swing.JFrame {
             }
         });
 
+        jButtonExportarFactura.setText("Exportar Factura");
+        jButtonExportarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExportarFacturaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -523,7 +532,11 @@ public class Reportes extends javax.swing.JFrame {
                     .addComponent(jScrollPaneCliente)
                     .addComponent(jScrollPaneDetalleProductos)
                     .addComponent(jScrollPaneTotales))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonExportarFactura)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -541,7 +554,9 @@ public class Reportes extends javax.swing.JFrame {
                 .addComponent(jScrollPaneDetalleProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jButtonExportarFactura)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Facturas", jPanel6);
@@ -621,13 +636,18 @@ public class Reportes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonConsultarActionPerformed
 
     private void jButtonConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarFacturasActionPerformed
-        
+        this.datosExportar = new ArrayList<>();
+        this.datosExportar.clear();
         setPanelReporteInfoProveedor();
         setPanelReporteInfoCliente();
         setPanelReporteDetalleProductos();
         setPanelReporteTotalesFactura();
         
     }//GEN-LAST:event_jButtonConsultarFacturasActionPerformed
+
+    private void jButtonExportarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarFacturaActionPerformed
+       this.generarReporteFactura();
+    }//GEN-LAST:event_jButtonExportarFacturaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -672,6 +692,7 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JButton jButtonConsultarFacturas;
+    private javax.swing.JButton jButtonExportarFactura;
     private javax.swing.JComboBox<String> jComboBoxAnioNegocio;
     private javax.swing.JComboBox<String> jComboBoxClienteNegocio;
     private javax.swing.JComboBox<String> jComboBoxClientes;
@@ -1152,6 +1173,8 @@ public class Reportes extends javax.swing.JFrame {
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
                
+               this.datosExportar.add(new SeccionReporte(header, matriz));
+               
                JTable reporteInfoProveedor = new JTable(matriz,header);
                this.jScrollPaneProveedor.setViewportView(reporteInfoProveedor);
                 }
@@ -1180,7 +1203,7 @@ public class Reportes extends javax.swing.JFrame {
                Object[][] matriz=datos(datos);
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
-               
+                this.datosExportar.add(new SeccionReporte(header, matriz));
                JTable reporteInfoCliente = new JTable(matriz,header);
                this.jScrollPaneCliente.setViewportView(reporteInfoCliente);
                 }
@@ -1210,6 +1233,7 @@ public class Reportes extends javax.swing.JFrame {
                Object[][] matriz=datos(datos);
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
+                this.datosExportar.add(new SeccionReporte(header, matriz));
                
                JTable reporteDetalleProductos = new JTable(matriz,header);
                this.jScrollPaneDetalleProductos.setViewportView(reporteDetalleProductos);
@@ -1241,6 +1265,8 @@ public class Reportes extends javax.swing.JFrame {
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
                
+                this.datosExportar.add(new SeccionReporte(header, matriz));
+                
                JTable reporteTotalesFactura = new JTable(matriz,header);
                this.jScrollPaneTotales.setViewportView(reporteTotalesFactura);
                 }
@@ -1308,6 +1334,32 @@ public class Reportes extends javax.swing.JFrame {
         }
        
         
+    }
+    
+    private void generarReporteFactura(){
+         JOptionPane.showMessageDialog(null, "Selecciona la ubicacion donde deseas guardar los Reportes");
+        String path="";
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    
+        int returnVal = fc.showOpenDialog(Reportes.this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            try {
+                //This is where a real application would open the file.
+              
+              path=file.getCanonicalPath()+"/";
+              System.out.println(path);
+                                
+            } catch (IOException ex) {
+                Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se seleccionó ningún directorio.", "Cancelando", 3);
+            return;
+        }
+         new ExportaReportes().generarReporteFactura(path,this.datosExportar );
+         JOptionPane.showMessageDialog(null, "Se han generado los reportes en :\n"+path);
     }
 
     

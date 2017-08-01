@@ -22,6 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -126,6 +128,32 @@ public class ExportaReportes {
             }
     }
         return table;
+    }
+
+    void generarReporteFactura(String path, ArrayList<SeccionReporte> datosExportar) {
+        try {
+            System.out.println("hola 1"+path+"\t"+Arrays.toString(datosExportar.toArray()));
+            FileOutputStream archivo = new FileOutputStream(path+"Reporte de factura"+".pdf");
+            Document doc = new Document(PageSize.A4.rotate());
+           String encabezado="";
+           encabezado+="Reporte de Factura\n\n";
+           System.out.println("Hola x2");
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+            
+            doc.add(new Paragraph(encabezado));
+           
+            for(SeccionReporte sr : datosExportar){
+                doc.add(tablaDesglocePDF(sr.cabezera, sr.datos));
+            }
+                     
+            doc.close();
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
