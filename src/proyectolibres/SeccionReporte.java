@@ -11,10 +11,12 @@ package proyectolibres;
  */
 public class SeccionReporte {
     
+    public String tema;
     public String [] cabezera;
     public Object [][] datos;
 
-    public SeccionReporte(String[] cabezera, Object[][] datos) {
+    public SeccionReporte(String tema,String[] cabezera, Object[][] datos) {
+        this.tema=tema;
         this.cabezera = cabezera;
         this.datos = datos;
     }

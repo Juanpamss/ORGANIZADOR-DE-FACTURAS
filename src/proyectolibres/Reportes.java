@@ -1173,7 +1173,7 @@ public class Reportes extends javax.swing.JFrame {
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
                
-               this.datosExportar.add(new SeccionReporte(header, matriz));
+               this.datosExportar.add(new SeccionReporte("Informacion del Proveedor",header, matriz));
                
                JTable reporteInfoProveedor = new JTable(matriz,header);
                this.jScrollPaneProveedor.setViewportView(reporteInfoProveedor);
@@ -1203,7 +1203,7 @@ public class Reportes extends javax.swing.JFrame {
                Object[][] matriz=datos(datos);
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
-                this.datosExportar.add(new SeccionReporte(header, matriz));
+                this.datosExportar.add(new SeccionReporte("Informacion del Cliente",header, matriz));
                JTable reporteInfoCliente = new JTable(matriz,header);
                this.jScrollPaneCliente.setViewportView(reporteInfoCliente);
                 }
@@ -1233,7 +1233,7 @@ public class Reportes extends javax.swing.JFrame {
                Object[][] matriz=datos(datos);
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
-                this.datosExportar.add(new SeccionReporte(header, matriz));
+                this.datosExportar.add(new SeccionReporte("Detalle de los Productos",header, matriz));
                
                JTable reporteDetalleProductos = new JTable(matriz,header);
                this.jScrollPaneDetalleProductos.setViewportView(reporteDetalleProductos);
@@ -1265,7 +1265,7 @@ public class Reportes extends javax.swing.JFrame {
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
                
-                this.datosExportar.add(new SeccionReporte(header, matriz));
+                this.datosExportar.add(new SeccionReporte("Totales de la Factura",header, matriz));
                 
                JTable reporteTotalesFactura = new JTable(matriz,header);
                this.jScrollPaneTotales.setViewportView(reporteTotalesFactura);
