@@ -1053,6 +1053,7 @@ public class XMLManager extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Escoja el tipo de gasto del proveedor");
             }
             else{
+                //Llamada al método tipo Escoger el tipo de gasto por defecto de la factura
                 EscogerTipoGasto();
                 jComboBoxTipoGasto.setSelectedItem(resultado2);
                 //JOptionPane.showMessageDialog(null, "Escoja el tipo de gasto del proveedor");
@@ -1151,7 +1152,7 @@ public class XMLManager extends javax.swing.JFrame {
         /*String proveedorQ = "INSERT INTO 'main'.'proveedor' ('RUC','NOMBRE','DIRECCION','CIUDAD') VALUES ('" 
                         + datos.getProveedor_ruc() + "','" + datos.getProveedor_nombre()+ "','" + datos.getProveedor_direccion()+ "',"  + datos.getProveedor_ciudad() + ")";
         */
-        
+        //consulta a la tabla proveedor 
         String proveedorQ = "INSERT INTO 'main'.'proveedor' ('RUC','NOMBRE','DIRECCION','CIUDAD','TIPOGASTO') VALUES ('" 
                         + datos.getProveedor_ruc() + "','" + datos.getProveedor_nombre()+ "','" + datos.getProveedor_direccion()+ "','"  + datos.getProveedor_ciudad() + "','"+ jComboBoxTipoGasto.getSelectedItem().toString()+"')";
         
@@ -1418,6 +1419,7 @@ public class XMLManager extends javax.swing.JFrame {
          
     }
     
+    //Listener para llenar el combo box con tipo de gasto por fecto
     public void EscogerTipoGasto(){
         
         jComboBoxTipoGasto.addActionListener(new ActionListener() {
@@ -1435,6 +1437,7 @@ public class XMLManager extends javax.swing.JFrame {
         });
     }
     
+    //Llenar comboBox tipo de gasto
     public void setComboTipoGasto(){
         ArrayList<String> tipoGastos = new ArrayList<>();
         tipoGastos.add(" ");
