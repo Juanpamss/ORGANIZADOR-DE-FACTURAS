@@ -11,8 +11,11 @@ import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -109,6 +112,7 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPaneTotales = new javax.swing.JScrollPane();
         jButtonConsultarFacturas = new javax.swing.JButton();
         jButtonExportarFactura = new javax.swing.JButton();
+        jScrollPaneTotalesGastos = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -173,7 +177,7 @@ public class Reportes extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabelProveedorSeleccionado))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -494,7 +498,7 @@ public class Reportes extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addContainerGap(302, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gastos de Negocio", jPanel4);
@@ -521,22 +525,21 @@ public class Reportes extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPaneProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(62, 62, 62)
-                        .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(jButtonConsultarFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPaneCliente)
-                    .addComponent(jScrollPaneDetalleProductos)
-                    .addComponent(jScrollPaneTotales))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonExportarFactura)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPaneProveedor, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+                        .addGroup(jPanel6Layout.createSequentialGroup()
+                            .addComponent(jLabel15)
+                            .addGap(62, 62, 62)
+                            .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(59, 59, 59)
+                            .addComponent(jButtonConsultarFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPaneCliente)
+                        .addComponent(jScrollPaneDetalleProductos)
+                        .addComponent(jScrollPaneTotales)
+                        .addComponent(jScrollPaneTotalesGastos)))
                 .addContainerGap(74, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonExportarFactura)
-                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -546,17 +549,19 @@ public class Reportes extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonConsultarFacturas))
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPaneProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPaneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPaneProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPaneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneDetalleProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPaneTotalesGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonExportarFactura)
-                .addContainerGap())
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Facturas", jPanel6);
@@ -592,8 +597,8 @@ public class Reportes extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addGap(250, 250, 250))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         pack();
@@ -641,7 +646,9 @@ public class Reportes extends javax.swing.JFrame {
         setPanelReporteInfoProveedor();
         setPanelReporteInfoCliente();
         setPanelReporteDetalleProductos();
+        setPanelReporteTotalesGastos();
         setPanelReporteTotalesFactura();
+        
         
     }//GEN-LAST:event_jButtonConsultarFacturasActionPerformed
 
@@ -743,6 +750,7 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPaneProveedor;
     private javax.swing.JScrollPane jScrollPaneReporteCountAnual;
     private javax.swing.JScrollPane jScrollPaneTotales;
+    private javax.swing.JScrollPane jScrollPaneTotalesGastos;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 
@@ -985,7 +993,7 @@ public class Reportes extends javax.swing.JFrame {
         }
 
         public Object [][] datos (List<String []> llegada){
-
+            
             Object [][] salida = new Object[llegada.size()][llegada.get(0).length];
 
             for(int i=0; i<salida.length;i++){
@@ -1173,7 +1181,7 @@ public class Reportes extends javax.swing.JFrame {
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
                
-               this.datosExportar.add(new SeccionReporte("Informacion del Proveedor",header, matriz));
+               this.datosExportar.add(new SeccionReporte("Informacion del Proveedor: \n",header, matriz));
                
                JTable reporteInfoProveedor = new JTable(matriz,header);
                this.jScrollPaneProveedor.setViewportView(reporteInfoProveedor);
@@ -1203,7 +1211,7 @@ public class Reportes extends javax.swing.JFrame {
                Object[][] matriz=datos(datos);
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
-                this.datosExportar.add(new SeccionReporte("Informacion del Cliente",header, matriz));
+                this.datosExportar.add(new SeccionReporte("Informacion del Cliente: \n",header, matriz));
                JTable reporteInfoCliente = new JTable(matriz,header);
                this.jScrollPaneCliente.setViewportView(reporteInfoCliente);
                 }
@@ -1229,11 +1237,11 @@ public class Reportes extends javax.swing.JFrame {
                    "Producto",
                    "Tipo de Gasto",
                    "Total Gasto"};
-                   
+           
                Object[][] matriz=datos(datos);
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
-                this.datosExportar.add(new SeccionReporte("Detalle de los Productos",header, matriz));
+                this.datosExportar.add(new SeccionReporte("Detalle de los Productos: \n",header, matriz));
                
                JTable reporteDetalleProductos = new JTable(matriz,header);
                this.jScrollPaneDetalleProductos.setViewportView(reporteDetalleProductos);
@@ -1260,15 +1268,44 @@ public class Reportes extends javax.swing.JFrame {
                    "Total sin IVA",
                    "IVA",
                    "Total con IVA"};
-                   
+           
                Object[][] matriz=datos(datos);
                this.reporteMatriz=matriz;
                this.reporteCabezera=header;
+                this.datosExportar.add(new SeccionReporte("Total factura: \n",header, matriz));
                
-                this.datosExportar.add(new SeccionReporte("Totales de la Factura",header, matriz));
+               JTable reporteDetalleProductos = new JTable(matriz,header);
+               this.jScrollPaneTotales.setViewportView(reporteDetalleProductos);
+                }
+            
+        }
+        
+        private void setPanelReporteTotalesGastos() {
+            
+            List<String[]> datos;
+            conn = new Conexion();
+                 
+                String factura =(String)this.jComboBoxFacturas.getSelectedItem();
+                                
+                datos=conn.consultarValoresTotalesEspecificos(factura);
                 
-               JTable reporteTotalesFactura = new JTable(matriz,header);
-               this.jScrollPaneTotales.setViewportView(reporteTotalesFactura);
+                if (datos.isEmpty()){
+                    
+                    JOptionPane.showMessageDialog(null, "No hay facturas con los campos seleccionados");
+                    
+                }else{
+                    
+               String header[]={
+                   "Tipo de Gasto",
+                   "Total del Gasto"};
+           
+               Object[][] matriz=datos(datos);
+               this.reporteMatriz=matriz;
+               this.reporteCabezera=header;
+                this.datosExportar.add(new SeccionReporte("Total Gastos: \n",header, matriz));
+               
+               JTable reporteDetalleProductos = new JTable(matriz,header);
+               this.jScrollPaneTotalesGastos.setViewportView(reporteDetalleProductos);
                 }
             
         }
@@ -1361,6 +1398,6 @@ public class Reportes extends javax.swing.JFrame {
          new ExportaReportes().generarReporteFactura(path,this.datosExportar );
          JOptionPane.showMessageDialog(null, "Se han generado los reportes en :\n"+path);
     }
-
+    
     
 }

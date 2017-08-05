@@ -688,6 +688,7 @@ public class Conexion {
            
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
+            
             while(rs.next()){
                
                 String temp[] = new String[3];
@@ -727,7 +728,7 @@ public class Conexion {
           
             conn = Conexion.conecxionBDD();
             
-            String query = "SELECT total_sin_iva,iva,total_con_iva from factura where id_factura = '" + factura + "'"; 
+            String query = "SELECT distinct total_sin_iva,iva,total_con_iva as Total_Gasto from detalle,factura where detalle.Id_factura = factura.id_factura and detalle.id_factura = '" + factura + "' group by tipogasto"; 
             
             System.out.println(query);
            
@@ -740,7 +741,7 @@ public class Conexion {
                 temp[0] = rs.getString(1);
                 temp[1] = rs.getString(2);
                 temp[2] = rs.getString(3);
-                                
+                                                                
                 resultado.add(temp);
                    
             }  
@@ -764,7 +765,97 @@ public class Conexion {
                 
          return resultado;
     }
+    
+    public List<String[]> consultarValoresTotalesGastos(String factura) {
+             
+       ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            conn = Conexion.conecxionBDD();
             
+            String query = "SELECT total_sin_iva,iva,total_con_iva from factura where id_factura = '" + factura + "'"; 
+            
+            System.out.println(query);
+           
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[3];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                temp[2] = rs.getString(3);
+                                                                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            cerrarConeccion();
+            try {
+                conecxionBDD();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+         return resultado;
+    }
+    
+    public List<String[]> consultarValoresTotalesEspecificos(String factura) {
+             
+       ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            conn = Conexion.conecxionBDD();
+            
+            String query = "SELECT tipogasto, SUM(totalgasto) as Total from detalle where id_factura = '" + factura + "' group by tipogasto"; 
+            
+            System.out.println(query);
+           
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while(rs.next()){
+               
+                String temp[] = new String[2];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                                                                                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            cerrarConeccion();
+            try {
+                conecxionBDD();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+         return resultado;
+    }
+    
+                
     
     public ArrayList<String[]> consultarNumeroFacturas(String nombreCliente, String anio){
    
@@ -883,6 +974,53 @@ public class Conexion {
         
         return "";
     }
+        
     
+    public ArrayList<String[]> consultarCantidadGastos(){
+        
+        ArrayList<String[]> resultado = new ArrayList();
+        try {
+          
+            conn = Conexion.conecxionBDD();
+            
+            String query = "SELECT tipogasto, SUM(totalgasto) as Total_Gasto from detalle group by tipogasto";
+            
+            System.out.println(query);
+           
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+           
+            while(rs.next()){
+               
+                String temp[] = new String[2];
+                               
+                temp[0] = rs.getString(1);
+                temp[1] = rs.getString(2);
+                                                
+                resultado.add(temp);
+                   
+            }  
+           
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            cerrarConeccion();
+            try {
+                conecxionBDD();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+         return resultado;
+        
+       
+    }
          
 }
