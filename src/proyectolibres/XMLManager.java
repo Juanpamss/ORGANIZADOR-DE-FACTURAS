@@ -59,12 +59,12 @@ public class XMLManager extends javax.swing.JFrame {
     String pathFile=null;
     DatosFactura datos=null;
     
-String tiposPersonal []={"Vivienda","Alimentacion","Salud","Educacion","Vestimenta","Otros"};
-String tiposNegocios []={"Mercaderia","Arriendo","Servicios básicos","Sueldos","Movilización","Viáticos",
-"Capacitación","Suministros de oficina","Herramientas de trabajo","Agregar Gasto de Negocio"};
-ArrayList<TipoItem> listaTiposPersonal;
-ArrayList<TipoItem> listaTiposNegocios;
-ArrayList<TipoItem> lista;
+    String tiposPersonal[] = {"Vivienda", "Alimentacion", "Salud", "Educacion", "Vestimenta", "Otros"};
+    String tiposNegocios[] = {"Mercaderia", "Arriendo", "Servicios básicos", "Sueldos", "Movilización", "Viáticos",
+        "Capacitación", "Suministros de oficina", "Herramientas de trabajo", "Agregar Gasto de Negocio"};
+    ArrayList<TipoItem> listaTiposPersonal;
+    ArrayList<TipoItem> listaTiposNegocios;
+    ArrayList<TipoItem> lista;
     Conexion cp = new Conexion();
     Conexion cp2 = new Conexion();
           
@@ -93,6 +93,7 @@ ArrayList<TipoItem> lista;
     
     public XMLManager() {
         initComponents();
+        prueba.setVisible(false);
         this.lista = new ArrayList<>();
         this.listaTiposNegocios = new ArrayList<>();
         for(String aux : this.tiposNegocios){
