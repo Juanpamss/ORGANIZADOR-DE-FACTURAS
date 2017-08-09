@@ -58,15 +58,9 @@ public class XMLManager extends javax.swing.JFrame {
     /**
      * Creates new form XMLManager
      */
-<<<<<<< HEAD
     String pathFile = null;
     DatosFactura datos = null;
 
-=======
-    String pathFile=null;
-    DatosFactura datos=null;
-    
->>>>>>> 5c80fa37b5132b8cfcc9021a7896e99a5ea6dafc
     String tiposPersonal[] = {"Vivienda", "Alimentacion", "Salud", "Educacion", "Vestimenta", "Otros"};
     String tiposNegocios[] = {"Mercaderia", "Arriendo", "Servicios básicos", "Sueldos", "Movilización", "Viáticos",
         "Capacitación", "Suministros de oficina", "Herramientas de trabajo", "Agregar Gasto de Negocio"};
@@ -101,13 +95,9 @@ public class XMLManager extends javax.swing.JFrame {
 
     public XMLManager() {
         initComponents();
-<<<<<<< HEAD
 
         jScrollNegocioTotales.setPreferredSize(new Dimension(350, 190));
 
-=======
-        prueba.setVisible(false);
->>>>>>> 5c80fa37b5132b8cfcc9021a7896e99a5ea6dafc
         this.lista = new ArrayList<>();
         this.listaTiposNegocios = new ArrayList<>();
         for (String aux : this.tiposNegocios) {
@@ -1329,7 +1319,6 @@ public class XMLManager extends javax.swing.JFrame {
 
                 if (counterMap.containsKey(detalle.get(i))) {
                     value = counterMap.get(detalle.get(i));
-                    System.out.println("Key : " + detalle.get(i) + " value :" + value);
                 }
 
                 detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD','TIPOGASTO','TOTALGASTO') VALUES ('"
@@ -1338,6 +1327,7 @@ public class XMLManager extends javax.swing.JFrame {
                 cp.insertar(detalleQ);
 
             }
+            
         } else {
 
             if (jComboBoxTipoFactura.getSelectedItem().equals("Personal")) {
