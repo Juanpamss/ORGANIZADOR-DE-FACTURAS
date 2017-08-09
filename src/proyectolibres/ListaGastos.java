@@ -156,17 +156,55 @@ public class ListaGastos extends javax.swing.JFrame {
         jListGastos.setModel(lista);
         lista.addElement(jTextFieldIngresoGasto.getText());
         
+        //System.out.println(lista.get(lista.getSize()));
+        
         for(int i=0; i < lista.size(); i++){
         
+            if(lista.getElementAt(i).equals("Alimentacion")){
+            
+                lista.removeElementAt(i);
+            }
+            
+            if(lista.getElementAt(i).equals("Educacion")){
+            
+                lista.removeElementAt(i);
+            }
+            
+            if(lista.getElementAt(i).equals("Vivienda")){
+            
+                lista.removeElementAt(i);
+            }
+            
+            if(lista.getElementAt(i).equals("Salud")){
+            
+                lista.removeElementAt(i);
+            }
+            
+            if(lista.getElementAt(i).equals("Vestimenta")){
+            
+                lista.removeElementAt(i);
+            }
+            
+            if(lista.getElementAt(i).equals("Otros gastos")){
+            
+                lista.removeElementAt(i);
+            }
+            
             if(lista.getElementAt(i).equals("Agregar Gasto de Negocio")){
             
                 lista.removeElementAt(i);
-            }       
+            }
+            
+            
         }
         
-        lista.add(lista.size()+1, "");
-        
-        jTextFieldIngresoGasto.setText("Agregar Gasto de Negocio");
+        lista.add(lista.size(), "Alimentacion");
+        lista.add(lista.size(), "Educacion");
+        lista.add(lista.size(), "Vivienda");
+        lista.add(lista.size(), "Salud");
+        lista.add(lista.size(), "Vestimenta");
+        lista.add(lista.size(), "Otros gastos");
+        lista.add(lista.size(), "Agregar Gasto de Negocio");
         
         form.datosLista = lista;
       

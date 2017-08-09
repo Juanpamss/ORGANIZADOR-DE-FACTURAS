@@ -682,7 +682,7 @@ public class Conexion {
           
             conn = Conexion.conecxionBDD();
             
-            String query = "SELECT item,tipogasto,sum(totalgasto) from detalle,factura where detalle.id_factura = factura.id_factura and detalle.id_factura = '" + factura + "' group by item"; 
+            String query = "SELECT item,tipogasto,sum(totalgasto*cantidad) from detalle,factura where detalle.id_factura = factura.id_factura and detalle.id_factura = '" + factura + "' group by item"; 
             
             System.out.println(query);
            
@@ -818,7 +818,7 @@ public class Conexion {
           
             conn = Conexion.conecxionBDD();
             
-            String query = "SELECT tipogasto, SUM(totalgasto) as Total from detalle where id_factura = '" + factura + "' group by tipogasto"; 
+            String query = "SELECT distinct tipogasto, SUM(totalgasto*cantidad) as Total from detalle where id_factura = '" + factura + "' group by tipogasto"; 
             
             System.out.println(query);
            
@@ -907,7 +907,8 @@ public class Conexion {
     
     
     public String tipoGastoGeneral(String ruc){
-          String query = "select * from 'main'.proveedor where proveedor.ruc ='"+ruc+"'";
+        
+        String query = "select * from 'main'.proveedor where proveedor.ruc ='"+ruc+"'";
         String tipo ="Error";
           try {
             conn = conecxionBDD();
@@ -915,7 +916,13 @@ public class Conexion {
             ResultSet rs =st.executeQuery(query);
             tipo = rs.getString("tipogasto");
             
+            
+            //CAMBIOOOO
+            cerrarConeccion();
+            
             return tipo;
+            
+            
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);

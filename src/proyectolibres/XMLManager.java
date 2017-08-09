@@ -26,6 +26,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,18 +58,18 @@ public class XMLManager extends javax.swing.JFrame {
     /**
      * Creates new form XMLManager
      */
-    String pathFile=null;
-    DatosFactura datos=null;
-    
-String tiposPersonal []={"Vivienda","Alimentacion","Salud","Educacion","Vestimenta","Otros"};
-String tiposNegocios []={"Mercaderia","Arriendo","Servicios básicos","Sueldos","Movilización","Viáticos",
-"Capacitación","Suministros de oficina","Herramientas de trabajo","Agregar Gasto de Negocio"};
-ArrayList<TipoItem> listaTiposPersonal;
-ArrayList<TipoItem> listaTiposNegocios;
-ArrayList<TipoItem> lista;
+    String pathFile = null;
+    DatosFactura datos = null;
+
+    String tiposPersonal[] = {"Vivienda", "Alimentacion", "Salud", "Educacion", "Vestimenta", "Otros"};
+    String tiposNegocios[] = {"Mercaderia", "Arriendo", "Servicios básicos", "Sueldos", "Movilización", "Viáticos",
+        "Capacitación", "Suministros de oficina", "Herramientas de trabajo", "Agregar Gasto de Negocio"};
+    ArrayList<TipoItem> listaTiposPersonal;
+    ArrayList<TipoItem> listaTiposNegocios;
+    ArrayList<TipoItem> lista;
     Conexion cp = new Conexion();
     Conexion cp2 = new Conexion();
-          
+
     //VARIABLE DESGLOCE
     JComboBox comboBox;
     JComboBox comboBoxNegocio;
@@ -84,26 +86,28 @@ ArrayList<TipoItem> lista;
     int anio;
     String cedula, tipo;
     //
-    
+
     String detalleQ = "";
-    
+
     DefaultListModel datosLista = new DefaultListModel();
- 
+
     private Dimension dim;
-    
+
     public XMLManager() {
         initComponents();
+
+        jScrollNegocioTotales.setPreferredSize(new Dimension(350, 190));
+
         this.lista = new ArrayList<>();
         this.listaTiposNegocios = new ArrayList<>();
-        for(String aux : this.tiposNegocios){
+        for (String aux : this.tiposNegocios) {
             listaTiposNegocios.add(new TipoItem(aux, 0));
         }
         this.listaTiposPersonal = new ArrayList<>();
-        for(String aux : this.tiposPersonal){
+        for (String aux : this.tiposPersonal) {
             listaTiposPersonal.add(new TipoItem(aux, 0));
         }
-        
-        
+
         datosLista.addElement("Mercaderia");
         datosLista.addElement("Arriendo");
         datosLista.addElement("Servicios básicos");
@@ -113,12 +117,17 @@ ArrayList<TipoItem> lista;
         datosLista.addElement("Capacitación");
         datosLista.addElement("Suministros de oficina");
         datosLista.addElement("Herramientas de trabajo");
+        datosLista.addElement("Alimentacion");
+        datosLista.addElement("Educacion");
+        datosLista.addElement("Vivienda");
+        datosLista.addElement("Salud");
+        datosLista.addElement("Vestimenta");
+        datosLista.addElement("Otros gastos");
         datosLista.addElement("Agregar Gasto de Negocio");
-                
-        
+
         jLabel5.setVisible(false);
         jLabelprov_ciu.setVisible(false);
-        
+
     }
 
     /**
@@ -200,7 +209,7 @@ ArrayList<TipoItem> lista;
         jLabelfac_fecha = new javax.swing.JLabel();
         jButtonCancelarCarga = new javax.swing.JButton();
         jButtonGuardarDatosFactura = new javax.swing.JButton();
-        prueba = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuSeleccionarFactura = new javax.swing.JMenuItem();
@@ -371,6 +380,11 @@ ArrayList<TipoItem> lista;
         txt_vivienda.setText("0.0");
 
         txt_alimentacion.setText("0.0");
+        txt_alimentacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_alimentacionActionPerformed(evt);
+            }
+        });
 
         txt_salud.setText("0.0");
 
@@ -391,17 +405,26 @@ ArrayList<TipoItem> lista;
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_educacion)
-                    .addComponent(lbl_otros))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_vestimenta, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_otros)
-                        .addComponent(txt_educacion, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)))
-                .addGap(125, 125, 125))
+                .addContainerGap(92, Short.MAX_VALUE)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_vivienda, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .addComponent(txt_salud)
+                    .addComponent(txt_alimentacion))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(lbl_vestimenta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_vestimenta, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(lbl_educacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_educacion, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(lbl_otros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(txt_otros, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(35, 35, 35))
             .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel8Layout.createSequentialGroup()
                     .addGap(10, 10, 10)
@@ -409,48 +432,48 @@ ArrayList<TipoItem> lista;
                         .addComponent(lbl_alimentacion)
                         .addComponent(lbl_Vivienda)
                         .addComponent(lbl_salud))
-                    .addGap(62, 62, 62)
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txt_vivienda, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-                        .addComponent(txt_alimentacion)
-                        .addComponent(txt_salud))
-                    .addGap(117, 117, 117)
-                    .addComponent(lbl_vestimenta)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(347, Short.MAX_VALUE)))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(txt_vestimenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_educacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_educacion))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_otros)
-                    .addComponent(txt_otros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(58, Short.MAX_VALUE))
-            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel8Layout.createSequentialGroup()
-                    .addGap(51, 51, 51)
+                    .addComponent(txt_vestimenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_vivienda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_Vivienda)
-                        .addComponent(lbl_vestimenta))
-                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel8Layout.createSequentialGroup()
-                            .addGap(42, 42, 42)
-                            .addComponent(txt_salud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel8Layout.createSequentialGroup()
-                            .addGap(9, 9, 9)
-                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lbl_alimentacion)
-                                .addComponent(txt_alimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lbl_salud)))
-                    .addContainerGap(52, Short.MAX_VALUE)))
+                        .addComponent(lbl_vestimenta)))
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lbl_educacion)
+                                    .addComponent(txt_educacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_alimentacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(txt_salud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txt_otros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(lbl_otros)))
+                .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel8Layout.createSequentialGroup()
+                    .addGap(54, 54, 54)
+                    .addComponent(lbl_Vivienda)
+                    .addGap(12, 12, 12)
+                    .addComponent(lbl_alimentacion)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(lbl_salud)
+                    .addContainerGap(59, Short.MAX_VALUE)))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -486,14 +509,13 @@ ArrayList<TipoItem> lista;
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel22)
-                        .addComponent(panel_gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(panel_gastos, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
                 .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -710,10 +732,10 @@ ArrayList<TipoItem> lista;
             }
         });
 
-        prueba.setText("jButton1");
-        prueba.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pruebaActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -730,8 +752,8 @@ ArrayList<TipoItem> lista;
                 .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(92, 92, 92)
-                .addComponent(prueba)
+                .addGap(80, 80, 80)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -743,7 +765,7 @@ ArrayList<TipoItem> lista;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(prueba))
+                    .addComponent(jButton1))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -824,51 +846,50 @@ ArrayList<TipoItem> lista;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAyudaActionPerformed
-   
+
         try {
             File htmlFile = new File("src/assets/help.html");
             Desktop.getDesktop().browse(htmlFile.toURI());
         } catch (IOException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
-    
-       
+
+
     }//GEN-LAST:event_jMenuAyudaActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-         int option = JOptionPane.showConfirmDialog(null, "Desea Salir?", "Salir del Sistema",JOptionPane.YES_NO_CANCEL_OPTION);
-       if (option ==JOptionPane.YES_OPTION){
-           System.exit(0);
-       }
+        int option = JOptionPane.showConfirmDialog(null, "Desea Salir?", "Salir del Sistema", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuRegresarInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRegresarInicioActionPerformed
-         int option = JOptionPane.showConfirmDialog(null, "Desea Regresar a la Pantalla de Inicio?", "Salir del Sistema",JOptionPane.YES_NO_CANCEL_OPTION);
-       if (option ==JOptionPane.YES_OPTION){
-          MainForm main = new MainForm();
-          main.setVisible(true);
-          this.dispose();
-       }
+        int option = JOptionPane.showConfirmDialog(null, "Desea Regresar a la Pantalla de Inicio?", "Salir del Sistema", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            MainForm main = new MainForm();
+            main.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jMenuRegresarInicioActionPerformed
 
     private void jMenuSeleccionarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSeleccionarFacturaActionPerformed
         JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File("Facturas/").getAbsoluteFile());
-        
+
         FileNameExtensionFilter xmlfilter = new FileNameExtensionFilter(
-     "xml files (*.xml)", "xml");
+                "xml files (*.xml)", "xml");
         fc.setFileFilter(xmlfilter);
-        
+
         int returnVal = fc.showOpenDialog(XMLManager.this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = fc.getSelectedFile();
             try {
                 //This is where a real application would open the file.
-               System.out.println(file.getCanonicalPath());
-              this.pathFile=file.getCanonicalPath();
-              cargar();
-                                
+                System.out.println(file.getCanonicalPath());
+                this.pathFile = file.getCanonicalPath();
+                cargar();
+
             } catch (IOException ex) {
                 Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -878,89 +899,92 @@ ArrayList<TipoItem> lista;
     }//GEN-LAST:event_jMenuSeleccionarFacturaActionPerformed
 
     private void jButtonGuardarDatosFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarDatosFacturaActionPerformed
-      
-        
-        if(/*tablaProductos.getRowCount()==0 || */tablaNegocio.getRowCount() == 0){
-        
+
+        if (tablaProductos.getRowCount() == 0 && tablaNegocio.getRowCount() == 0) {
+
             JOptionPane.showMessageDialog(null, "No se han seleccionado facturas");
-        }else{
-        
-        int filasTotales = tablaProductos.getRowCount();
-        boolean validado = true;
+        } else {
 
-        for (int i = 0; i < filasTotales; i++) {
-            if (tablaProductos.getValueAt(i, 2).equals("")) {
-                validado = false;
-                break;
-            }
-        }
-        
-        int filasTotales2 = tablaNegocio.getRowCount();
-        boolean validado2 = true;
+            int filasTotales = tablaProductos.getRowCount();
+            boolean validado = true;
 
-        for (int i = 0; i < filasTotales2; i++) {
-            if (tablaNegocio.getValueAt(i, 2).equals("")) {
-                validado2 = false;
-                break;
+            for (int i = 0; i < filasTotales; i++) {
+                if (tablaProductos.getValueAt(i, 2).equals("")) {
+                    validado = false;
+                    break;
+                }
             }
+
+            int filasTotales2 = tablaNegocio.getRowCount();
+            boolean validado2 = true;
+
+            for (int i = 0; i < filasTotales2; i++) {
+                if (tablaNegocio.getValueAt(i, 2).equals("")) {
+                    validado2 = false;
+                    break;
+                }
+            }
+
+            if (validado == true /*|| validado2 == true*/) {
+
+                guardarBDD();
+                guardarBDDTipos();
+                guardarDetalle();
+                XMLManager nuevo = new XMLManager();
+                nuevo.show();
+                this.dispose();
+            } else {
+
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado el tipo para cada producto");
+
+            }
+
         }
-              
-                
-        if(/*validado == true || */validado2 == true){
-        guardarBDD();
-        guardarBDDTipos();
-        XMLManager nuevo = new XMLManager();
-        nuevo.show();
-        this.dispose();
-        }else{
-        
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado el tipo para cada producto");
-        
-        }  
-        
-        }
-        
+
     }//GEN-LAST:event_jButtonGuardarDatosFacturaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-                  
-        
+
         try {
-            if(cp.esVacia()==true){
-            
+            if (cp.esVacia() == true) {
+
                 JOptionPane.showMessageDialog(null, "NO HA INGRESADO FACTURAS");
-            
-            }else{
-            
+
+            } else {
+
                 abrirReportes();
                 this.dispose();
-                                
-                
+
             }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-          
-                
-        
+
+
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButtonCancelarCargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarCargaActionPerformed
         // TODO add your handling code here:
-        
+
         XMLManager xml = new XMLManager();
         xml.show();
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarCargaActionPerformed
 
     private void jComboBoxTipoFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoFacturaActionPerformed
-        // TODO add your handling code here:
+
+
     }//GEN-LAST:event_jComboBoxTipoFacturaActionPerformed
 
-    private void pruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pruebaActionPerformed
-       
+    private void txt_alimentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_alimentacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_alimentacionActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
         imprimirQuery();
-    }//GEN-LAST:event_pruebaActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -998,6 +1022,7 @@ ArrayList<TipoItem> lista;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCancelarCarga;
     private javax.swing.JButton jButtonGuardarDatosFactura;
     private javax.swing.JComboBox<String> jComboBoxTipoFactura;
@@ -1071,7 +1096,6 @@ ArrayList<TipoItem> lista;
     private javax.swing.JLabel lbl_salud;
     private javax.swing.JLabel lbl_vestimenta;
     private javax.swing.JScrollPane panel_gastos;
-    private javax.swing.JButton prueba;
     private javax.swing.JTextField txt_alimentacion;
     private javax.swing.JTextField txt_educacion;
     private javax.swing.JTextField txt_otros;
@@ -1080,13 +1104,12 @@ ArrayList<TipoItem> lista;
     private javax.swing.JTextField txt_vivienda;
     // End of variables declaration//GEN-END:variables
 
-    private void cargar() throws FileNotFoundException{
-          
+    private void cargar() throws FileNotFoundException {
+
         try {
-            
-            Cargar_XML carga= new Cargar_XML();
-                      
-            
+
+            Cargar_XML carga = new Cargar_XML();
+
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pathFile)));
             String line;
 
@@ -1113,206 +1136,355 @@ ArrayList<TipoItem> lista;
                 out.close();
 
             }
-                   
+
             this.datos = carga.cargarXml("src/BaseDatos/archivo.xml");
-            
+
             String query = "SELECT ID_FACTURA FROM 'main'.'factura' WHERE ID_FACTURA= '" + datos.getFactura_codigo() + "'";
-            
+
             String resultado = cp.consultar(query);
-                                    
-            if(datos.getFactura_codigo().equals(resultado)){
-                    
+
+            if (datos.getFactura_codigo().equals(resultado)) {
+
                 JOptionPane.showMessageDialog(null, "LA FACTURA SELECCIONADA YA FUE INGRESADA");
                 XMLManager form = new XMLManager();
                 form.setVisible(true);
                 this.dispose();
-            
-            }else{
-            
-            this.jLabelprov_nom.setText(datos.getProveedor_nombre());
-            this.jLabelprov_ruc.setText(datos.getProveedor_ruc());
-            this.jLabelprov_dir.setText(datos.getProveedor_direccion());
-            this.jLabelprov_ciu.setText(datos.getProveedor_ciudad());
-            
-            this.jLabelcliente_ci.setText(datos.getCliente_ci());
-            this.jLabelcliente_nom.setText(datos.getCliente_nombre());
-            
-            this.jLabelfac_cod.setText(datos.getFactura_codigo());
-            this.jLabelfac_fecha.setText(datos.getFactura_fecha());
-            this.jLabelfac_total_sin_iva.setText(datos.getFactura_total_sin_iva()+"");
-            this.jLabelfac_iva.setText(datos.getFactura_iva()+"");
-            this.jLabelfac_total_con_iva.setText(datos.getFactura_total_con_iva()+"");
-                                      
-            Object[][] aux = datos.getDatosProductos();   
-                               
-            
+
+            } else {
+
+                this.jLabelprov_nom.setText(datos.getProveedor_nombre());
+                this.jLabelprov_ruc.setText(datos.getProveedor_ruc());
+                this.jLabelprov_dir.setText(datos.getProveedor_direccion());
+                this.jLabelprov_ciu.setText(datos.getProveedor_ciudad());
+
+                this.jLabelcliente_ci.setText(datos.getCliente_ci());
+                this.jLabelcliente_nom.setText(datos.getCliente_nombre());
+
+                this.jLabelfac_cod.setText(datos.getFactura_codigo());
+                this.jLabelfac_fecha.setText(datos.getFactura_fecha());
+                this.jLabelfac_total_sin_iva.setText(datos.getFactura_total_sin_iva() + "");
+                this.jLabelfac_iva.setText(datos.getFactura_iva() + "");
+                this.jLabelfac_total_con_iva.setText(datos.getFactura_total_con_iva() + "");
+
+                Object[][] aux = datos.getDatosProductos();
+
             }
-            
+
             llamarListener();
             llamarListener2();
-            
+
             System.out.println(jComboBoxTipoFactura.getSelectedItem().toString());
-            
-           
+
         } catch (JDOMException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }
-    
-    public void gastosTotales(){
-    
-            
-        if(jLabelgasto_alimentacion.getText().equals("Ninguno")){
-            
+
+    public void gastosTotales() {
+
+        if (jLabelgasto_alimentacion.getText().equals("Ninguno")) {
+
             datos.setTotal_alimentacion(0.0);
-                        
-    
-        }else{
-            
+
+        } else {
+
             datos.setTotal_alimentacion(Double.parseDouble(jLabelgasto_alimentacion.getText()));
-            
-                    
+
         }
-        
-        if((jLabelgasto_educacion.getText().equals("Ninguno"))){
-            
-             datos.setTotal_educacion(0.0);         
-        
-        }else{
-            
+
+        if ((jLabelgasto_educacion.getText().equals("Ninguno"))) {
+
+            datos.setTotal_educacion(0.0);
+
+        } else {
+
             datos.setTotal_educacion(Double.parseDouble(jLabelgasto_educacion.getText()));
-           
+
         }
-        
-        if((jLabelgasto_salud.getText().equals("Ninguno"))){
-        
+
+        if ((jLabelgasto_salud.getText().equals("Ninguno"))) {
+
             datos.setTotal_salud(0.0);
-        
-        }else{
-        
+
+        } else {
+
             datos.setTotal_salud(Double.parseDouble(jLabelgasto_salud.getText()));
         }
-        
-        if((jLabelgasto_vestimenta.getText().equals("Ninguno"))){
-        
+
+        if ((jLabelgasto_vestimenta.getText().equals("Ninguno"))) {
+
             datos.setTotal_vestimenta(0.0);
-        
-        }else{
-        
+
+        } else {
+
             datos.setTotal_vestimenta(Double.parseDouble(jLabelgasto_vestimenta.getText()));
-            
+
         }
-        
-        if((jLabelgasto_vivienda.getText().equals("Ninguno"))){
-           
+
+        if ((jLabelgasto_vivienda.getText().equals("Ninguno"))) {
+
             datos.setTotal_vivienda(0.0);
-            
-        }else{
-        
+
+        } else {
+
             datos.setTotal_vivienda(Double.parseDouble(jLabelgasto_vivienda.getText()));
-             
+
         }
-        
-        if((jLabelgasto_otros.getText().equals("Ninguno"))){
-        
-             datos.setTotal_otros(0.0);
-            
-        
-        }else{
-                    
+
+        if ((jLabelgasto_otros.getText().equals("Ninguno"))) {
+
+            datos.setTotal_otros(0.0);
+
+        } else {
+
             datos.setTotal_otros(Double.parseDouble(jLabelgasto_otros.getText()));
-           
+
         }
-        
-        
-        
-          
+
     }
 
     private void guardarBDD() {
-        
+
         try {
             Conexion.conecxionBDD();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
+
         gastosTotales();
-        
-        String facturaQ = "INSERT INTO 'main'.'factura' ('ID_FACTURA','ID_CLIENTE','ID_PROVEEDOR','FECHA','TOTAL_ALIMENTACION','TOTAL_VESTIMENTA','TOTAL_VIVIENDA','TOTAL_SALUD','TOTAL_EDUCACION','TOTAL_OTROS','TOTAL_SIN_IVA','IVA','TOTAL_CON_IVA') VALUES ('" 
-                        + datos.getFactura_codigo() + "','" + datos.getCliente_ci() + "','" + datos.getProveedor_ruc() + "','" + datos.getFactura_fecha()+ "'," + datos.getTotal_alimentacion()+ ","  + datos.getTotal_vestimenta()+ "," + datos.getTotal_vivienda() + 
-                ","  + datos.getTotal_salud() + ","  + datos.getTotal_educacion() + ","  + datos.getTotal_otros()+ "," + datos.getFactura_total_sin_iva() + "," + datos.getFactura_iva() + "," + datos.getFactura_total_con_iva() + ")";
-       
-        String proveedorQ = "INSERT INTO 'main'.'proveedor' ('RUC','NOMBRE','DIRECCION','TIPOGASTO') VALUES ('" 
-                        + datos.getProveedor_ruc() + "','" + datos.getProveedor_nombre()+ "','" + datos.getProveedor_direccion()+ "','" + jComboBoxTipoGasto.getSelectedItem().toString()+"')";
-        
-        String clienteQ = "INSERT INTO 'main'.'cliente' ('CI','NOMBRE') VALUES ('" 
-                        + datos.getCliente_ci()+ "','" + datos.getCliente_nombre()+ "')";
-        
+
+        String facturaQ = "INSERT INTO 'main'.'factura' ('ID_FACTURA','ID_CLIENTE','ID_PROVEEDOR','FECHA','TOTAL_ALIMENTACION','TOTAL_VESTIMENTA','TOTAL_VIVIENDA','TOTAL_SALUD','TOTAL_EDUCACION','TOTAL_OTROS','TOTAL_SIN_IVA','IVA','TOTAL_CON_IVA') VALUES ('"
+                + datos.getFactura_codigo() + "','" + datos.getCliente_ci() + "','" + datos.getProveedor_ruc() + "','" + datos.getFactura_fecha() + "'," + datos.getTotal_alimentacion() + "," + datos.getTotal_vestimenta() + "," + datos.getTotal_vivienda()
+                + "," + datos.getTotal_salud() + "," + datos.getTotal_educacion() + "," + datos.getTotal_otros() + "," + datos.getFactura_total_sin_iva() + "," + datos.getFactura_iva() + "," + datos.getFactura_total_con_iva() + ")";
+
+        String proveedorQ = "INSERT INTO 'main'.'proveedor' ('RUC','NOMBRE','DIRECCION','TIPOGASTO') VALUES ('"
+                + datos.getProveedor_ruc() + "','" + datos.getProveedor_nombre() + "','" + datos.getProveedor_direccion() + "','" + jComboBoxTipoGasto.getSelectedItem().toString() + "')";
+
+        String clienteQ = "INSERT INTO 'main'.'cliente' ('CI','NOMBRE') VALUES ('"
+                + datos.getCliente_ci() + "','" + datos.getCliente_nombre() + "')";
+
         cp.insertar(facturaQ);
         cp.insertar(proveedorQ);
         cp.insertar(clienteQ);
-        
-        for(int i=0; i < tablaNegocio.getRowCount(); i++){
-        
-         detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('" 
-                        + datos.getFactura_codigo() + "','"+ tablaNegocio.getValueAt(i, 0) +"','" + tablaNegocio.getValueAt(i, 2) + "','" + tablaNegocio.getValueAt(i, 1) + "')";
-                 
-         cp.insertar(detalleQ);
-        
-        }
-                
+
         try {
             cp.cerrarConeccion();
             Conexion.conecxionBDD();
-            
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        JOptionPane.showMessageDialog(null,"FACTURA CARGADA A LA BASE DE DATOS EXITOSAMENTE");
+
+        JOptionPane.showMessageDialog(null, "FACTURA CARGADA A LA BASE DE DATOS EXITOSAMENTE");
     }
-    
-    public void imprimirQuery(){
-    
-        System.out.println(lista.size());
-        
-        
-        
-        for(int i=0; i < tablaNegocio.getRowCount(); i++){
-        
-         detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('" 
-                        + datos.getFactura_codigo() + "','"+ tablaNegocio.getValueAt(i, 0) +"','" + tablaNegocio.getValueAt(i, 2) + "','" + tablaNegocio.getValueAt(i, 1) + "')";
-        
-            System.out.println(detalleQ);
-        }
-        
-    }
-    
-    public void guardarBDDTipos(){
-        
-           //TIpos de datos 
+
+    private void guardarDetalle() {
+
         try {
-                Conexion.conecxionBDDTipos();
-                int fila = tablaProductos.getRowCount();
-        for (int i = 0; i < fila; i++) {
-                        
-            cp2.insertarTipos(tablaProductos.getValueAt(i, 0).toString(),tablaProductos.getValueAt(i, 2).toString());    
-                    try {
-                        cp2.cerrarConeccion();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+            Conexion.conecxionBDD();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+
+        ArrayList<String> detalle = new ArrayList<>();
+
+        if (jComboBoxTipoFactura.getSelectedItem().equals("Negocio")) {
+
+            for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
+
+                detalle.add(tablaNegocio.getValueAt(i, 0).toString());
+
             }
-        
+
+            Map<String, Integer> counterMap = new HashMap<>();
+
+            for (int i = 0; i < detalle.size(); i++) {
+                //fill the array
+                if (counterMap.containsKey(detalle.get(i))) {
+                    counterMap.put(detalle.get(i), counterMap.get(detalle.get(i)) + 1);
+                } else {
+                    counterMap.put(detalle.get(i), 1);
+                }
+
+            }
+
+            for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
+
+                Object value = null;
+
+                if (counterMap.containsKey(detalle.get(i))) {
+                    value = counterMap.get(detalle.get(i));
+                    System.out.println("Key : " + detalle.get(i) + " value :" + value);
+                }
+
+                detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD','TIPOGASTO','TOTALGASTO') VALUES ('"
+                        + datos.getFactura_codigo() + "','" + tablaNegocio.getValueAt(i, 0) + "','" + value + "','" + tablaNegocio.getValueAt(i, 2) + "','" + tablaNegocio.getValueAt(i, 1) + "')";
+
+                cp.insertar(detalleQ);
+
+            }
+        } else {
+
+            if (jComboBoxTipoFactura.getSelectedItem().equals("Personal")) {
+
+                for (int i = 0; i < tablaProductos.getRowCount(); i++) {
+
+                    if (tablaProductos.getValueAt(i, 2).toString().equals("Vivienda")) {
+
+                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
+                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
+
+                        cp.insertar(detalleQ);
+
+                    }
+
+                    if (tablaProductos.getValueAt(i, 2).toString().equals("Alimentacion")) {
+
+                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
+                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
+
+                        cp.insertar(detalleQ);
+
+                    }
+
+                    if (tablaProductos.getValueAt(i, 2).toString().equals("Salud")) {
+
+                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
+                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
+
+                        cp.insertar(detalleQ);
+
+                    }
+
+                    if (tablaProductos.getValueAt(i, 2).toString().equals("Vestimenta")) {
+
+                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
+                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
+
+                        cp.insertar(detalleQ);
+
+                    }
+
+                    if (tablaProductos.getValueAt(i, 2).toString().equals("Educacion")) {
+
+                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
+                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
+
+                        cp.insertar(detalleQ);
+
+                    }
+
+                    if (tablaProductos.getValueAt(i, 2).toString().equals("Otros gastos")) {
+
+                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
+                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
+
+                        cp.insertar(detalleQ);
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        try {
+            cp.cerrarConeccion();
+            Conexion.conecxionBDD();
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void imprimirQuery() {
+
+        ArrayList<String> detalle = new ArrayList<>();
+
+        for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
+
+            detalle.add(tablaNegocio.getValueAt(i, 0).toString());
+
+        }
+
+        Map<String, Integer> counterMap = new HashMap<>();
+
+        for (int i = 0; i < detalle.size(); i++) {
+            //fill the array
+            if (counterMap.containsKey(detalle.get(i))) {
+                counterMap.put(detalle.get(i), counterMap.get(detalle.get(i)) + 1);
+            } else {
+                counterMap.put(detalle.get(i), 1);
+            }
+
+        }
+
+        for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
+
+            Object value = null;
+
+            if (counterMap.containsKey(detalle.get(i))) {
+                value = counterMap.get(detalle.get(i));
+                System.out.println("Key : " + detalle.get(i) + " value :" + value);
+            }
+
+            detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD','TIPOGASTO','TOTALGASTO') VALUES ('"
+                    + datos.getFactura_codigo() + "','" + tablaNegocio.getValueAt(i, 0) + "','" + value + "','" + tablaNegocio.getValueAt(i, 2) + "','" + tablaNegocio.getValueAt(i, 1) + "')";
+
+            System.out.println(detalleQ);
+
+        }
+
+        /*for (int i = 0; i < detalle.size(); i++) {
+
+            if (detalle.get(i).equals(detalle.get(i + 1))) {
+
+                detalle.set(i, detalle.get(i).toString() + " 2");
+
+                detalle.remove(i + 1);
+
+            } else {
+
+                detalle.set(i, detalle.get(i).toString() + " 1");
+            }
+
+        }
+
+        for (String c : detalle) {
+
+            System.out.println(c);
+
+        }*/
+    }
+
+    public void guardarBDDTipos() {
+
+        //TIpos de datos 
+        try {
+            Conexion.conecxionBDDTipos();
+            int fila = tablaProductos.getRowCount();
+            for (int i = 0; i < fila; i++) {
+
+                cp2.insertarTipos(tablaProductos.getValueAt(i, 0).toString(), tablaProductos.getValueAt(i, 2).toString());
+                try {
+                    cp2.cerrarConeccion();
+                } catch (SQLException ex) {
+                    Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         try {
             cp2.cerrarConeccion();
             try {
@@ -1324,29 +1496,30 @@ ArrayList<TipoItem> lista;
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String convertFileToUTF8String(File file, String originalEncoding) {
- 
+
         String contents = "";
-        
+
         try {
             FileInputStream fis = new FileInputStream(file);
             StringBuilder sb = new StringBuilder();
             BufferedReader br = new BufferedReader(new InputStreamReader(fis, originalEncoding));
             String line;
-            while((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 sb.append(line);
                 sb.append('\n');
             }
- 
+
             contents = new String(sb.toString().getBytes("UTF-8"));
-        } catch (Exception ex) {}
- 
+        } catch (Exception ex) {
+        }
+
         return contents;
     }
-    
-    private void setTablaDesgloce(Object[][]tipos){
-       
+
+    private void setTablaDesgloce(Object[][] tipos) {
+
         String nombreCabeceras[] = {"Descripcion", "Precio Total", "Tipo de Gasto"};
 
         tipoEstado = new String[tipos.length];
@@ -1359,9 +1532,9 @@ ArrayList<TipoItem> lista;
             public boolean isCellEditable(int row, int column) {
                 return column == 2;
             }
-            
+
         };
-        
+
         panel_gastos.setViewportView(tablaProductos);
 
         comboBox = new JComboBox();
@@ -1375,7 +1548,7 @@ ArrayList<TipoItem> lista;
         comboBox.addItem("Otros gastos");
 
         tablaProductos.getModel().addTableModelListener(new TableModelListener() {
-            
+
             @Override
             public void tableChanged(TableModelEvent tme) {
                 int row = tme.getFirstRow();
@@ -1383,79 +1556,75 @@ ArrayList<TipoItem> lista;
 
                 TableModel model = (TableModel) tme.getSource();
                 Object data = model.getValueAt(row, column);
-                           
-               if (!data.equals("") && column == 2) {
+
+                if (!data.equals("") && column == 2) {
 
                     if (!tipoEstado[row].equals("")) {
                         if (tipoEstado[row].equals("Vivienda")) {
-                            restarAgregado(jLabelgasto_vivienda,txt_vivienda, row);
+                            restarAgregado(jLabelgasto_vivienda, txt_vivienda, row);
                         }
                         if (tipoEstado[row].equals("Salud")) {
-                            restarAgregado(jLabelgasto_salud,txt_salud, row);
+                            restarAgregado(jLabelgasto_salud, txt_salud, row);
                         }
                         if (tipoEstado[row].equals("Educacion")) {
-                            restarAgregado(jLabelgasto_educacion,txt_educacion, row);
+                            restarAgregado(jLabelgasto_educacion, txt_educacion, row);
                         }
                         if (tipoEstado[row].equals("Alimentacion")) {
-                            restarAgregado(jLabelgasto_alimentacion,txt_alimentacion, row);
+                            restarAgregado(jLabelgasto_alimentacion, txt_alimentacion, row);
                         }
                         if (tipoEstado[row].equals("Vestimenta")) {
-                            restarAgregado(jLabelgasto_vestimenta,txt_vestimenta, row);
+                            restarAgregado(jLabelgasto_vestimenta, txt_vestimenta, row);
                         }
                         if (tipoEstado[row].equals("Otros gastos")) {
-                            restarAgregado(jLabelgasto_otros,txt_otros, row);
+                            restarAgregado(jLabelgasto_otros, txt_otros, row);
                         }
-                       
+
                     }
 
                     if (data.equals("Vivienda")) {
-                        sumarAgregado(jLabelgasto_vivienda,txt_vivienda, row, "Vivienda");
+                        sumarAgregado(jLabelgasto_vivienda, txt_vivienda, row, "Vivienda");
                     }
                     if (data.equals("Salud")) {
-                        sumarAgregado(jLabelgasto_salud,txt_salud, row, "Salud");
+                        sumarAgregado(jLabelgasto_salud, txt_salud, row, "Salud");
                     }
                     if (data.equals("Educacion")) {
-                        sumarAgregado(jLabelgasto_educacion,txt_educacion, row, "Educacion");
+                        sumarAgregado(jLabelgasto_educacion, txt_educacion, row, "Educacion");
                     }
                     if (data.equals("Alimentacion")) {
-                        sumarAgregado(jLabelgasto_alimentacion,txt_alimentacion, row, "Alimentacion");
+                        sumarAgregado(jLabelgasto_alimentacion, txt_alimentacion, row, "Alimentacion");
                     }
                     if (data.equals("Vestimenta")) {
-                        sumarAgregado(jLabelgasto_vestimenta,txt_vestimenta, row, "Vestimenta");
+                        sumarAgregado(jLabelgasto_vestimenta, txt_vestimenta, row, "Vestimenta");
                     }
                     if (data.equals("Otros gastos")) {
                         sumarAgregado(jLabelgasto_otros, txt_otros, row, "Otros gastos");
                     }
-                    
-                    
-                    
-                    
+
                 }
-               
+
             }
         });
-        
+
         gastosAutomáticos();
-        
+
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
         tablaProductos.getColumnModel().getColumn(1).setCellRenderer(alinearDerecha);
 
         tablaProductos.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(comboBox));
-        
+
         tablaProductos.getColumnModel().getColumn(1).setMinWidth(100);
         tablaProductos.getColumnModel().getColumn(1).setMaxWidth(100);
         tablaProductos.getColumnModel().getColumn(2).setMinWidth(150);
         tablaProductos.getColumnModel().getColumn(2).setMaxWidth(150);
 
-                                
         setLocationRelativeTo(getParent());
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-    
-    private void setTablaNegocio(Object[][]tipos){
-       
+
+    private void setTablaNegocio(Object[][] tipos) {
+
         String nombreCabeceras[] = {"Descripcion", "Precio Total", "Tipo de Gasto de Negocio"};
 
         tipoEstado = new String[tipos.length];
@@ -1468,20 +1637,19 @@ ArrayList<TipoItem> lista;
             public boolean isCellEditable(int row, int column) {
                 return column == 2;
             }
-            
+
         };
-        
+
         panel_gastos.setViewportView(tablaNegocio);
-               
+
         modelo = new DefaultComboBoxModel(datosLista.toArray());
 
         comboBoxNegocio = new JComboBox();
-       
+
         comboBoxNegocio.setModel(modelo);
-                
 
         tablaNegocio.getModel().addTableModelListener(new TableModelListener() {
-            
+
             @Override
             public void tableChanged(TableModelEvent tme) {
                 int row = tme.getFirstRow();
@@ -1489,225 +1657,219 @@ ArrayList<TipoItem> lista;
 
                 TableModel model = (TableModel) tme.getSource();
                 Object data = model.getValueAt(row, column);
-                           System.out.println("linea 1443 "+jComboBoxTipoFactura.getSelectedItem().toString());
-               if (!data.equals("") && column == 2) {
-                   //System.out.println("anterior"+tipoEstado[row]+"actual"+(String)data);
-                    if (!tipoEstado[row].equals("")) {
-                        
-                      
-                       
-                        restarTipo(lista,tipoEstado[row],row);
-                        
-                       
-                    }
-                   
-                         sumarTipo(lista,(String)data,row);
 
-                   
-                    
-                   
-                   
+                if (!data.equals("") && column == 2) {
+                    //System.out.println("anterior"+tipoEstado[row]+"actual"+(String)data);
+                    if (!tipoEstado[row].equals("")) {
+
+                        restarTipo(lista, tipoEstado[row], row);
+
+                    }
+
+                    sumarTipo(lista, (String) data, row);
+
                 }
-               
-               if(data.equals("Agregar Gasto de Negocio")){
-                   
-                   agregarGastoNegocio(tme.getFirstRow(),tablaNegocio.getValueAt(tme.getFirstRow(), 2));
-                   
-               }
+
+                if (data.equals("Agregar Gasto de Negocio")) {
+
+                    agregarGastoNegocio(tme.getFirstRow(), tablaNegocio.getValueAt(tme.getFirstRow(), 2));
+
+                }
 
             }
         });
-        
-        
+
+        gastosAutomáticos();
+
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
         tablaNegocio.getColumnModel().getColumn(1).setCellRenderer(alinearDerecha);
 
         tablaNegocio.getColumnModel().getColumn(2).setCellEditor(new DefaultCellEditor(comboBoxNegocio));
-        
+
         tablaNegocio.getColumnModel().getColumn(1).setMinWidth(100);
         tablaNegocio.getColumnModel().getColumn(1).setMaxWidth(100);
         tablaNegocio.getColumnModel().getColumn(2).setMinWidth(200);
         tablaNegocio.getColumnModel().getColumn(2).setMaxWidth(200);
 
-                                
         setLocationRelativeTo(getParent());
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-     // restarTipo(lista,tipoEstado[row],tablaNegocio.getValueAt(row,1));
-    public void setTablaSumaNegocios(ArrayList<TipoItem> listaT){
+    // restarTipo(lista,tipoEstado[row],tablaNegocio.getValueAt(row,1));
+
+    public void setTablaSumaNegocios(ArrayList<TipoItem> listaT) {
 
         Object[][] matriz = new Object[listaT.size()][2];
-        for(int i=0;i<listaT.size();i++){
-            matriz[i][0]=listaT.get(i).tipo;
-            matriz[i][1]=listaT.get(i).total;
+        for (int i = 0; i < listaT.size(); i++) {
+            matriz[i][0] = listaT.get(i).tipo;
+            matriz[i][1] = listaT.get(i).total;
         }
-        
-        String header [] ={"Categoria","Total"};
-        tablaNegocioTotales = new JTable(matriz,header){
-             @Override
+
+        String header[] = {"Categoria", "Total"};
+        tablaNegocioTotales = new JTable(matriz, header) {
+            @Override
             public boolean isCellEditable(int row, int column) {
                 return column == 2;
             }
-            
+
         };
-        
+
         this.jScrollNegocioTotales.setViewportView(tablaNegocioTotales);
-                
+
+        jScrollNegocioTotales.setPreferredSize(new Dimension(350, 190));
+
     }
-    public void restarTipo(ArrayList<TipoItem> listaT, String tipo,int row){
-        Object valor =tablaNegocio.getValueAt(row,1);
-        for(int i=0;i<listaT.size();i++){
-            if(listaT.get(i).tipo.equals(tipo)){
-                
-                listaT.get(i).total-=(Double)valor;
-                if(listaT.get(i).total==0){
+
+    public void restarTipo(ArrayList<TipoItem> listaT, String tipo, int row) {
+        Object valor = tablaNegocio.getValueAt(row, 1);
+        for (int i = 0; i < listaT.size(); i++) {
+            if (listaT.get(i).tipo.equals(tipo)) {
+
+                listaT.get(i).total -= (Double) valor;
+                if (listaT.get(i).total == 0) {
                     listaT.remove(listaT.get(i));
                 }
-                
+
                 setTablaSumaNegocios(listaT);
                 return;
             }
         }
-        
-        
+
     }
-    public void sumarTipo(ArrayList<TipoItem> listaT, String tipo,int row){
-         Object valor =tablaNegocio.getValueAt(row,1);
-        for(int i=0;i<listaT.size();i++){
-            if(listaT.get(i).tipo.equals(tipo)){
-                listaT.get(i).total+=(Double)valor;
-                 imprimir(listaT);
-                 setTablaSumaNegocios(listaT);
-                 this.tipoEstado[row]=tipo;
+
+    public void sumarTipo(ArrayList<TipoItem> listaT, String tipo, int row) {
+        Object valor = tablaNegocio.getValueAt(row, 1);
+        for (int i = 0; i < listaT.size(); i++) {
+            if (listaT.get(i).tipo.equals(tipo)) {
+                listaT.get(i).total += (Double) valor;
+                imprimir(listaT);
+                setTablaSumaNegocios(listaT);
+                this.tipoEstado[row] = tipo;
                 return;
             }
         }
-        listaT.add(new TipoItem(tipo,(Double)valor));
-        this.tipoEstado[row]=tipo;
+        listaT.add(new TipoItem(tipo, (Double) valor));
+        this.tipoEstado[row] = tipo;
         setTablaSumaNegocios(listaT);
-         imprimir(listaT);
+        //imprimir(listaT);
     }
-    
-    
-    public void imprimir(ArrayList<TipoItem> listaT){
-        for(TipoItem ti: listaT){
-            System.out.println(listaT.toString()+"hola"+lista.size());
+
+    public void imprimir(ArrayList<TipoItem> listaT) {
+        for (TipoItem ti : listaT) {
+            System.out.println(listaT.toString() + "hola" + lista.size());
         }
     }
-    
-    public void restarAgregado(JLabel label,JTextField txtField, int row) {
+
+    public void restarAgregado(JLabel label, JTextField txtField, int row) {
         double total;
         total = Double.parseDouble(txtField.getText());
         total -= (Double) tablaProductos.getValueAt(row, 1);
         total = BigDecimal.valueOf(total).setScale(3, RoundingMode.HALF_UP).doubleValue();
         txtField.setText(String.valueOf(total));
-        
+
         label.setText(String.valueOf(total));
     }
 
-    public void sumarAgregado(JLabel label,JTextField txtField, int row, String tipo) {
+    public void sumarAgregado(JLabel label, JTextField txtField, int row, String tipo) {
         double total;
         total = Double.parseDouble(txtField.getText());
         total += (Double) tablaProductos.getValueAt(row, 1);
         total = BigDecimal.valueOf(total).setScale(3, RoundingMode.HALF_UP).doubleValue();
         txtField.setText(String.valueOf(total));
         tipoEstado[row] = tipo;
-        
-         label.setText(String.valueOf(total));
+
+        label.setText(String.valueOf(total));
     }
-    
+
     public double ingresarTipo(JTextField txtField, JLabel lblLabel) {
         double total;
         String query;
 
         total = Double.parseDouble(txtField.getText());
         total = BigDecimal.valueOf(total).setScale(3, RoundingMode.HALF_UP).doubleValue();
-        
 
         return total;
     }
-    
-    private void abrirReportes(){
+
+    private void abrirReportes() {
         Reportes rep = new Reportes();
         rep.setCombos();
         rep.setVisible(true);
     }
 
-    private void gastosAutomáticos(){
-        
+    private void gastosAutomáticos() {
+
         try {
             Conexion.conecxionBDDTipos();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         int fila = tablaProductos.getRowCount();
         int i;
         String gasto;
         String aux = "";
-                   
-                    for (i = 0; i < fila; i++) {
-                                                            
-                        String valor = (String) tablaProductos.getValueAt(i, 0);
-                        
-                        StringTokenizer tokens = new StringTokenizer(valor, " ");
-                          
-                        while(tokens.hasMoreTokens()){
-                            
-                            aux = tokens.nextToken();
-                        
-                    try {
-                        Conexion.conecxionBDDTipos();
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-           
-                gasto = cp.tipoGastoAutomatico(aux);
-            
-                if(cp.tipoGastoAutomatico(aux).isEmpty()){
-                    
-                    System.out.println("Es vacia");
-                             
-                }else{
-                
-                    tablaProductos.setValueAt(gasto, i, 2);
-                    System.out.println("linea 1592"+gasto);
-                    
+
+        for (i = 0; i < fila; i++) {
+
+            String valor = (String) tablaProductos.getValueAt(i, 0);
+
+            StringTokenizer tokens = new StringTokenizer(valor, " ");
+
+            while (tokens.hasMoreTokens()) {
+
+                aux = tokens.nextToken();
+
+                try {
+                    Conexion.conecxionBDDTipos();
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                        
+
+                gasto = cp.tipoGastoAutomatico(aux);
+
+                if (cp.tipoGastoAutomatico(aux).isEmpty()) {
+
+                    System.out.println("Es vacia");
+
+                } else {
+
+                    tablaProductos.setValueAt(gasto, i, 2);
+
+                }
+
             }
-                        
+
         }
-                    
+
         try {
             cp.cerrarConeccion();
         } catch (SQLException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
+
     }
-    
-    public void EscogerTipoGasto(){
-        
-        jComboBoxTipoGasto.addActionListener(new ActionListener() {
+
+    public void EscogerTipoGasto() {
+
+        jComboBoxTipoFactura.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 int fila = tablaProductos.getRowCount();
                 int i;
-                if(jComboBoxTipoGasto.getSelectedIndex() != -1){
+                if (jComboBoxTipoGasto.getSelectedIndex() != -1) {
                     for (i = 0; i < fila; i++) {
                         tablaProductos.setValueAt(jComboBoxTipoGasto.getSelectedItem(), i, 2);
                     }
                 }
-            }  
-            
+            }
+
         });
     }
-    
-    public void setComboTipoGasto(){
+
+    public void setComboTipoGasto() {
         ArrayList<String> tipoGastos = new ArrayList<>();
         tipoGastos.add(" ");
         tipoGastos.add("Vivienda");
@@ -1717,120 +1879,124 @@ ArrayList<TipoItem> lista;
         tipoGastos.add("Vestimenta");
         tipoGastos.add("Otros gastos");
         jComboBoxTipoGasto.removeAllItems();
-        for(String tipo : tipoGastos){
+        for (String tipo : tipoGastos) {
             jComboBoxTipoGasto.addItem(tipo);
         }
         jComboBoxTipoGasto.setSelectedIndex(0);
     }
-    
-    public void setComboTipoFactura(){
+
+    public void setComboTipoFactura() {
         ArrayList<String> tipoGastos = new ArrayList<>();
         tipoGastos.add(" ");
         tipoGastos.add("Negocio");
         tipoGastos.add("Personal");
-        
+
         jComboBoxTipoFactura.removeAllItems();
-        for(String tipo : tipoGastos){
+        for (String tipo : tipoGastos) {
             jComboBoxTipoFactura.addItem(tipo);
         }
-        
+
     }
-    
-    
-    private void llamarListener(){
-    
-    
+
+    private void llamarListener() {
+
         try {
             Conexion.conecxionBDD();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         setComboTipoGasto();
-           
-            String query2 = "SELECT TipoGasto FROM 'main'.'proveedor' WHERE nombre= '" + datos.getProveedor_nombre()+ "'";
-            String resultado2 = cp.consultarProveedor(query2);
-            System.out.println("El resultado2 es " +   resultado2);
-            if(resultado2 == null || resultado2.equals(" ") || resultado2.equals("null")){
-                jComboBoxTipoGasto.setSelectedIndex(-1); 
-                JOptionPane.showMessageDialog(null, "Escoja el tipo de gasto del proveedor");
-            }
-            else{
-                EscogerTipoGasto();
-                jComboBoxTipoGasto.setSelectedItem(resultado2);
-                //JOptionPane.showMessageDialog(null, "Escoja el tipo de gasto del proveedor");
-            }
-            
-            gastosAutomáticos();
-        
-            try {
+
+        String query2 = "SELECT TipoGasto FROM 'main'.'proveedor' WHERE nombre= '" + datos.getProveedor_nombre() + "'";
+        String resultado2 = cp.consultarProveedor(query2);
+        System.out.println("El resultado2 es " + resultado2);
+        if (resultado2 == null || resultado2.equals(" ") || resultado2.equals("null")) {
+            jComboBoxTipoGasto.setSelectedIndex(-1);
+            JOptionPane.showMessageDialog(null, "Escoja el tipo de gasto del proveedor");
+        } else {
+            EscogerTipoGasto();
+            jComboBoxTipoGasto.setSelectedItem(resultado2);
+            //JOptionPane.showMessageDialog(null, "Escoja el tipo de gasto del proveedor");
+        }
+
+        gastosAutomáticos();
+
+        try {
             cp.cerrarConeccion();
             Conexion.conecxionBDD();
-            
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-    
+
     }
-    
-    private void llamarListener2(){
-    
+
+    private void llamarListener2() {
+
         setComboTipoFactura();
-           
+
         EscogerTipoFactura();
-          
+
     }
-    
-    public void agregarGastoNegocio(int posicion,Object gastoAnterior){
-    
+
+    public void agregarGastoNegocio(int posicion, Object gastoAnterior) {
+
         //JOptionPane.showMessageDialog(rootPane, "Prueba" + posicion);
-        ListaGastos listaGastos = new ListaGastos(this,posicion,gastoAnterior,datosLista);
+        ListaGastos listaGastos = new ListaGastos(this, posicion, gastoAnterior, datosLista);
         //GastoNegocio gasto = new GastoNegocio(this,listaGastos,posicion,gastoAnterior);
         listaGastos.setVisible(true);
-                    
+
     }
-    
-    public void EscogerTipoFactura(){
-        
+
+    public void EscogerTipoFactura() {
+
         setComboTipoFactura();
-        
+
         jComboBoxTipoFactura.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                if(jComboBoxTipoFactura.getSelectedItem().equals("Negocio")){
-                
-                    for (int i=0; i < tablaNegocio.getRowCount(); i++){
-                    
+
+                if (jComboBoxTipoFactura.getSelectedItem().equals("Negocio")) {
+
+                    for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
+
                         tablaNegocio.setValueAt(" ", i, 2);
-                    
+
                     }
-                    
+
                     jPanel8.setVisible(false);
                     jPanel6.setVisible(true);
-                    setTablaNegocio(datos.getDatosProductos());             
+                    setTablaNegocio(datos.getDatosProductos());
                     tablaProductos.setVisible(false);
                     tablaNegocio.setVisible(true);
-                
-                }else{
-                
+
+                } else {
+
                     jPanel8.setVisible(true);
                     jPanel6.setVisible(false);
                     setTablaDesgloce(datos.getDatosProductos());
-                    tablaProductos.setVisible(true);                    
+                    tablaProductos.setVisible(true);
                     tablaNegocio.setVisible(false);
-                
+
                 }
-                
-            }  
-            
+
+                int fila = tablaNegocio.getRowCount();
+                int i;
+                if (jComboBoxTipoGasto.getSelectedIndex() != -1) {
+                    for (i = 0; i < fila; i++) {
+                        tablaNegocio.setValueAt(jComboBoxTipoGasto.getSelectedItem(), i, 2);
+                    }
+
+                }
+
+            }
+
         });
+
     }
-    
-   
 
 }
