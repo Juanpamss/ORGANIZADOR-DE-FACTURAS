@@ -5,9 +5,7 @@
  */
 package proyectolibres;
 
-import java.util.Arrays;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
 /**
@@ -29,18 +27,6 @@ public class GastoNegocio extends javax.swing.JFrame {
     
     public GastoNegocio(XMLManager form, ListaGastos listGast, int posi, Object gasto) {
         initComponents();
-        
-        /*jComboBoxGastoNegocio.addItem("");
-
-        jComboBoxGastoNegocio.addItem("Mercadería");
-        jComboBoxGastoNegocio.addItem("Arriendo");
-        jComboBoxGastoNegocio.addItem("Servicios básicos");
-        jComboBoxGastoNegocio.addItem("Sueldos");
-        jComboBoxGastoNegocio.addItem("Movilización");
-        jComboBoxGastoNegocio.addItem("Viáticos");
-        jComboBoxGastoNegocio.addItem("Capacitación");
-        jComboBoxGastoNegocio.addItem("Suministros de oficina");
-        jComboBoxGastoNegocio.addItem("Herramientas de trabajo");*/
         
         this.posicion = posi;
         this.xmlForm = form;

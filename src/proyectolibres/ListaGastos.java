@@ -5,8 +5,13 @@
  */
 package proyectolibres;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,39 +22,29 @@ public class ListaGastos extends javax.swing.JFrame {
     /**
      * Creates new form ListaGastos
      */
-    
     DefaultListModel lista = new DefaultListModel();
     DefaultComboBoxModel modelo;
     XMLManager form;
     private int posicion;
     Object gastoNegocio;
-    
+
     public ListaGastos(XMLManager formAux, int pos, Object obj, DefaultListModel list) {
         initComponents();
         this.form = formAux;
         this.posicion = pos;
         this.gastoNegocio = obj;
-        /*lista.addElement("Mercaderia");
-        lista.addElement("Arriendo");
-        lista.addElement("Servicios básicos");
-        lista.addElement("Sueldos");
-        lista.addElement("Movilización");
-        lista.addElement("Viáticos");
-        lista.addElement("Capacitación");
-        lista.addElement("Suministros de oficina");
-        lista.addElement("Herramientas de trabajo");*/
 
         this.lista = list;
-        
+
         jListGastos.setModel(lista);
-        
+
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-    
-    public void agregarElementos(){
-    
+
+    public void agregarElementos() {
+
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,11 +114,11 @@ public class ListaGastos extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                                     .addComponent(jTextFieldIngresoGasto))
-                                .addGap(67, 67, 67)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButtonEliminar)
-                                    .addComponent(jButtonAgregar)
-                                    .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGap(57, 57, 57)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))))))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -142,7 +137,7 @@ public class ListaGastos extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonEliminar)
-                        .addGap(45, 45, 45)
+                        .addGap(46, 46, 46)
                         .addComponent(jButtonSalir)))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
@@ -152,52 +147,60 @@ public class ListaGastos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-                
+
+        File nombreArchivo = new File("src/tipoGastos.txt");
+
         jListGastos.setModel(lista);
-        lista.addElement(jTextFieldIngresoGasto.getText());
-        
-        //System.out.println(lista.get(lista.getSize()));
-        
-        for(int i=0; i < lista.size(); i++){
-        
-            if(lista.getElementAt(i).equals("Alimentacion")){
-            
-                lista.removeElementAt(i);
-            }
-            
-            if(lista.getElementAt(i).equals("Educacion")){
-            
-                lista.removeElementAt(i);
-            }
-            
-            if(lista.getElementAt(i).equals("Vivienda")){
-            
-                lista.removeElementAt(i);
-            }
-            
-            if(lista.getElementAt(i).equals("Salud")){
-            
-                lista.removeElementAt(i);
-            }
-            
-            if(lista.getElementAt(i).equals("Vestimenta")){
-            
-                lista.removeElementAt(i);
-            }
-            
-            if(lista.getElementAt(i).equals("Otros gastos")){
-            
-                lista.removeElementAt(i);
-            }
-            
-            if(lista.getElementAt(i).equals("Agregar Gasto de Negocio")){
-            
-                lista.removeElementAt(i);
-            }
-            
-            
+
+        if (jTextFieldIngresoGasto.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(null, "Ingrese un nuevo tipo de gasto");
+
+        } else {
+
+            lista.addElement(jTextFieldIngresoGasto.getText());
+
         }
-        
+
+        for (int i = 0; i < lista.size(); i++) {
+
+            if (lista.getElementAt(i).equals("Alimentacion")) {
+
+                lista.removeElementAt(i);
+            }
+
+            if (lista.getElementAt(i).equals("Educacion")) {
+
+                lista.removeElementAt(i);
+            }
+
+            if (lista.getElementAt(i).equals("Vivienda")) {
+
+                lista.removeElementAt(i);
+            }
+
+            if (lista.getElementAt(i).equals("Salud")) {
+
+                lista.removeElementAt(i);
+            }
+
+            if (lista.getElementAt(i).equals("Vestimenta")) {
+
+                lista.removeElementAt(i);
+            }
+
+            if (lista.getElementAt(i).equals("Otros gastos")) {
+
+                lista.removeElementAt(i);
+            }
+
+            if (lista.getElementAt(i).equals("Agregar Gasto de Negocio")) {
+
+                lista.removeElementAt(i);
+            }
+
+        }
+
         lista.add(lista.size(), "Alimentacion");
         lista.add(lista.size(), "Educacion");
         lista.add(lista.size(), "Vivienda");
@@ -205,31 +208,86 @@ public class ListaGastos extends javax.swing.JFrame {
         lista.add(lista.size(), "Vestimenta");
         lista.add(lista.size(), "Otros gastos");
         lista.add(lista.size(), "Agregar Gasto de Negocio");
+
+        try {
+
+            FileWriter fw = new FileWriter(nombreArchivo);
+
+            Writer salida = new BufferedWriter(fw);
+
+            for (int i = 0; i < lista.size(); i++) {
+
+                salida.write(lista.get(i) + "\r\n");
+
+            }
+
+            salida.close();
+
+        } catch (Exception e) {
+
+        }
+
+        form.tablaNegocio.setValueAt(jTextFieldIngresoGasto.getText(), posicion, 2);
+        
+        jTextFieldIngresoGasto.setText("");
         
         form.datosLista = lista;
-      
+        
+        JOptionPane.showMessageDialog(null, "Tipo de gasto agregado correctamente");
+        
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        
+
+        File nombreArchivo = new File("src/tipoGastos.txt");
+
         int index = jListGastos.getSelectedIndex();
         
-        lista.removeElementAt(index);
-        
+        jTextFieldIngresoGasto.setText("");
+
+        System.out.println(jListGastos.getSelectedIndex());
+
+        if (jListGastos.getSelectedIndex() < 0) {
+
+            JOptionPane.showMessageDialog(null, "Seleccione un tipo de gasto para eliminar");
+
+        } else {
+
+            lista.removeElementAt(index);
+
+        }
+
+        try {
+
+            FileWriter fw = new FileWriter(nombreArchivo);
+
+            Writer salida = new BufferedWriter(fw);
+
+            for (int i = 0; i < lista.size(); i++) {
+
+                salida.write(lista.get(i) + "\r\n");
+
+            }
+
+            salida.close();
+
+        } catch (Exception e) {
+
+        }
+
         form.datosLista = lista;
         
-        
+        JOptionPane.showMessageDialog(null, "Tipo de gasto eliminado correctamente");
+
+
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        
-        //GastoNegocio gasto = new GastoNegocio(form, this ,posicion, gastoNegocio);
-        //gasto.setVisible(true);
-        
+
         modelo = new DefaultComboBoxModel(lista.toArray());
-        
-        form.comboBoxNegocio.setModel(modelo); 
-        
+
+        form.comboBoxNegocio.setModel(modelo);
+
         this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
@@ -263,7 +321,7 @@ public class ListaGastos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
- //               new ListaGastos().setVisible(true);
+                //               new ListaGastos().setVisible(true);
             }
         });
     }

@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -91,6 +92,10 @@ public class XMLManager extends javax.swing.JFrame {
 
     DefaultListModel datosLista = new DefaultListModel();
 
+    String nombreArchivo = "src/tipoGastos.txt";
+
+    String linea;
+
     private Dimension dim;
 
     public XMLManager() {
@@ -108,22 +113,29 @@ public class XMLManager extends javax.swing.JFrame {
             listaTiposPersonal.add(new TipoItem(aux, 0));
         }
 
-        datosLista.addElement("Mercaderia");
-        datosLista.addElement("Arriendo");
-        datosLista.addElement("Servicios básicos");
-        datosLista.addElement("Sueldos");
-        datosLista.addElement("Movilización");
-        datosLista.addElement("Viáticos");
-        datosLista.addElement("Capacitación");
-        datosLista.addElement("Suministros de oficina");
-        datosLista.addElement("Herramientas de trabajo");
-        datosLista.addElement("Alimentacion");
-        datosLista.addElement("Educacion");
-        datosLista.addElement("Vivienda");
-        datosLista.addElement("Salud");
-        datosLista.addElement("Vestimenta");
-        datosLista.addElement("Otros gastos");
-        datosLista.addElement("Agregar Gasto de Negocio");
+        try {
+
+            BufferedReader entrada = new BufferedReader(new FileReader(nombreArchivo));
+
+            if (!entrada.ready()) {
+
+                throw new IOException();
+
+            }
+
+            while ((linea = entrada.readLine()) != null) {
+
+                datosLista.addElement(linea);
+
+            }
+
+            entrada.close();
+
+        } catch (Exception e) {
+
+            System.out.println(e);
+
+        }
 
         jLabel5.setVisible(false);
         jLabelprov_ciu.setVisible(false);
@@ -886,7 +898,6 @@ public class XMLManager extends javax.swing.JFrame {
             File file = fc.getSelectedFile();
             try {
                 //This is where a real application would open the file.
-                System.out.println(file.getCanonicalPath());
                 this.pathFile = file.getCanonicalPath();
                 cargar();
 
@@ -1321,74 +1332,49 @@ public class XMLManager extends javax.swing.JFrame {
                     value = counterMap.get(detalle.get(i));
                 }
 
+                double total = (Double) tablaNegocio.getValueAt(i, 1) * (int) value;
+
                 detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD','TIPOGASTO','TOTALGASTO') VALUES ('"
-                        + datos.getFactura_codigo() + "','" + tablaNegocio.getValueAt(i, 0) + "','" + value + "','" + tablaNegocio.getValueAt(i, 2) + "','" + tablaNegocio.getValueAt(i, 1) + "')";
+                        + datos.getFactura_codigo() + "','" + tablaNegocio.getValueAt(i, 0) + "','" + value + "','" + tablaNegocio.getValueAt(i, 2) + "','" + total + "')";
 
                 cp.insertar(detalleQ);
 
             }
-            
+
         } else {
 
-            if (jComboBoxTipoFactura.getSelectedItem().equals("Personal")) {
+            for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
 
-                for (int i = 0; i < tablaProductos.getRowCount(); i++) {
+                detalle.add(tablaNegocio.getValueAt(i, 0).toString());
 
-                    if (tablaProductos.getValueAt(i, 2).toString().equals("Vivienda")) {
+            }
 
-                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
-                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
+            Map<String, Integer> counterMap = new HashMap<>();
 
-                        cp.insertar(detalleQ);
-
-                    }
-
-                    if (tablaProductos.getValueAt(i, 2).toString().equals("Alimentacion")) {
-
-                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
-                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
-
-                        cp.insertar(detalleQ);
-
-                    }
-
-                    if (tablaProductos.getValueAt(i, 2).toString().equals("Salud")) {
-
-                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
-                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
-
-                        cp.insertar(detalleQ);
-
-                    }
-
-                    if (tablaProductos.getValueAt(i, 2).toString().equals("Vestimenta")) {
-
-                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
-                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
-
-                        cp.insertar(detalleQ);
-
-                    }
-
-                    if (tablaProductos.getValueAt(i, 2).toString().equals("Educacion")) {
-
-                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
-                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
-
-                        cp.insertar(detalleQ);
-
-                    }
-
-                    if (tablaProductos.getValueAt(i, 2).toString().equals("Otros gastos")) {
-
-                        detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','TIPOGASTO','TOTALGASTO') VALUES ('"
-                                + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + tablaProductos.getValueAt(i, 2) + "','" + tablaProductos.getValueAt(i, 1) + "')";
-
-                        cp.insertar(detalleQ);
-
-                    }
-
+            for (int i = 0; i < detalle.size(); i++) {
+                //fill the array
+                if (counterMap.containsKey(detalle.get(i))) {
+                    counterMap.put(detalle.get(i), counterMap.get(detalle.get(i)) + 1);
+                } else {
+                    counterMap.put(detalle.get(i), 1);
                 }
+
+            }
+
+            for (int i = 0; i < tablaProductos.getRowCount(); i++) {
+
+                Object value = null;
+
+                if (counterMap.containsKey(detalle.get(i))) {
+                    value = counterMap.get(detalle.get(i));
+                }
+
+                double total = (Double) tablaNegocio.getValueAt(i, 1) * (int) value;
+
+                detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD',TIPOGASTO','TOTALGASTO') VALUES ('"
+                        + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + value + "','" + tablaProductos.getValueAt(i, 2) + "','" + total + "')";
+
+                cp.insertar(detalleQ);
 
             }
 
@@ -1437,10 +1423,12 @@ public class XMLManager extends javax.swing.JFrame {
                 System.out.println("Key : " + detalle.get(i) + " value :" + value);
             }
 
+            double total = (Double) tablaNegocio.getValueAt(i, 1) * (int) value;
+
             detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD','TIPOGASTO','TOTALGASTO') VALUES ('"
                     + datos.getFactura_codigo() + "','" + tablaNegocio.getValueAt(i, 0) + "','" + value + "','" + tablaNegocio.getValueAt(i, 2) + "','" + tablaNegocio.getValueAt(i, 1) + "')";
 
-            System.out.println(detalleQ);
+            System.out.println(String.valueOf(total));
 
         }
 
@@ -1605,8 +1593,6 @@ public class XMLManager extends javax.swing.JFrame {
             }
         });
 
-        gastosAutomáticos();
-
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
         tablaProductos.getColumnModel().getColumn(1).setCellRenderer(alinearDerecha);
@@ -1648,6 +1634,8 @@ public class XMLManager extends javax.swing.JFrame {
 
         comboBoxNegocio.setModel(modelo);
 
+        lista.clear();
+
         tablaNegocio.getModel().addTableModelListener(new TableModelListener() {
 
             @Override
@@ -1679,8 +1667,7 @@ public class XMLManager extends javax.swing.JFrame {
             }
         });
 
-        gastosAutomáticos();
-
+        //gastosAutomáticos();
         DefaultTableCellRenderer alinearDerecha = new DefaultTableCellRenderer();
         alinearDerecha.setHorizontalAlignment(DefaultTableCellRenderer.RIGHT);
         tablaNegocio.getColumnModel().getColumn(1).setCellRenderer(alinearDerecha);
@@ -1700,10 +1687,17 @@ public class XMLManager extends javax.swing.JFrame {
 
     public void setTablaSumaNegocios(ArrayList<TipoItem> listaT) {
 
+        BigDecimal aux, redondeado;
+
         Object[][] matriz = new Object[listaT.size()][2];
+
         for (int i = 0; i < listaT.size(); i++) {
+
+            aux = new BigDecimal(listaT.get(i).total);
+            redondeado = aux.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
             matriz[i][0] = listaT.get(i).tipo;
-            matriz[i][1] = listaT.get(i).total;
+            matriz[i][1] = redondeado;
         }
 
         String header[] = {"Categoria", "Total"};
@@ -1722,11 +1716,14 @@ public class XMLManager extends javax.swing.JFrame {
     }
 
     public void restarTipo(ArrayList<TipoItem> listaT, String tipo, int row) {
+
         Object valor = tablaNegocio.getValueAt(row, 1);
         for (int i = 0; i < listaT.size(); i++) {
+
             if (listaT.get(i).tipo.equals(tipo)) {
 
                 listaT.get(i).total -= (Double) valor;
+
                 if (listaT.get(i).total == 0) {
                     listaT.remove(listaT.get(i));
                 }
@@ -1739,20 +1736,24 @@ public class XMLManager extends javax.swing.JFrame {
     }
 
     public void sumarTipo(ArrayList<TipoItem> listaT, String tipo, int row) {
+
         Object valor = tablaNegocio.getValueAt(row, 1);
         for (int i = 0; i < listaT.size(); i++) {
+
             if (listaT.get(i).tipo.equals(tipo)) {
+
                 listaT.get(i).total += (Double) valor;
-                imprimir(listaT);
+
                 setTablaSumaNegocios(listaT);
                 this.tipoEstado[row] = tipo;
                 return;
             }
         }
+
         listaT.add(new TipoItem(tipo, (Double) valor));
         this.tipoEstado[row] = tipo;
         setTablaSumaNegocios(listaT);
-        //imprimir(listaT);
+
     }
 
     public void imprimir(ArrayList<TipoItem> listaT) {
@@ -1784,7 +1785,6 @@ public class XMLManager extends javax.swing.JFrame {
 
     public double ingresarTipo(JTextField txtField, JLabel lblLabel) {
         double total;
-        String query;
 
         total = Double.parseDouble(txtField.getText());
         total = BigDecimal.valueOf(total).setScale(3, RoundingMode.HALF_UP).doubleValue();
@@ -1920,8 +1920,7 @@ public class XMLManager extends javax.swing.JFrame {
             //JOptionPane.showMessageDialog(null, "Escoja el tipo de gasto del proveedor");
         }
 
-        gastosAutomáticos();
-
+        //gastosAutomáticos();
         try {
             cp.cerrarConeccion();
             Conexion.conecxionBDD();
@@ -1962,17 +1961,18 @@ public class XMLManager extends javax.swing.JFrame {
 
                 if (jComboBoxTipoFactura.getSelectedItem().equals("Negocio")) {
 
-                    for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
-
-                        tablaNegocio.setValueAt(" ", i, 2);
-
-                    }
-
                     jPanel8.setVisible(false);
                     jPanel6.setVisible(true);
                     setTablaNegocio(datos.getDatosProductos());
                     tablaProductos.setVisible(false);
                     tablaNegocio.setVisible(true);
+
+                    //txt_alimentacion.revalidate();
+                    txt_educacion.revalidate();
+                    txt_otros.revalidate();
+                    txt_salud.revalidate();
+                    txt_vestimenta.revalidate();
+                    txt_vivienda.revalidate();
 
                 } else {
 

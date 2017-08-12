@@ -543,13 +543,11 @@ public class Conexion {
           
             conn = Conexion.conecxionBDD();
             
-            String query = "SELECT item,proveedor.nombre, count(item) as Cantidad, sum(totalgasto) as Total from detalle,factura,proveedor,cliente "
+            String query = "SELECT item,proveedor.nombre, cantidad, totalgasto from detalle,factura,proveedor,cliente "
                     + "where detalle.tipogasto = '" + tipo + "'" + "and strftime('%Y',fecha) = '" + anio + "'" 
                     + "and cliente.nombre = '" + cliente + "'" 
                     + "and detalle.id_factura = factura.id_factura and factura.id_proveedor = proveedor.ruc and factura.id_cliente = cliente.ci group by item"; 
             
-            System.out.println(query);
-           
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
@@ -682,7 +680,7 @@ public class Conexion {
           
             conn = Conexion.conecxionBDD();
             
-            String query = "SELECT item,tipogasto,sum(totalgasto*cantidad) from detalle,factura where detalle.id_factura = factura.id_factura and detalle.id_factura = '" + factura + "' group by item"; 
+            String query = "SELECT item,tipogasto,totalgasto from detalle,factura where detalle.id_factura = factura.id_factura and detalle.id_factura = '" + factura + "' group by item"; 
             
             System.out.println(query);
            
@@ -818,7 +816,7 @@ public class Conexion {
           
             conn = Conexion.conecxionBDD();
             
-            String query = "SELECT distinct tipogasto, SUM(totalgasto*cantidad) as Total from detalle where id_factura = '" + factura + "' group by tipogasto"; 
+            String query = "SELECT distinct tipogasto, SUM(totalgasto) as Total from detalle where id_factura = '" + factura + "' group by tipogasto"; 
             
             System.out.println(query);
            
