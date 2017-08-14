@@ -764,9 +764,9 @@ public class XMLManager extends javax.swing.JFrame {
                 .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(80, 80, 80)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(97, 97, 97))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -992,9 +992,8 @@ public class XMLManager extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_alimentacionActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
-        imprimirQuery();
+                   // TODO add your handling code here:
+                   imprimirQuery();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -1343,9 +1342,9 @@ public class XMLManager extends javax.swing.JFrame {
 
         } else {
 
-            for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
+            for (int i = 0; i < tablaProductos.getRowCount(); i++) {
 
-                detalle.add(tablaNegocio.getValueAt(i, 0).toString());
+                detalle.add(tablaProductos.getValueAt(i, 0).toString());
 
             }
 
@@ -1369,9 +1368,9 @@ public class XMLManager extends javax.swing.JFrame {
                     value = counterMap.get(detalle.get(i));
                 }
 
-                double total = (Double) tablaNegocio.getValueAt(i, 1) * (int) value;
+                double total = (Double) tablaProductos.getValueAt(i, 1) * (int) value;
 
-                detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD',TIPOGASTO','TOTALGASTO') VALUES ('"
+                detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD','TIPOGASTO','TOTALGASTO') VALUES ('"
                         + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + value + "','" + tablaProductos.getValueAt(i, 2) + "','" + total + "')";
 
                 cp.insertar(detalleQ);
@@ -1393,12 +1392,18 @@ public class XMLManager extends javax.swing.JFrame {
     }
 
     public void imprimirQuery() {
+        
+        ArrayList<String> anios = new ConexionBDD.Conexion().consultarFacturas2();
+        
+        String test = (String) anios.get(0) + (String) anios.get(1);        
+        
+        System.out.println(test);
 
-        ArrayList<String> detalle = new ArrayList<>();
+        /*ArrayList<String> detalle = new ArrayList<>();
 
-        for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
+        for (int i = 0; i < tablaProductos.getRowCount(); i++) {
 
-            detalle.add(tablaNegocio.getValueAt(i, 0).toString());
+            detalle.add(tablaProductos.getValueAt(i, 0).toString());
 
         }
 
@@ -1414,7 +1419,7 @@ public class XMLManager extends javax.swing.JFrame {
 
         }
 
-        for (int i = 0; i < tablaNegocio.getRowCount(); i++) {
+        for (int i = 0; i < tablaProductos.getRowCount(); i++) {
 
             Object value = null;
 
@@ -1423,14 +1428,14 @@ public class XMLManager extends javax.swing.JFrame {
                 System.out.println("Key : " + detalle.get(i) + " value :" + value);
             }
 
-            double total = (Double) tablaNegocio.getValueAt(i, 1) * (int) value;
+            double total = (Double) tablaProductos.getValueAt(i, 1) * (int) value;
 
-            detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD','TIPOGASTO','TOTALGASTO') VALUES ('"
-                    + datos.getFactura_codigo() + "','" + tablaNegocio.getValueAt(i, 0) + "','" + value + "','" + tablaNegocio.getValueAt(i, 2) + "','" + tablaNegocio.getValueAt(i, 1) + "')";
+           detalleQ = "INSERT INTO 'main'.'detalle' ('ID_FACTURA','ITEM','CANTIDAD','TIPOGASTO','TOTALGASTO') VALUES ('"
+                        + datos.getFactura_codigo() + "','" + tablaProductos.getValueAt(i, 0) + "','" + value + "','" + tablaProductos.getValueAt(i, 2) + "','" + total + "')";
+           
+            System.out.println(detalleQ);
 
-            System.out.println(String.valueOf(total));
-
-        }
+        }*/
 
         /*for (int i = 0; i < detalle.size(); i++) {
 
