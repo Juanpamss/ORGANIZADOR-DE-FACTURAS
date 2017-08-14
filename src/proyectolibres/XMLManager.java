@@ -258,6 +258,12 @@ public class XMLManager extends javax.swing.JFrame {
 
         jLabelprov_dir.setText("No Encontrado");
 
+        jComboBoxTipoGasto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTipoGastoActionPerformed(evt);
+            }
+        });
+
         jLabel23.setText("Tipo de gasto del proveedor:");
 
         jComboBoxTipoFactura.addActionListener(new java.awt.event.ActionListener() {
@@ -996,6 +1002,10 @@ public class XMLManager extends javax.swing.JFrame {
                    imprimirQuery();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jComboBoxTipoGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoGastoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxTipoGastoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1538,7 +1548,16 @@ public class XMLManager extends javax.swing.JFrame {
         comboBox.addItem("Educacion");
         comboBox.addItem("Alimentacion");
         comboBox.addItem("Vestimenta");
-        comboBox.addItem("Otros gastos");
+        comboBox.addItem("Otros Gastos");
+        
+         lista.clear();
+         lista.add(new TipoItem("Vivienda", 0));
+         lista.add(new TipoItem("Salud", 0));
+         lista.add(new TipoItem("Educacion", 0));
+         lista.add(new TipoItem("Alimentacion", 0));
+         lista.add(new TipoItem("Vestimenta", 0));
+         lista.add(new TipoItem("Otros Gastos", 0));
+         
 
         tablaProductos.getModel().addTableModelListener(new TableModelListener() {
 
@@ -1553,45 +1572,13 @@ public class XMLManager extends javax.swing.JFrame {
                 if (!data.equals("") && column == 2) {
 
                     if (!tipoEstado[row].equals("")) {
-                        if (tipoEstado[row].equals("Vivienda")) {
-                            restarAgregado(jLabelgasto_vivienda, txt_vivienda, row);
-                        }
-                        if (tipoEstado[row].equals("Salud")) {
-                            restarAgregado(jLabelgasto_salud, txt_salud, row);
-                        }
-                        if (tipoEstado[row].equals("Educacion")) {
-                            restarAgregado(jLabelgasto_educacion, txt_educacion, row);
-                        }
-                        if (tipoEstado[row].equals("Alimentacion")) {
-                            restarAgregado(jLabelgasto_alimentacion, txt_alimentacion, row);
-                        }
-                        if (tipoEstado[row].equals("Vestimenta")) {
-                            restarAgregado(jLabelgasto_vestimenta, txt_vestimenta, row);
-                        }
-                        if (tipoEstado[row].equals("Otros gastos")) {
-                            restarAgregado(jLabelgasto_otros, txt_otros, row);
-                        }
+                         restarTipoPersonal(lista, tipoEstado[row], row);
+                         
 
                     }
-
-                    if (data.equals("Vivienda")) {
-                        sumarAgregado(jLabelgasto_vivienda, txt_vivienda, row, "Vivienda");
-                    }
-                    if (data.equals("Salud")) {
-                        sumarAgregado(jLabelgasto_salud, txt_salud, row, "Salud");
-                    }
-                    if (data.equals("Educacion")) {
-                        sumarAgregado(jLabelgasto_educacion, txt_educacion, row, "Educacion");
-                    }
-                    if (data.equals("Alimentacion")) {
-                        sumarAgregado(jLabelgasto_alimentacion, txt_alimentacion, row, "Alimentacion");
-                    }
-                    if (data.equals("Vestimenta")) {
-                        sumarAgregado(jLabelgasto_vestimenta, txt_vestimenta, row, "Vestimenta");
-                    }
-                    if (data.equals("Otros gastos")) {
-                        sumarAgregado(jLabelgasto_otros, txt_otros, row, "Otros gastos");
-                    }
+                    
+                      sumarTipoPersonal(lista, (String) data, row);
+                     setValoresLabels(lista);
 
                 }
 
@@ -1612,6 +1599,15 @@ public class XMLManager extends javax.swing.JFrame {
         setLocationRelativeTo(getParent());
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+    
+    private void setValoresLabels(ArrayList<TipoItem> listaT){
+        this.jLabelgasto_vivienda.setText(listaT.get(0).total+"");
+        this.jLabelgasto_salud.setText(listaT.get(1).total+"");
+        this.jLabelgasto_educacion.setText(listaT.get(2).total+"");
+        this.jLabelgasto_alimentacion.setText(listaT.get(3).total+"");
+        this.jLabelgasto_vestimenta.setText(listaT.get(4).total+"");
+        this.jLabelgasto_otros.setText(listaT.get(5).total+"");
     }
 
     private void setTablaNegocio(Object[][] tipos) {
@@ -1655,11 +1651,11 @@ public class XMLManager extends javax.swing.JFrame {
                     //System.out.println("anterior"+tipoEstado[row]+"actual"+(String)data);
                     if (!tipoEstado[row].equals("")) {
 
-                        restarTipo(lista, tipoEstado[row], row);
+                        restarTipoNegocio(lista, tipoEstado[row], row);
 
                     }
 
-                    sumarTipo(lista, (String) data, row);
+                    sumarTipoNegocio(lista, (String) data, row);
 
                 }
 
@@ -1689,6 +1685,34 @@ public class XMLManager extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     // restarTipo(lista,tipoEstado[row],tablaNegocio.getValueAt(row,1));
+    
+    public void setTablaSumaPersonal(ArrayList<TipoItem> listaT){
+         BigDecimal aux, redondeado;
+         Object[][] matriz = new Object[listaT.size()][2];
+         
+          for (int i = 0; i < listaT.size(); i++) {
+
+            aux = new BigDecimal(listaT.get(i).total);
+            redondeado = aux.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+            matriz[i][0] = listaT.get(i).tipo;
+            matriz[i][1] = redondeado;
+        }  
+           String header[] = {"Categoria", "Total"};
+        tablaNegocioTotales = new JTable(matriz, header) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 2;
+            }
+
+        };
+        
+         this.jScrollNegocioTotales.setViewportView(tablaNegocioTotales);
+
+        jScrollNegocioTotales.setPreferredSize(new Dimension(350, 190));
+          
+          
+    }
 
     public void setTablaSumaNegocios(ArrayList<TipoItem> listaT) {
 
@@ -1719,8 +1743,43 @@ public class XMLManager extends javax.swing.JFrame {
         jScrollNegocioTotales.setPreferredSize(new Dimension(350, 190));
 
     }
+    
+    private void restarTipoPersonal(ArrayList<TipoItem> listaT, String tipo, int row){
+        
+        Object valor = tablaProductos.getValueAt(row, 1);
+        for (int i = 0; i < listaT.size(); i++) {
 
-    public void restarTipo(ArrayList<TipoItem> listaT, String tipo, int row) {
+            if (listaT.get(i).tipo.equals(tipo)) {
+
+                listaT.get(i).total -= (Double) valor;
+
+              
+                setTablaSumaNegocios(listaT);
+                return;
+            }
+        }
+    }
+    private void sumarTipoPersonal(ArrayList<TipoItem> listaT, String tipo, int row){
+        Object valor = tablaProductos.getValueAt(row, 1);
+        for (int i = 0; i < listaT.size(); i++) {
+
+            if (listaT.get(i).tipo.equals(tipo)) {
+
+                listaT.get(i).total += (Double) valor;
+
+                setTablaSumaNegocios(listaT);
+                this.tipoEstado[row] = tipo;
+                return;
+            }
+        }
+
+        listaT.add(new TipoItem(tipo, (Double) valor));
+        this.tipoEstado[row] = tipo;
+        setTablaSumaNegocios(listaT);
+    }
+    
+
+    public void restarTipoNegocio(ArrayList<TipoItem> listaT, String tipo, int row) {
 
         Object valor = tablaNegocio.getValueAt(row, 1);
         for (int i = 0; i < listaT.size(); i++) {
@@ -1740,7 +1799,7 @@ public class XMLManager extends javax.swing.JFrame {
 
     }
 
-    public void sumarTipo(ArrayList<TipoItem> listaT, String tipo, int row) {
+    public void sumarTipoNegocio(ArrayList<TipoItem> listaT, String tipo, int row) {
 
         Object valor = tablaNegocio.getValueAt(row, 1);
         for (int i = 0; i < listaT.size(); i++) {
@@ -1981,9 +2040,11 @@ public class XMLManager extends javax.swing.JFrame {
 
                 } else {
 
-                    jPanel8.setVisible(true);
-                    jPanel6.setVisible(false);
+                    jPanel8.setVisible(false);
+                    jPanel6.setVisible(true);
                     setTablaDesgloce(datos.getDatosProductos());
+                    //tablaProductos.setVisible(true);
+                    //tablaNegocio.setVisible(false);
                     tablaProductos.setVisible(true);
                     tablaNegocio.setVisible(false);
 
