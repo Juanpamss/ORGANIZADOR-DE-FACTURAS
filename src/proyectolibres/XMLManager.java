@@ -28,6 +28,7 @@ import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -221,6 +222,7 @@ public class XMLManager extends javax.swing.JFrame {
         jLabelfac_fecha = new javax.swing.JLabel();
         jButtonCancelarCarga = new javax.swing.JButton();
         jButtonGuardarDatosFactura = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuSeleccionarFactura = new javax.swing.JMenuItem();
@@ -749,6 +751,13 @@ public class XMLManager extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -762,6 +771,8 @@ public class XMLManager extends javax.swing.JFrame {
                 .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84)
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -772,7 +783,8 @@ public class XMLManager extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -990,6 +1002,11 @@ public class XMLManager extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxTipoGastoActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        imprimirQuery();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1026,6 +1043,7 @@ public class XMLManager extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCancelarCarga;
     private javax.swing.JButton jButtonGuardarDatosFactura;
     private javax.swing.JComboBox<String> jComboBoxTipoFactura;
@@ -1386,11 +1404,28 @@ public class XMLManager extends javax.swing.JFrame {
 
     public void imprimirQuery() {
 
-        ArrayList<String> anios = new ConexionBDD.Conexion().consultarFacturas2();
+        List<String[]> anios = new ConexionBDD.Conexion().consultarFacturas2();
 
-        String test = (String) anios.get(0) + (String) anios.get(1);
+        String salida = "";
+        
+        ArrayList<String> datos = new ArrayList<>();
+        
+        
+        for (int i = 0; i < anios.size(); i++) {
 
-        System.out.println(test);
+            String[] aux = anios.get(i);
+
+            salida = aux[0] + "    Cod. Fact   " + aux[1];
+            
+            datos.add(aux[1]);
+
+        }
+        
+        for(String c : datos){
+        
+        System.out.println(c);
+        
+        }
 
         /*ArrayList<String> detalle = new ArrayList<>();
 

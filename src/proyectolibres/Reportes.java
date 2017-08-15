@@ -30,6 +30,7 @@ public class Reportes extends javax.swing.JFrame {
 
     String[] temaReporte;
     String[] reporteCabezera;
+    ArrayList<String> codigoFactura;
     Object[][] reporteMatriz;
     static Connection con;
     JTable reporteProveedor;
@@ -46,6 +47,9 @@ public class Reportes extends javax.swing.JFrame {
         initComponents();
         temaReporte = new String[4];
         temaReporte[3] = "khe";
+        codigoFactura = new ArrayList<>();
+        jButtonExportarFactura.setVisible(false);
+        jButton4.setVisible(false);
 
         jLabel22.setVisible(false);
         jScrollPaneGastoNegocio.setVisible(false);
@@ -537,7 +541,7 @@ public class Reportes extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel22.setText("REPORTE");
 
-        jButton4.setText("Exportar");
+        jButton4.setText("Exportar Reporte");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -549,32 +553,30 @@ public class Reportes extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel21)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addContainerGap())
+                .addGap(26, 26, 26)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton4)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel21)
+                        .addComponent(jLabel22)
+                        .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(21, 21, 21)
                 .addComponent(jLabel21)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addComponent(jButton4)
-                .addContainerGap())
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gastos de Negocio", jPanel4);
@@ -623,12 +625,9 @@ public class Reportes extends javax.swing.JFrame {
                     .addComponent(jLabel17)
                     .addComponent(jLabel18)
                     .addComponent(jLabel19)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButtonExportarFactura)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPaneTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16)
-                            .addComponent(jLabel20)))
+                    .addComponent(jScrollPaneTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel20)
                     .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPaneCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)
                         .addComponent(jScrollPaneTotalesGastos, javax.swing.GroupLayout.Alignment.LEADING)
@@ -637,9 +636,11 @@ public class Reportes extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addGap(62, 62, 62)
-                        .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(jButtonConsultarFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jButtonConsultarFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(jButtonExportarFactura)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -649,7 +650,8 @@ public class Reportes extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonConsultarFacturas))
+                    .addComponent(jButtonConsultarFacturas)
+                    .addComponent(jButtonExportarFactura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -670,9 +672,7 @@ public class Reportes extends javax.swing.JFrame {
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonExportarFactura)
-                .addGap(125, 125, 125))
+                .addGap(168, 168, 168))
         );
 
         jTabbedPane1.addTab("Facturas", jPanel6);
@@ -766,7 +766,7 @@ public class Reportes extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonConsultarFacturasActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       this.exportarGastosNegocio();
+        this.exportarGastosNegocio();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -991,13 +991,31 @@ public class Reportes extends javax.swing.JFrame {
 
     private void setComboFacturas() {
         //Aquiva la consulta de los anios en la base 
-        ArrayList<String> anios = new ConexionBDD.Conexion().consultarFacturas();
-        
+        List<String[]> anios = new ConexionBDD.Conexion().consultarFacturas2();
+
         this.jComboBoxFacturas.removeAllItems();
 
-        for (String prov : anios) {
-            this.jComboBoxFacturas.addItem(prov);
+        for (int i = 0; i < anios.size(); i++) {
+
+            String[] aux = anios.get(i);
+
+            String salida = aux[0] + "    Cod. Fact   " + aux[1];
+
+            this.jComboBoxFacturas.addItem(salida);
+
+            codigoFactura.add(aux[1]);
+
         }
+        
+        for (String c : codigoFactura) {
+
+                System.out.println(c);
+
+            }
+
+        /*for (String[] prov : anios) {
+            this.jComboBoxFacturas.addItem(prov);
+        }*/
         this.jComboBoxFacturas.setSelectedIndex(0);
     }
 
@@ -1074,16 +1092,16 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPane2.setViewportView(reporteTipoGasto);
         reporteTipoGasto.setDefaultEditor(Object.class, null);
 
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-            ((DefaultTableCellRenderer) reporteTipoGasto.getTableHeader().getDefaultRenderer())
-                    .setHorizontalAlignment(JLabel.CENTER);
+        ((DefaultTableCellRenderer) reporteTipoGasto.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
 
-            reporteTipoGasto.getColumnModel().getColumn(0).setMinWidth(383);
-            reporteTipoGasto.getColumnModel().getColumn(0).setMaxWidth(383);
-            reporteTipoGasto.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-            
+        reporteTipoGasto.getColumnModel().getColumn(0).setMinWidth(383);
+        reporteTipoGasto.getColumnModel().getColumn(0).setMaxWidth(383);
+        reporteTipoGasto.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+
         try {
             conn.cerrarConeccion();
         } catch (SQLException ex) {
@@ -1272,7 +1290,7 @@ public class Reportes extends javax.swing.JFrame {
     }
 
     private void setPanelReporteNegocios() {
-        
+
         this.datosExportar = new ArrayList<>();
         this.datosExportar.clear();
 
@@ -1296,11 +1314,13 @@ public class Reportes extends javax.swing.JFrame {
 
                 jLabel22.setVisible(false);
                 jScrollPaneGastoNegocio.setVisible(false);
+                jButton4.setVisible(false);
 
             } else {
 
                 jScrollPaneGastoNegocio.setVisible(true);
                 jLabel22.setVisible(true);
+                jButton4.setVisible(true);
 
                 String header[] = {
                     "Nombre Producto",
@@ -1309,16 +1329,14 @@ public class Reportes extends javax.swing.JFrame {
                     "Valor Total"};
 
                 Object[][] matriz = datos(datos);
-                String [] datosHead= {"Anio","Cliente","Tipo Gasto"};
-                String [][] datosCliente={{year,cliente,tipoGasto}};
-                this.datosExportar.add(new SeccionReporte("Datos",datosHead,datosCliente));
+                String[] datosHead = {"Anio", "Cliente", "Tipo Gasto"};
+                String[][] datosCliente = {{year, cliente, tipoGasto}};
+                this.datosExportar.add(new SeccionReporte("Datos", datosHead, datosCliente));
                 this.datosExportar.add(new SeccionReporte("Resultados", header, matriz));
-                
+
                 this.reporteMatriz = matriz;
                 this.reporteCabezera = header;
                 String anio = year;
-                
-                
 
                 temaReporte[0] = "cliente";
                 temaReporte[1] = cliente;
@@ -1366,8 +1384,23 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPaneProveedor.setVisible(false);
         jLabel17.setVisible(false);
 
-        String factura = (String) this.jComboBoxFacturas.getSelectedItem();
+        String factura = codigoFactura.get(this.jComboBoxFacturas.getSelectedIndex());
+                
+        System.out.println(factura);
 
+        /*String delims = "[ ]";
+        
+        String valores = "";
+        
+        String[] tokens = factura.split(delims);
+            
+            for(int i=0; i<tokens.length;i++){
+            
+                valores += tokens[2];
+                
+                System.out.println(valores);
+            
+            }*/
         datos = conn.consultarInfoProveedor(factura);
 
         if (datos.isEmpty()) {
@@ -1434,7 +1467,7 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPaneCliente.setVisible(false);
         jLabel16.setVisible(false);
 
-        String factura = (String) this.jComboBoxFacturas.getSelectedItem();
+        String factura = codigoFactura.get(this.jComboBoxFacturas.getSelectedIndex());
 
         datos = conn.consultarInfoCliente(factura);
 
@@ -1492,7 +1525,7 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPaneDetalleProductos.setVisible(false);
         jLabel18.setVisible(false);
 
-        String factura = (String) this.jComboBoxFacturas.getSelectedItem();
+        String factura = codigoFactura.get(this.jComboBoxFacturas.getSelectedIndex());
 
         datos = conn.consultarDetalleProductos(factura);
 
@@ -1554,7 +1587,7 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPaneTotales.setVisible(false);
         jLabel20.setVisible(false);
 
-        String factura = (String) this.jComboBoxFacturas.getSelectedItem();
+        String factura = codigoFactura.get(this.jComboBoxFacturas.getSelectedIndex());
 
         datos = conn.consultarTotalesFactura(factura);
 
@@ -1564,6 +1597,7 @@ public class Reportes extends javax.swing.JFrame {
 
             jScrollPaneTotales.setVisible(false);
             jLabel20.setVisible(false);
+            jButtonExportarFactura.setVisible(false);
 
         } else {
 
@@ -1599,6 +1633,8 @@ public class Reportes extends javax.swing.JFrame {
             reporteDetalleProductosFact.getColumnModel().getColumn(2).setMinWidth(320);
             reporteDetalleProductosFact.getColumnModel().getColumn(2).setMaxWidth(320);
             reporteDetalleProductosFact.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+            
+            jButtonExportarFactura.setVisible(true);
 
         }
 
@@ -1617,7 +1653,7 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPaneTotalesGastos.setVisible(false);
         jLabel19.setVisible(false);
 
-        String factura = (String) this.jComboBoxFacturas.getSelectedItem();
+        String factura = codigoFactura.get(this.jComboBoxFacturas.getSelectedIndex());
 
         datos = conn.consultarValoresTotalesEspecificos(factura);
 
@@ -1749,9 +1785,9 @@ public class Reportes extends javax.swing.JFrame {
         new ExportaReportes().generarReporteFactura(path, this.datosExportar);
         JOptionPane.showMessageDialog(null, "Se han generado los reportes en :\n" + path);
     }
-    
-    public void exportarGastosNegocio(){
-         JOptionPane.showMessageDialog(null, "Selecciona la ubicacion donde deseas guardar los Reportes");
+
+    public void exportarGastosNegocio() {
+        JOptionPane.showMessageDialog(null, "Selecciona la ubicacion donde deseas guardar los Reportes");
         String path = "";
         JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

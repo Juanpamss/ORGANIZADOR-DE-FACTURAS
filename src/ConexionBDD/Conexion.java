@@ -263,9 +263,9 @@ public class Conexion {
 
     }
     
-    public ArrayList<String> consultarFacturas2() {
+    public List<String[]> consultarFacturas2() {
 
-        String query = "SELECT proveedor.nombre, id_factura from factura, proveedor where ruc = factura.id_proveedor group by proveedor.nombre";
+        String query = "SELECT proveedor.nombre, id_factura from factura, proveedor where ruc = factura.id_proveedor";
 
         ArrayList resultado = new ArrayList<String>();
         try {
