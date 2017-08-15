@@ -112,6 +112,7 @@ public class Reportes extends javax.swing.JFrame {
         jScrollPaneGastoNegocio = new javax.swing.JScrollPane();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jComboBoxFacturas = new javax.swing.JComboBox<>();
@@ -536,6 +537,13 @@ public class Reportes extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel22.setText("REPORTE");
 
+        jButton4.setText("Exportar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -547,7 +555,11 @@ public class Reportes extends javax.swing.JFrame {
                     .addComponent(jLabel21)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -560,7 +572,9 @@ public class Reportes extends javax.swing.JFrame {
                 .addComponent(jLabel22)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Gastos de Negocio", jPanel4);
@@ -751,6 +765,10 @@ public class Reportes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButtonConsultarFacturasActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       this.exportarGastosNegocio();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -792,6 +810,7 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonConsultar;
     private javax.swing.JButton jButtonConsultarFacturas;
     private javax.swing.JButton jButtonExportarFactura;
@@ -1253,6 +1272,9 @@ public class Reportes extends javax.swing.JFrame {
     }
 
     private void setPanelReporteNegocios() {
+        
+        this.datosExportar = new ArrayList<>();
+        this.datosExportar.clear();
 
         List<String[]> datos;
         conn = new Conexion();
@@ -1287,9 +1309,16 @@ public class Reportes extends javax.swing.JFrame {
                     "Valor Total"};
 
                 Object[][] matriz = datos(datos);
+                String [] datosHead= {"Year","Cliente","Tipo Gasto"};
+                String [][] datosCliente={{year,cliente,tipoGasto}};
+                this.datosExportar.add(new SeccionReporte("Datos",datosHead,datosCliente));
+                this.datosExportar.add(new SeccionReporte("Resultados", header, matriz));
+                
                 this.reporteMatriz = matriz;
                 this.reporteCabezera = header;
                 String anio = year;
+                
+                
 
                 temaReporte[0] = "cliente";
                 temaReporte[1] = cliente;
@@ -1718,6 +1747,32 @@ public class Reportes extends javax.swing.JFrame {
             return;
         }
         new ExportaReportes().generarReporteFactura(path, this.datosExportar);
+        JOptionPane.showMessageDialog(null, "Se han generado los reportes en :\n" + path);
+    }
+    
+    public void exportarGastosNegocio(){
+         JOptionPane.showMessageDialog(null, "Selecciona la ubicacion donde deseas guardar los Reportes");
+        String path = "";
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        int returnVal = fc.showOpenDialog(Reportes.this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            try {
+                //This is where a real application would open the file.
+
+                path = file.getCanonicalPath() + "/";
+                System.out.println(path);
+
+            } catch (IOException ex) {
+                Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se seleccionó ningún directorio.", "Cancelando", 3);
+            return;
+        }
+        new ExportaReportes().generarReporteGastos(path, this.datosExportar);
         JOptionPane.showMessageDialog(null, "Se han generado los reportes en :\n" + path);
     }
 
