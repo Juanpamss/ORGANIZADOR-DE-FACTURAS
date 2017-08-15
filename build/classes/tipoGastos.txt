@@ -7,11 +7,10 @@ Viáticos
 Capacitación
 Suministros de oficina
 Herramientas de trabajo
-Prueba
 Alimentacion
 Educacion
 Vivienda
 Salud
 Vestimenta
-Otros gastos
+Otros Gastos
 Agregar Gasto de Negocio

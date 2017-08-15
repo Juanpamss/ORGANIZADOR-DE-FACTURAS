@@ -189,7 +189,7 @@ public class ListaGastos extends javax.swing.JFrame {
                 lista.removeElementAt(i);
             }
 
-            if (lista.getElementAt(i).equals("Otros gastos")) {
+            if (lista.getElementAt(i).equals("Otros Gastos")) {
 
                 lista.removeElementAt(i);
             }
@@ -206,7 +206,7 @@ public class ListaGastos extends javax.swing.JFrame {
         lista.add(lista.size(), "Vivienda");
         lista.add(lista.size(), "Salud");
         lista.add(lista.size(), "Vestimenta");
-        lista.add(lista.size(), "Otros gastos");
+        lista.add(lista.size(), "Otros Gastos");
         lista.add(lista.size(), "Agregar Gasto de Negocio");
 
         try {

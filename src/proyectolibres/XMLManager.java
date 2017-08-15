@@ -1584,27 +1584,27 @@ public class XMLManager extends javax.swing.JFrame {
 
     private void setValoresLabels(ArrayList<TipoItem> listaT) {
 
-        BigDecimal auxViv, auxSad, auxEdu, auxAli, auxVest, auxOtro, redondeadoViv,redondeadoSad,redondeadoEdu,redondeadoAli,redondeadoVest,redondeadoOtro;
-
-        auxViv = new BigDecimal(listaT.get(0).total);
-        redondeadoViv = auxViv.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        
-        auxSad = new BigDecimal(listaT.get(1).total);
-        redondeadoSad = auxSad.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        
-        auxEdu = new BigDecimal(listaT.get(2).total);
-        redondeadoEdu = auxEdu.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        
-        auxAli = new BigDecimal(listaT.get(3).total);
-        redondeadoAli = auxAli.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        
-        auxVest = new BigDecimal(listaT.get(4).total);
-        redondeadoVest = auxVest.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        
-        auxOtro = new BigDecimal(listaT.get(5).total);
-        redondeadoOtro = auxOtro.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-
         if (jComboBoxTipoFactura.getSelectedItem().equals("Personal")) {
+
+            BigDecimal auxViv, auxSad, auxEdu, auxAli, auxVest, auxOtro, redondeadoViv, redondeadoSad, redondeadoEdu, redondeadoAli, redondeadoVest, redondeadoOtro;
+
+            auxViv = new BigDecimal(listaT.get(0).total);
+            redondeadoViv = auxViv.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+            auxSad = new BigDecimal(listaT.get(1).total);
+            redondeadoSad = auxSad.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+            auxEdu = new BigDecimal(listaT.get(2).total);
+            redondeadoEdu = auxEdu.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+            auxAli = new BigDecimal(listaT.get(3).total);
+            redondeadoAli = auxAli.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+            auxVest = new BigDecimal(listaT.get(4).total);
+            redondeadoVest = auxVest.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+            auxOtro = new BigDecimal(listaT.get(5).total);
+            redondeadoOtro = auxOtro.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 
             this.jLabelgasto_vivienda.setText(redondeadoViv + "");
             this.jLabelgasto_salud.setText(redondeadoSad + "");
@@ -1946,7 +1946,7 @@ public class XMLManager extends javax.swing.JFrame {
         tipoGastos.add("Educacion");
         tipoGastos.add("Alimentacion");
         tipoGastos.add("Vestimenta");
-        tipoGastos.add("Otros gastos");
+        tipoGastos.add("Otros Gastos");
         jComboBoxTipoGasto.removeAllItems();
         for (String tipo : tipoGastos) {
             jComboBoxTipoGasto.addItem(tipo);
