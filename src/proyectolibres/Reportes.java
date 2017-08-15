@@ -1309,7 +1309,7 @@ public class Reportes extends javax.swing.JFrame {
                     "Valor Total"};
 
                 Object[][] matriz = datos(datos);
-                String [] datosHead= {"Year","Cliente","Tipo Gasto"};
+                String [] datosHead= {"Anio","Cliente","Tipo Gasto"};
                 String [][] datosCliente={{year,cliente,tipoGasto}};
                 this.datosExportar.add(new SeccionReporte("Datos",datosHead,datosCliente));
                 this.datosExportar.add(new SeccionReporte("Resultados", header, matriz));

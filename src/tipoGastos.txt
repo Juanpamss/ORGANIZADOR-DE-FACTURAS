@@ -7,6 +7,7 @@ Viáticos
 Capacitación
 Suministros de oficina
 Herramientas de trabajo
+Prueba
 Alimentacion
 Educacion
 Vivienda
