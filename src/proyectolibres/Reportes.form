@@ -720,7 +720,12 @@
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                           <Component id="jScrollPaneGastoNegocio" alignment="0" min="-2" pref="904" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -735,7 +740,9 @@
                       <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPaneGastoNegocio" min="-2" pref="274" max="-2" attributes="0"/>
-                      <EmptySpace pref="204" max="32767" attributes="0"/>
+                      <EmptySpace pref="144" max="32767" attributes="0"/>
+                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -907,6 +914,14 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="REPORTE"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton4">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Exportar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

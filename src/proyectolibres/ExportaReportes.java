@@ -21,6 +21,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +29,12 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -137,22 +144,22 @@ public class ExportaReportes {
     }
     
     void generarReporteFacturaExcel(String path, ArrayList<SeccionReporte> datosExportar){
-       String salida="\tReporte por de factura\n";
+      /* String salida="\tReporte por de factura\n";
        
      
        salida+="\n\n";
   
        
-        /*for (int i = 0; i < header.length; i++) {
-            salida+="\t"+header[i];
-        }
-        salida+="\n";
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[0].length; j++) {
-                salida+="\t"+matriz[i][j];
-            }
-            salida+="\n";
-        }*/
+//        for (int i = 0; i < header.length; i++) {
+//            salida+="\t"+header[i];
+//        }
+//        salida+="\n";
+//        for (int i = 0; i < matriz.length; i++) {
+//            for (int j = 0; j < matriz[0].length; j++) {
+//                salida+="\t"+matriz[i][j];
+//            }
+//            salida+="\n";
+//        }
         
         for(SeccionReporte sr:datosExportar){
             salida+="\t"+sr.tema;
@@ -182,9 +189,73 @@ public class ExportaReportes {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
         } 
-       
+       */
+   
+        String arch=path+"Reporte"+"Excel.xls";
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet();
+        XSSFCellStyle style = workbook.createCellStyle();
+        style.setBorderTop(BorderStyle.MEDIUM);
+        style.setBorderBottom(BorderStyle.MEDIUM);
+        style.setBorderLeft(BorderStyle.MEDIUM);
+        style.setBorderRight(BorderStyle.MEDIUM);
+        
+        int rowNum = 0;
+        
+        Row rowtitulo = sheet.createRow(rowNum++);
+        Cell celltitulo = rowtitulo.createCell(1);
+        celltitulo.setCellValue("Reporte de Factura");
+        
+        
+        for (SeccionReporte sr : datosExportar){
+            rowNum+=3;
+            Row row = sheet.createRow(rowNum++);
+            Cell cell = row.createCell(0);
+            String temaGrupo=sr.tema.replaceAll("\n", "");
+            cell.setCellValue(temaGrupo);
+            System.out.println(temaGrupo);
+            cell.setCellStyle(style);
+            int colNum=0;
+            row = sheet.createRow(rowNum++);
+            for(String cabezera:sr.cabezera){                
+                 cell = row.createCell(colNum++);
+                 cell.setCellValue(cabezera);
+                 cell.setCellStyle(style);
+            }
+            
+            
+            for(int i=0;i<sr.datos.length;i++){
+                colNum=0;
+                row=sheet.createRow(rowNum++);
+                for (int j = 0; j < sr.datos[0].length; j++) {
+                    cell = row.createCell(colNum++);
+                    cell.setCellValue(sr.datos[i][j]+"");
+                    cell.setCellStyle(style);
+                }
+            }
+            
+            
+        }
+        for (int i = 0; i < 10; i++) {
+            sheet.autoSizeColumn(i, true);
+            sheet.setColumnWidth(i, sheet.getColumnWidth(i) + 600);
+        }
+        
+            FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(arch);
+              workbook.write(outputStream);
+            workbook.close();
+        
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
         
     }
+    
     void generarReporteFacturaPDF(String path, ArrayList<SeccionReporte> datosExportar){
           try {
             System.out.println("hola 1"+path+"\t"+Arrays.toString(datosExportar.toArray()));
@@ -192,6 +263,106 @@ public class ExportaReportes {
             Document doc = new Document(PageSize.A4.rotate());
            String encabezado="";
            encabezado+="Reporte de Factura\n\n";
+           System.out.println("Hola x2");
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+            
+            doc.add(new Paragraph(encabezado));
+           
+            for(SeccionReporte sr : datosExportar){
+                doc.add(new Paragraph(sr.tema+"\n"));
+               
+                doc.add(tablaDesglocePDF(sr.cabezera, sr.datos));
+                 doc.add(new Paragraph("\n\n"));
+            }
+                     
+            doc.close();
+            
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DocumentException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    void generarReporteGastos(String path, ArrayList<SeccionReporte> datosExportar) {
+        this.generarReporteGastosPDF(path,datosExportar);
+      this.generarReporteGastosExcel(path,datosExportar);
+    }
+
+    private void generarReporteGastosExcel(String path, ArrayList<SeccionReporte> datosExportar) {
+         String arch=path+"Reporte"+"Gastos.xls";
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet();
+        XSSFCellStyle style = workbook.createCellStyle();
+        style.setBorderTop(BorderStyle.MEDIUM);
+        style.setBorderBottom(BorderStyle.MEDIUM);
+        style.setBorderLeft(BorderStyle.MEDIUM);
+        style.setBorderRight(BorderStyle.MEDIUM);
+        
+        int rowNum = 0;
+        
+        Row rowtitulo = sheet.createRow(rowNum++);
+        Cell celltitulo = rowtitulo.createCell(1);
+        celltitulo.setCellValue("Reporte de Gastos");
+        
+        
+        for (SeccionReporte sr : datosExportar){
+            rowNum+=3;
+            Row row = sheet.createRow(rowNum++);
+            Cell cell = row.createCell(0);
+            String temaGrupo=sr.tema.replaceAll("\n", "");
+            cell.setCellValue(temaGrupo);
+            System.out.println(temaGrupo);
+            cell.setCellStyle(style);
+            int colNum=0;
+            row = sheet.createRow(rowNum++);
+            for(String cabezera:sr.cabezera){                
+                 cell = row.createCell(colNum++);
+                 cell.setCellValue(cabezera);
+                 cell.setCellStyle(style);
+            }
+            
+            
+            for(int i=0;i<sr.datos.length;i++){
+                colNum=0;
+                row=sheet.createRow(rowNum++);
+                for (int j = 0; j < sr.datos[0].length; j++) {
+                    cell = row.createCell(colNum++);
+                    cell.setCellValue(sr.datos[i][j]+"");
+                    cell.setCellStyle(style);
+                }
+            }
+            
+            
+        }
+        for (int i = 0; i < 10; i++) {
+            sheet.autoSizeColumn(i, true);
+            sheet.setColumnWidth(i, sheet.getColumnWidth(i) + 600);
+        }
+        
+            FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(arch);
+              workbook.write(outputStream);
+            workbook.close();
+        
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+        
+    }
+
+    private void generarReporteGastosPDF(String path, ArrayList<SeccionReporte> datosExportar) {
+          try {
+          
+            FileOutputStream archivo = new FileOutputStream(path+"Reporte de Gastos"+".pdf");
+            Document doc = new Document(PageSize.A4.rotate());
+           String encabezado="";
+           encabezado+="Reporte de Gastos\n\n";
            System.out.println("Hola x2");
             PdfWriter.getInstance(doc, archivo);
             doc.open();
