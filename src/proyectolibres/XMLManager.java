@@ -221,7 +221,6 @@ public class XMLManager extends javax.swing.JFrame {
         jLabelfac_fecha = new javax.swing.JLabel();
         jButtonCancelarCarga = new javax.swing.JButton();
         jButtonGuardarDatosFactura = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuSeleccionarFactura = new javax.swing.JMenuItem();
@@ -750,13 +749,6 @@ public class XMLManager extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -770,9 +762,7 @@ public class XMLManager extends javax.swing.JFrame {
                 .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(97, 97, 97))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -782,8 +772,7 @@ public class XMLManager extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -997,11 +986,6 @@ public class XMLManager extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_alimentacionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                   // TODO add your handling code here:
-                   imprimirQuery();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jComboBoxTipoGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoGastoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxTipoGastoActionPerformed
@@ -1042,7 +1026,6 @@ public class XMLManager extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCancelarCarga;
     private javax.swing.JButton jButtonGuardarDatosFactura;
     private javax.swing.JComboBox<String> jComboBoxTipoFactura;
@@ -1402,11 +1385,11 @@ public class XMLManager extends javax.swing.JFrame {
     }
 
     public void imprimirQuery() {
-        
+
         ArrayList<String> anios = new ConexionBDD.Conexion().consultarFacturas2();
-        
-        String test = (String) anios.get(0) + (String) anios.get(1);        
-        
+
+        String test = (String) anios.get(0) + (String) anios.get(1);
+
         System.out.println(test);
 
         /*ArrayList<String> detalle = new ArrayList<>();
@@ -1447,7 +1430,7 @@ public class XMLManager extends javax.swing.JFrame {
 
         }*/
 
-        /*for (int i = 0; i < detalle.size(); i++) {
+ /*for (int i = 0; i < detalle.size(); i++) {
 
             if (detalle.get(i).equals(detalle.get(i + 1))) {
 
@@ -1549,15 +1532,14 @@ public class XMLManager extends javax.swing.JFrame {
         comboBox.addItem("Alimentacion");
         comboBox.addItem("Vestimenta");
         comboBox.addItem("Otros Gastos");
-        
-         lista.clear();
-         lista.add(new TipoItem("Vivienda", 0));
-         lista.add(new TipoItem("Salud", 0));
-         lista.add(new TipoItem("Educacion", 0));
-         lista.add(new TipoItem("Alimentacion", 0));
-         lista.add(new TipoItem("Vestimenta", 0));
-         lista.add(new TipoItem("Otros Gastos", 0));
-         
+
+        lista.clear();
+        lista.add(new TipoItem("Vivienda", 0));
+        lista.add(new TipoItem("Salud", 0));
+        lista.add(new TipoItem("Educacion", 0));
+        lista.add(new TipoItem("Alimentacion", 0));
+        lista.add(new TipoItem("Vestimenta", 0));
+        lista.add(new TipoItem("Otros Gastos", 0));
 
         tablaProductos.getModel().addTableModelListener(new TableModelListener() {
 
@@ -1572,13 +1554,12 @@ public class XMLManager extends javax.swing.JFrame {
                 if (!data.equals("") && column == 2) {
 
                     if (!tipoEstado[row].equals("")) {
-                         restarTipoPersonal(lista, tipoEstado[row], row);
-                         
+                        restarTipoPersonal(lista, tipoEstado[row], row);
 
                     }
-                    
-                      sumarTipoPersonal(lista, (String) data, row);
-                     setValoresLabels(lista);
+
+                    sumarTipoPersonal(lista, (String) data, row);
+                    setValoresLabels(lista);
 
                 }
 
@@ -1600,14 +1581,40 @@ public class XMLManager extends javax.swing.JFrame {
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-    
-    private void setValoresLabels(ArrayList<TipoItem> listaT){
-        this.jLabelgasto_vivienda.setText(listaT.get(0).total+"");
-        this.jLabelgasto_salud.setText(listaT.get(1).total+"");
-        this.jLabelgasto_educacion.setText(listaT.get(2).total+"");
-        this.jLabelgasto_alimentacion.setText(listaT.get(3).total+"");
-        this.jLabelgasto_vestimenta.setText(listaT.get(4).total+"");
-        this.jLabelgasto_otros.setText(listaT.get(5).total+"");
+
+    private void setValoresLabels(ArrayList<TipoItem> listaT) {
+
+        BigDecimal auxViv, auxSad, auxEdu, auxAli, auxVest, auxOtro, redondeadoViv,redondeadoSad,redondeadoEdu,redondeadoAli,redondeadoVest,redondeadoOtro;
+
+        auxViv = new BigDecimal(listaT.get(0).total);
+        redondeadoViv = auxViv.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+        
+        auxSad = new BigDecimal(listaT.get(1).total);
+        redondeadoSad = auxSad.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+        
+        auxEdu = new BigDecimal(listaT.get(2).total);
+        redondeadoEdu = auxEdu.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+        
+        auxAli = new BigDecimal(listaT.get(3).total);
+        redondeadoAli = auxAli.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+        
+        auxVest = new BigDecimal(listaT.get(4).total);
+        redondeadoVest = auxVest.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+        
+        auxOtro = new BigDecimal(listaT.get(5).total);
+        redondeadoOtro = auxOtro.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
+        if (jComboBoxTipoFactura.getSelectedItem().equals("Personal")) {
+
+            this.jLabelgasto_vivienda.setText(redondeadoViv + "");
+            this.jLabelgasto_salud.setText(redondeadoSad + "");
+            this.jLabelgasto_educacion.setText(redondeadoEdu + "");
+            this.jLabelgasto_alimentacion.setText(redondeadoAli + "");
+            this.jLabelgasto_vestimenta.setText(redondeadoVest + "");
+            this.jLabelgasto_otros.setText(redondeadoOtro + "");
+
+        }
+
     }
 
     private void setTablaNegocio(Object[][] tipos) {
@@ -1685,20 +1692,20 @@ public class XMLManager extends javax.swing.JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     // restarTipo(lista,tipoEstado[row],tablaNegocio.getValueAt(row,1));
-    
-    public void setTablaSumaPersonal(ArrayList<TipoItem> listaT){
-         BigDecimal aux, redondeado;
-         Object[][] matriz = new Object[listaT.size()][2];
-         
-          for (int i = 0; i < listaT.size(); i++) {
+
+    public void setTablaSumaPersonal(ArrayList<TipoItem> listaT) {
+        BigDecimal aux, redondeado;
+        Object[][] matriz = new Object[listaT.size()][2];
+
+        for (int i = 0; i < listaT.size(); i++) {
 
             aux = new BigDecimal(listaT.get(i).total);
             redondeado = aux.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 
             matriz[i][0] = listaT.get(i).tipo;
             matriz[i][1] = redondeado;
-        }  
-           String header[] = {"Categoria", "Total"};
+        }
+        String header[] = {"Categoria", "Total"};
         tablaNegocioTotales = new JTable(matriz, header) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -1706,12 +1713,11 @@ public class XMLManager extends javax.swing.JFrame {
             }
 
         };
-        
-         this.jScrollNegocioTotales.setViewportView(tablaNegocioTotales);
+
+        this.jScrollNegocioTotales.setViewportView(tablaNegocioTotales);
 
         jScrollNegocioTotales.setPreferredSize(new Dimension(350, 190));
-          
-          
+
     }
 
     public void setTablaSumaNegocios(ArrayList<TipoItem> listaT) {
@@ -1743,9 +1749,9 @@ public class XMLManager extends javax.swing.JFrame {
         jScrollNegocioTotales.setPreferredSize(new Dimension(350, 190));
 
     }
-    
-    private void restarTipoPersonal(ArrayList<TipoItem> listaT, String tipo, int row){
-        
+
+    private void restarTipoPersonal(ArrayList<TipoItem> listaT, String tipo, int row) {
+
         Object valor = tablaProductos.getValueAt(row, 1);
         for (int i = 0; i < listaT.size(); i++) {
 
@@ -1753,13 +1759,13 @@ public class XMLManager extends javax.swing.JFrame {
 
                 listaT.get(i).total -= (Double) valor;
 
-              
                 setTablaSumaNegocios(listaT);
                 return;
             }
         }
     }
-    private void sumarTipoPersonal(ArrayList<TipoItem> listaT, String tipo, int row){
+
+    private void sumarTipoPersonal(ArrayList<TipoItem> listaT, String tipo, int row) {
         Object valor = tablaProductos.getValueAt(row, 1);
         for (int i = 0; i < listaT.size(); i++) {
 
@@ -1777,7 +1783,6 @@ public class XMLManager extends javax.swing.JFrame {
         this.tipoEstado[row] = tipo;
         setTablaSumaNegocios(listaT);
     }
-    
 
     public void restarTipoNegocio(ArrayList<TipoItem> listaT, String tipo, int row) {
 
@@ -1974,14 +1979,20 @@ public class XMLManager extends javax.swing.JFrame {
 
         String query2 = "SELECT TipoGasto FROM 'main'.'proveedor' WHERE nombre= '" + datos.getProveedor_nombre() + "'";
         String resultado2 = cp.consultarProveedor(query2);
-        System.out.println("El resultado2 es " + resultado2);
+
         if (resultado2 == null || resultado2.equals(" ") || resultado2.equals("null")) {
+
             jComboBoxTipoGasto.setSelectedIndex(-1);
             JOptionPane.showMessageDialog(null, "Escoja el tipo de gasto del proveedor");
+
         } else {
+
+            jLabel24.setVisible(true);
+            jComboBoxTipoFactura.setVisible(true);
+
             EscogerTipoGasto();
             jComboBoxTipoGasto.setSelectedItem(resultado2);
-            //JOptionPane.showMessageDialog(null, "Escoja el tipo de gasto del proveedor");
+
         }
 
         //gastosAutomáticos();
@@ -2003,13 +2014,14 @@ public class XMLManager extends javax.swing.JFrame {
 
         EscogerTipoFactura();
 
+        actualizarGastos();
+
     }
 
     public void agregarGastoNegocio(int posicion, Object gastoAnterior) {
 
-        //JOptionPane.showMessageDialog(rootPane, "Prueba" + posicion);
         ListaGastos listaGastos = new ListaGastos(this, posicion, gastoAnterior, datosLista);
-        //GastoNegocio gasto = new GastoNegocio(this,listaGastos,posicion,gastoAnterior);
+
         listaGastos.setVisible(true);
 
     }
@@ -2031,30 +2043,99 @@ public class XMLManager extends javax.swing.JFrame {
                     tablaProductos.setVisible(false);
                     tablaNegocio.setVisible(true);
 
-                    //txt_alimentacion.revalidate();
-                    txt_educacion.revalidate();
-                    txt_otros.revalidate();
-                    txt_salud.revalidate();
-                    txt_vestimenta.revalidate();
-                    txt_vivienda.revalidate();
+                    int fila = tablaNegocio.getRowCount();
+                    int i;
+                    if (jComboBoxTipoGasto.getSelectedIndex() != -1) {
+                        for (i = 0; i < fila; i++) {
+                            tablaNegocio.setValueAt(jComboBoxTipoGasto.getSelectedItem(), i, 2);
+                        }
 
-                } else {
+                    }
+
+                } else if (jComboBoxTipoFactura.getSelectedItem().equals("Personal")) {
 
                     jPanel8.setVisible(false);
                     jPanel6.setVisible(true);
                     setTablaDesgloce(datos.getDatosProductos());
-                    //tablaProductos.setVisible(true);
-                    //tablaNegocio.setVisible(false);
+
                     tablaProductos.setVisible(true);
                     tablaNegocio.setVisible(false);
 
+                    int fila = tablaProductos.getRowCount();
+                    int i;
+                    if (jComboBoxTipoGasto.getSelectedIndex() != -1) {
+                        for (i = 0; i < fila; i++) {
+                            tablaProductos.setValueAt(jComboBoxTipoGasto.getSelectedItem(), i, 2);
+                        }
+
+                    }
+
                 }
 
-                int fila = tablaNegocio.getRowCount();
-                int i;
-                if (jComboBoxTipoGasto.getSelectedIndex() != -1) {
-                    for (i = 0; i < fila; i++) {
-                        tablaNegocio.setValueAt(jComboBoxTipoGasto.getSelectedItem(), i, 2);
+            }
+
+        });
+
+    }
+
+    public void actualizarGastos() {
+
+        if (jComboBoxTipoGasto.getSelectedItem().equals(" ")) {
+
+            jLabel24.setVisible(false);
+
+            jComboBoxTipoFactura.setVisible(false);
+
+        } else {
+
+            jLabel24.setVisible(true);
+
+            jComboBoxTipoFactura.setVisible(true);
+
+        }
+
+        jComboBoxTipoGasto.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                jLabel24.setVisible(true);
+
+                jComboBoxTipoFactura.setVisible(true);
+
+                if (jComboBoxTipoFactura.getSelectedItem().equals("Negocio")) {
+
+                    jPanel8.setVisible(false);
+                    jPanel6.setVisible(true);
+                    setTablaNegocio(datos.getDatosProductos());
+                    tablaProductos.setVisible(false);
+                    tablaNegocio.setVisible(true);
+
+                    int fila = tablaNegocio.getRowCount();
+                    int i;
+                    if (jComboBoxTipoGasto.getSelectedIndex() != -1) {
+                        for (i = 0; i < fila; i++) {
+                            tablaNegocio.setValueAt(jComboBoxTipoGasto.getSelectedItem(), i, 2);
+                        }
+
+                    }
+
+                } else if (jComboBoxTipoFactura.getSelectedItem().equals("Personal")) {
+
+                    jPanel8.setVisible(false);
+                    jPanel6.setVisible(true);
+                    setTablaDesgloce(datos.getDatosProductos());
+
+                    tablaProductos.setVisible(true);
+                    tablaNegocio.setVisible(false);
+
+                    int fila = tablaProductos.getRowCount();
+                    int i;
+                    if (jComboBoxTipoGasto.getSelectedIndex() != -1) {
+                        for (i = 0; i < fila; i++) {
+                            tablaProductos.setValueAt(jComboBoxTipoGasto.getSelectedItem(), i, 2);
+                        }
+
                     }
 
                 }

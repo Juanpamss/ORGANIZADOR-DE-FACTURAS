@@ -1053,7 +1053,18 @@ public class Reportes extends javax.swing.JFrame {
         };
 
         jScrollPane2.setViewportView(reporteTipoGasto);
+        reporteTipoGasto.setDefaultEditor(Object.class, null);
 
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+            ((DefaultTableCellRenderer) reporteTipoGasto.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(JLabel.CENTER);
+
+            reporteTipoGasto.getColumnModel().getColumn(0).setMinWidth(383);
+            reporteTipoGasto.getColumnModel().getColumn(0).setMaxWidth(383);
+            reporteTipoGasto.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+            
         try {
             conn.cerrarConeccion();
         } catch (SQLException ex) {
@@ -1273,7 +1284,7 @@ public class Reportes extends javax.swing.JFrame {
                     "Nombre Producto",
                     "Nombre Proveedor",
                     "Cantidad Comprada",
-                    "Valor total"};
+                    "Valor Total"};
 
                 Object[][] matriz = datos(datos);
                 this.reporteMatriz = matriz;
@@ -1298,11 +1309,11 @@ public class Reportes extends javax.swing.JFrame {
                 reporteNegocio.getColumnModel().getColumn(0).setMinWidth(400);
                 reporteNegocio.getColumnModel().getColumn(0).setMaxWidth(400);
                 reporteNegocio.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-                reporteNegocio.getColumnModel().getColumn(1).setMinWidth(290);
-                reporteNegocio.getColumnModel().getColumn(1).setMaxWidth(290);
+                reporteNegocio.getColumnModel().getColumn(1).setMinWidth(270);
+                reporteNegocio.getColumnModel().getColumn(1).setMaxWidth(270);
                 reporteNegocio.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-                reporteNegocio.getColumnModel().getColumn(2).setMaxWidth(130);
-                reporteNegocio.getColumnModel().getColumn(2).setMaxWidth(130);
+                reporteNegocio.getColumnModel().getColumn(2).setMaxWidth(150);
+                reporteNegocio.getColumnModel().getColumn(2).setMaxWidth(150);
                 reporteNegocio.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
                 reporteNegocio.getColumnModel().getColumn(3).setMaxWidth(80);
                 reporteNegocio.getColumnModel().getColumn(3).setMaxWidth(80);
