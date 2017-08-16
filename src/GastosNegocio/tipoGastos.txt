@@ -1,4 +1,5 @@
-﻿Mercaderia
+﻿
+Mercaderia
 Arriendo
 Servicios básicos
 Sueldos
@@ -8,6 +9,7 @@ Capacitación
 Suministros de oficina
 Herramientas de trabajo
 Prueba
+Prueba2
 Alimentacion
 Educacion
 Vivienda

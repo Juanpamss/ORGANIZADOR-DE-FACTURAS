@@ -144,53 +144,7 @@ public class ExportaReportes {
     }
     
     void generarReporteFacturaExcel(String path, ArrayList<SeccionReporte> datosExportar){
-      /* String salida="\tReporte por de factura\n";
-       
-     
-       salida+="\n\n";
-  
-       
-//        for (int i = 0; i < header.length; i++) {
-//            salida+="\t"+header[i];
-//        }
-//        salida+="\n";
-//        for (int i = 0; i < matriz.length; i++) {
-//            for (int j = 0; j < matriz[0].length; j++) {
-//                salida+="\t"+matriz[i][j];
-//            }
-//            salida+="\n";
-//        }
-        
-        for(SeccionReporte sr:datosExportar){
-            salida+="\t"+sr.tema;
-            salida+="\n";
-            for (String s : sr.cabezera) {
-                salida+="\t"+s;
-            }
-            salida+="\n";
-            for (int i = 0; i < sr.datos.length; i++) {
-                for (int j = 0; j < sr.datos[0].length; j++) {
-                    salida+="\t"+sr.datos[i][j];
-                    
-                }
-                salida+="\n";
-            }
-            
-            salida+="\n";
-            
-        }
-                
-        
-        String arch=path+"Reporte"+"Excel.xls";
-        try {
-            PrintWriter pw = new PrintWriter(arch);
-            pw.write(salida);
-            pw.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ExportaReportes.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-       */
-   
+      
         String arch=path+"Reporte"+"Excel.xls";
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet();

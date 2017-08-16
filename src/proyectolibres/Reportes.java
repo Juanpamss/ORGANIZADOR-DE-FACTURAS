@@ -117,21 +117,24 @@ public class Reportes extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel7 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jComboBoxFacturas = new javax.swing.JComboBox<>();
-        jScrollPaneTotales = new javax.swing.JScrollPane();
         jButtonConsultarFacturas = new javax.swing.JButton();
         jButtonExportarFactura = new javax.swing.JButton();
-        jScrollPaneTotalesGastos = new javax.swing.JScrollPane();
         jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jScrollPaneDetalleProductos = new javax.swing.JScrollPane();
-        jScrollPaneProveedor = new javax.swing.JScrollPane();
         jScrollPaneCliente = new javax.swing.JScrollPane();
+        jLabel17 = new javax.swing.JLabel();
+        jScrollPaneProveedor = new javax.swing.JScrollPane();
+        jLabel18 = new javax.swing.JLabel();
+        jScrollPaneDetalleProductos = new javax.swing.JScrollPane();
+        jLabel19 = new javax.swing.JLabel();
+        jScrollPaneTotalesGastos = new javax.swing.JScrollPane();
+        jLabel20 = new javax.swing.JLabel();
+        jScrollPaneTotales = new javax.swing.JScrollPane();
+        jLabel26 = new javax.swing.JLabel();
+        jScrollPaneDatosFactura = new javax.swing.JScrollPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -175,16 +178,17 @@ public class Reportes extends javax.swing.JFrame {
                     .addGroup(jPanelRESULTADOSLayout.createSequentialGroup()
                         .addGroup(jPanelRESULTADOSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
+                            .addComponent(jLabel23)
                             .addGroup(jPanelRESULTADOSLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelProveedorSeleccionado))
-                            .addGroup(jPanelRESULTADOSLayout.createSequentialGroup()
-                                .addComponent(jComboBoxProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(182, 182, 182)
-                                .addComponent(btn_consultar))
-                            .addComponent(jLabel23))
-                        .addGap(0, 669, Short.MAX_VALUE)))
+                                .addGroup(jPanelRESULTADOSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanelRESULTADOSLayout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabelProveedorSeleccionado))
+                                    .addComponent(jComboBoxProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addComponent(btn_consultar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 466, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanelRESULTADOSLayout.setVerticalGroup(
@@ -192,8 +196,8 @@ public class Reportes extends javax.swing.JFrame {
             .addGroup(jPanelRESULTADOSLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanelRESULTADOSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(20, 20, 20)
+                .addGroup(jPanelRESULTADOSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_consultar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,7 +208,7 @@ public class Reportes extends javax.swing.JFrame {
                 .addComponent(jLabel23)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPanePorProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(291, Short.MAX_VALUE))
+                .addContainerGap(289, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Proveedor", jPanelRESULTADOS);
@@ -494,22 +498,21 @@ public class Reportes extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonConsultar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addGap(121, 121, 121)
-                        .addComponent(jComboBoxClienteNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButtonConsultar)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGap(81, 81, 81)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jComboBoxAnioNegocio, 0, 140, Short.MAX_VALUE)
-                                .addComponent(jComboBoxTipoGasto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(64, Short.MAX_VALUE))
+                        .addComponent(jComboBoxClienteNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(78, 78, 78)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxAnioNegocio, 0, 263, Short.MAX_VALUE)
+                            .addComponent(jComboBoxTipoGasto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -554,13 +557,15 @@ public class Reportes extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel21)
-                        .addComponent(jLabel22)
-                        .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addComponent(jLabel22)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4))
+                        .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -570,18 +575,16 @@ public class Reportes extends javax.swing.JFrame {
                 .addComponent(jLabel21)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel22)
+                .addGap(25, 25, 25)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(jButton4))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jButton4)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(214, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gastos de Negocio", jPanel4);
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel15.setText("Factura:");
@@ -615,67 +618,85 @@ public class Reportes extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel20.setText("Total de la factura:");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel19)
-                    .addComponent(jScrollPaneTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel20)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPaneCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 960, Short.MAX_VALUE)
-                        .addComponent(jScrollPaneTotalesGastos, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPaneDetalleProductos, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPaneProveedor, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(62, 62, 62)
-                        .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(jButtonConsultarFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(jButtonExportarFactura)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel26.setText("Datos de la factura:");
+
+        jScrollPaneDatosFactura.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPaneCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 971, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneProveedor)
+                    .addComponent(jScrollPaneDetalleProductos)
+                    .addComponent(jScrollPaneTotalesGastos)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPaneTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 964, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addGap(73, 73, 73)
+                                .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(jButtonConsultarFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(jButtonExportarFactura))
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel26)
+                            .addComponent(jLabel16))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPaneDatosFactura))
+                .addContainerGap())
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonConsultarFacturas)
-                    .addComponent(jButtonExportarFactura))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(jComboBoxFacturas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonConsultarFacturas)
+                        .addComponent(jButtonExportarFactura)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPaneDatosFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
+                .addComponent(jScrollPaneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPaneProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPaneDetalleProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneTotalesGastos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(168, 168, 168))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPaneTotales, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
         );
 
-        jTabbedPane1.addTab("Facturas", jPanel6);
+        jScrollPane1.setViewportView(jPanel7);
+
+        jTabbedPane1.addTab("Facturas", jScrollPane1);
 
         jMenu1.setText("Archivo");
 
@@ -717,22 +738,51 @@ public class Reportes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+
+        try {
+            conn.cerrarConeccion();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         regresar();
+
         this.dispose();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void btn_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarActionPerformed
+    private void jButtonExportarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarFacturaActionPerformed
+        this.generarReporteFactura();
+    }//GEN-LAST:event_jButtonExportarFacturaActionPerformed
 
-        setPanelReportes(jComboBoxProveedores.getSelectedItem().toString());
-        jLabelProveedorSeleccionado.setText((String) jComboBoxProveedores.getSelectedItem());
+    private void jButtonConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarFacturasActionPerformed
+        this.datosExportar = new ArrayList<>();
+        this.datosExportar.clear();
+        setPanelReporteInfoFactura();
+        setPanelReporteInfoProveedor();
+        setPanelReporteInfoCliente();
+        setPanelReporteDetalleProductos();
+        setPanelReporteTotalesGastos();
+        setPanelReporteTotalesFactura();
+    }//GEN-LAST:event_jButtonConsultarFacturasActionPerformed
 
-    }//GEN-LAST:event_btn_consultarActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.exportarGastosNegocio();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
+        setPanelReporteNegocios();
+    }//GEN-LAST:event_jButtonConsultarActionPerformed
 
     private void btn_tipoGastoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_tipoGastoActionPerformed
 
         setPanelTipoGasto(jComboBoxTipos.getSelectedItem().toString());
         jLabelTipoGastoSeleccionado.setText((String) jComboBoxTipos.getSelectedItem());
     }//GEN-LAST:event_btn_tipoGastoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        setPanelCantidadFacturas(jComboBoxReporteCliente.getSelectedItem().toString());
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setPanelReporteAnual();
@@ -742,32 +792,11 @@ public class Reportes extends javax.swing.JFrame {
         generarReportes();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        setPanelCantidadFacturas(jComboBoxReporteCliente.getSelectedItem().toString());
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btn_consultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarActionPerformed
 
-    private void jButtonConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarActionPerformed
-        setPanelReporteNegocios();
-    }//GEN-LAST:event_jButtonConsultarActionPerformed
-
-    private void jButtonExportarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarFacturaActionPerformed
-        this.generarReporteFactura();
-    }//GEN-LAST:event_jButtonExportarFacturaActionPerformed
-
-    private void jButtonConsultarFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultarFacturasActionPerformed
-        this.datosExportar = new ArrayList<>();
-        this.datosExportar.clear();
-        setPanelReporteInfoProveedor();
-        setPanelReporteInfoCliente();
-        setPanelReporteDetalleProductos();
-        setPanelReporteTotalesGastos();
-        setPanelReporteTotalesFactura();
-
-    }//GEN-LAST:event_jButtonConsultarFacturasActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        this.exportarGastosNegocio();
-    }//GEN-LAST:event_jButton4ActionPerformed
+        setPanelReportes(jComboBoxProveedores.getSelectedItem().toString());
+        jLabelProveedorSeleccionado.setText((String) jComboBoxProveedores.getSelectedItem());
+    }//GEN-LAST:event_btn_consultarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -842,6 +871,7 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -863,11 +893,13 @@ public class Reportes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanelRESULTADOS;
     private javax.swing.JPanel jPanelRESULTADOS1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneCliente;
+    private javax.swing.JScrollPane jScrollPaneDatosFactura;
     private javax.swing.JScrollPane jScrollPaneDetalleProductos;
     private javax.swing.JScrollPane jScrollPaneGastoNegocio;
     private javax.swing.JScrollPane jScrollPanePorProveedor;
@@ -1006,12 +1038,6 @@ public class Reportes extends javax.swing.JFrame {
             codigoFactura.add(aux[1]);
 
         }
-        
-        for (String c : codigoFactura) {
-
-                System.out.println(c);
-
-            }
 
         /*for (String[] prov : anios) {
             this.jComboBoxFacturas.addItem(prov);
@@ -1385,22 +1411,7 @@ public class Reportes extends javax.swing.JFrame {
         jLabel17.setVisible(false);
 
         String factura = codigoFactura.get(this.jComboBoxFacturas.getSelectedIndex());
-                
-        System.out.println(factura);
 
-        /*String delims = "[ ]";
-        
-        String valores = "";
-        
-        String[] tokens = factura.split(delims);
-            
-            for(int i=0; i<tokens.length;i++){
-            
-                valores += tokens[2];
-                
-                System.out.println(valores);
-            
-            }*/
         datos = conn.consultarInfoProveedor(factura);
 
         if (datos.isEmpty()) {
@@ -1440,8 +1451,8 @@ public class Reportes extends javax.swing.JFrame {
             reporteInfoProveedor.getColumnModel().getColumn(0).setMinWidth(110);
             reporteInfoProveedor.getColumnModel().getColumn(0).setMaxWidth(110);
             reporteInfoProveedor.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-            reporteInfoProveedor.getColumnModel().getColumn(1).setMinWidth(250);
-            reporteInfoProveedor.getColumnModel().getColumn(1).setMaxWidth(250);
+            reporteInfoProveedor.getColumnModel().getColumn(1).setMinWidth(260);
+            reporteInfoProveedor.getColumnModel().getColumn(1).setMaxWidth(260);
             reporteInfoProveedor.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
             reporteInfoProveedor.getColumnModel().getColumn(2).setMinWidth(470);
             reporteInfoProveedor.getColumnModel().getColumn(2).setMaxWidth(470);
@@ -1501,8 +1512,8 @@ public class Reportes extends javax.swing.JFrame {
             ((DefaultTableCellRenderer) reporteInfoCliente.getTableHeader().getDefaultRenderer())
                     .setHorizontalAlignment(JLabel.CENTER);
 
-            reporteInfoCliente.getColumnModel().getColumn(0).setMinWidth(300);
-            reporteInfoCliente.getColumnModel().getColumn(0).setMaxWidth(300);
+            reporteInfoCliente.getColumnModel().getColumn(0).setMinWidth(310);
+            reporteInfoCliente.getColumnModel().getColumn(0).setMaxWidth(310);
             reporteInfoCliente.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
             reporteInfoCliente.getColumnModel().getColumn(1).setMinWidth(655);
             reporteInfoCliente.getColumnModel().getColumn(1).setMaxWidth(655);
@@ -1543,6 +1554,7 @@ public class Reportes extends javax.swing.JFrame {
 
             String header[] = {
                 "Producto",
+                "Cantidad",
                 "Tipo de Gasto",
                 "Total Gasto"};
 
@@ -1561,15 +1573,18 @@ public class Reportes extends javax.swing.JFrame {
             ((DefaultTableCellRenderer) reporteDetalleProductos.getTableHeader().getDefaultRenderer())
                     .setHorizontalAlignment(JLabel.CENTER);
 
-            reporteDetalleProductos.getColumnModel().getColumn(0).setMinWidth(600);
-            reporteDetalleProductos.getColumnModel().getColumn(0).setMaxWidth(600);
+            reporteDetalleProductos.getColumnModel().getColumn(0).setMinWidth(500);
+            reporteDetalleProductos.getColumnModel().getColumn(0).setMaxWidth(500);
             reporteDetalleProductos.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-            reporteDetalleProductos.getColumnModel().getColumn(1).setMinWidth(200);
-            reporteDetalleProductos.getColumnModel().getColumn(1).setMaxWidth(200);
+            reporteDetalleProductos.getColumnModel().getColumn(1).setMinWidth(100);
+            reporteDetalleProductos.getColumnModel().getColumn(1).setMaxWidth(100);
             reporteDetalleProductos.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-            reporteDetalleProductos.getColumnModel().getColumn(2).setMinWidth(155);
-            reporteDetalleProductos.getColumnModel().getColumn(2).setMaxWidth(155);
+            reporteDetalleProductos.getColumnModel().getColumn(2).setMinWidth(200);
+            reporteDetalleProductos.getColumnModel().getColumn(2).setMaxWidth(200);
             reporteDetalleProductos.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+            reporteDetalleProductos.getColumnModel().getColumn(3).setMinWidth(155);
+            reporteDetalleProductos.getColumnModel().getColumn(3).setMaxWidth(155);
+            reporteDetalleProductos.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         }
 
         try {
@@ -1633,7 +1648,7 @@ public class Reportes extends javax.swing.JFrame {
             reporteDetalleProductosFact.getColumnModel().getColumn(2).setMinWidth(320);
             reporteDetalleProductosFact.getColumnModel().getColumn(2).setMaxWidth(320);
             reporteDetalleProductosFact.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-            
+
             jButtonExportarFactura.setVisible(true);
 
         }
@@ -1687,12 +1702,75 @@ public class Reportes extends javax.swing.JFrame {
             ((DefaultTableCellRenderer) reporteGastosEspecificos.getTableHeader().getDefaultRenderer())
                     .setHorizontalAlignment(JLabel.CENTER);
 
-            reporteGastosEspecificos.getColumnModel().getColumn(0).setMinWidth(480);
-            reporteGastosEspecificos.getColumnModel().getColumn(0).setMaxWidth(480);
+            reporteGastosEspecificos.getColumnModel().getColumn(0).setMinWidth(490);
+            reporteGastosEspecificos.getColumnModel().getColumn(0).setMaxWidth(490);
             reporteGastosEspecificos.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
             reporteGastosEspecificos.getColumnModel().getColumn(1).setMinWidth(480);
             reporteGastosEspecificos.getColumnModel().getColumn(1).setMaxWidth(480);
             reporteGastosEspecificos.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+
+        }
+
+        try {
+            conn.cerrarConeccion();
+        } catch (SQLException ex) {
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
+    private void setPanelReporteInfoFactura() {
+
+        List<String[]> datos;
+        conn = new Conexion();
+        jScrollPaneDatosFactura.setVisible(false);
+        jLabel26.setVisible(false);
+
+        String factura = codigoFactura.get(this.jComboBoxFacturas.getSelectedIndex());
+
+        datos = conn.consultarInfoFactura(factura);
+
+        if (datos.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "No hay facturas con los campos seleccionados");
+            jScrollPaneDatosFactura.setVisible(false);
+            jLabel26.setVisible(false);
+
+        } else {
+
+            jScrollPaneDatosFactura.setVisible(true);
+            jLabel26.setVisible(true);
+
+            String header[] = {
+                "Código Factura",
+                "Fecha Emisión",
+                "Tipo de Factura"};
+
+            Object[][] matriz = datos(datos);
+            this.reporteMatriz = matriz;
+            this.reporteCabezera = header;
+            this.datosExportar.add(new SeccionReporte("Datos de la Factura: \n", header, matriz));
+
+            JTable reporteInfoFactura = new JTable(matriz, header);
+            this.jScrollPaneDatosFactura.setViewportView(reporteInfoFactura);
+            reporteInfoFactura.setDefaultEditor(Object.class, null);
+
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+            ((DefaultTableCellRenderer) reporteInfoFactura.getTableHeader().getDefaultRenderer())
+                    .setHorizontalAlignment(JLabel.CENTER);
+
+            reporteInfoFactura.getColumnModel().getColumn(0).setMinWidth(330);
+            reporteInfoFactura.getColumnModel().getColumn(0).setMaxWidth(330);
+            reporteInfoFactura.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+            reporteInfoFactura.getColumnModel().getColumn(1).setMinWidth(320);
+            reporteInfoFactura.getColumnModel().getColumn(1).setMaxWidth(320);
+            reporteInfoFactura.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+            reporteInfoFactura.getColumnModel().getColumn(2).setMinWidth(320);
+            reporteInfoFactura.getColumnModel().getColumn(2).setMaxWidth(320);
+            reporteInfoFactura.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
 
         }
 
@@ -1726,6 +1804,12 @@ public class Reportes extends javax.swing.JFrame {
         };
 
         jScrollPaneReporteCountAnual.setViewportView(reporteCantidadFacturas);
+        
+        try {
+            conn.cerrarConeccion();
+        } catch (SQLException ex) {
+            Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

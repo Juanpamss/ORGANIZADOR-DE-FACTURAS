@@ -25,7 +25,7 @@ public class ListaGastos extends javax.swing.JFrame {
     DefaultListModel lista = new DefaultListModel();
     DefaultComboBoxModel modelo;
     XMLManager form;
-    private int posicion;
+    private int posicion = -1;
     Object gastoNegocio;
 
     public ListaGastos(XMLManager formAux, int pos, Object obj, DefaultListModel list) {
@@ -33,6 +33,18 @@ public class ListaGastos extends javax.swing.JFrame {
         this.form = formAux;
         this.posicion = pos;
         this.gastoNegocio = obj;
+
+        this.lista = list;
+
+        jListGastos.setModel(lista);
+
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+
+    public ListaGastos(XMLManager formAux, DefaultListModel list) {
+        initComponents();
+
+        this.form = formAux;
 
         this.lista = list;
 
@@ -148,7 +160,7 @@ public class ListaGastos extends javax.swing.JFrame {
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
 
-        File nombreArchivo = new File("src/tipoGastos.txt");
+        File nombreArchivo = new File("src/GastosNegocio/tipoGastos.txt");
 
         jListGastos.setModel(lista);
 
@@ -227,25 +239,48 @@ public class ListaGastos extends javax.swing.JFrame {
 
         }
 
-        form.tablaNegocio.setValueAt(jTextFieldIngresoGasto.getText(), posicion, 2);
-        
+        if (posicion >= 0) {
+
+            form.tablaNegocio.setValueAt(jTextFieldIngresoGasto.getText(), posicion, 2);
+
+            modelo = new DefaultComboBoxModel(lista.toArray());
+
+            form.comboBoxNegocio.setModel(modelo);
+
+            form.jComboBoxTipoGastoNegocio.setModel(modelo);
+
+        } else {
+
+            modelo = new DefaultComboBoxModel(lista.toArray());
+
+            form.comboBoxNegocio.setModel(modelo);
+
+            form.jComboBoxTipoGastoNegocio.setModel(modelo);
+            
+            form.jComboBoxTipoGastoNegocio.setSelectedItem(jTextFieldIngresoGasto.getText());
+            
+            for(int i=0; i < form.tablaNegocio.getRowCount();i++){
+                
+            
+                form.tablaNegocio.setValueAt(form.jComboBoxTipoGastoNegocio.getSelectedItem(), i, 2);
+            }
+
+        }
+
         jTextFieldIngresoGasto.setText("");
-        
-        form.datosLista = lista;
-        
+
+        //form.datosLista = lista;
         JOptionPane.showMessageDialog(null, "Tipo de gasto agregado correctamente");
-        
+
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
 
-        File nombreArchivo = new File("src/tipoGastos.txt");
+        File nombreArchivo = new File("src/GastosNegocio/tipoGastos.txt");
 
         int index = jListGastos.getSelectedIndex();
-        
-        jTextFieldIngresoGasto.setText("");
 
-        System.out.println(jListGastos.getSelectedIndex());
+        jTextFieldIngresoGasto.setText("");
 
         if (jListGastos.getSelectedIndex() < 0) {
 
@@ -275,8 +310,12 @@ public class ListaGastos extends javax.swing.JFrame {
 
         }
 
-        form.datosLista = lista;
-        
+        modelo = new DefaultComboBoxModel(lista.toArray());
+
+        form.comboBoxNegocio.setModel(modelo);
+
+        form.jComboBoxTipoGastoNegocio.setModel(modelo);
+
         JOptionPane.showMessageDialog(null, "Tipo de gasto eliminado correctamente");
 
 

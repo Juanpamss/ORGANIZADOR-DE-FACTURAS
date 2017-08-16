@@ -1,0 +1,19 @@
+﻿
+Mercaderia
+Arriendo
+Servicios básicos
+Sueldos
+Movilización
+Viáticos
+Capacitación
+Suministros de oficina
+Herramientas de trabajo
+Prueba
+Prueba2
+Alimentacion
+Educacion
+Vivienda
+Salud
+Vestimenta
+Otros Gastos
+Agregar Gasto de Negocio
