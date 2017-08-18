@@ -210,7 +210,6 @@ public class XMLManager extends javax.swing.JFrame {
         jLabelfac_fecha = new javax.swing.JLabel();
         jButtonCancelarCarga = new javax.swing.JButton();
         jButtonGuardarDatosFactura = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuSeleccionarFactura = new javax.swing.JMenuItem();
@@ -640,13 +639,6 @@ public class XMLManager extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -660,9 +652,7 @@ public class XMLManager extends javax.swing.JFrame {
                 .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(87, 87, 87))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -672,8 +662,7 @@ public class XMLManager extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelarCarga, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonGuardarDatosFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -835,7 +824,7 @@ public class XMLManager extends javax.swing.JFrame {
             if (validado == true /*|| validado2 == true*/) {
 
                 guardarBDD();
-                guardarBDDTipos();
+                //guardarBDDTipos();
                 guardarDetalle();
                 XMLManager nuevo = new XMLManager();
                 nuevo.show();
@@ -894,11 +883,6 @@ public class XMLManager extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxTipoGastoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        imprimirQuery();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -935,7 +919,6 @@ public class XMLManager extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonCancelarCarga;
     private javax.swing.JButton jButtonGuardarDatosFactura;
     private javax.swing.JComboBox<String> jComboBoxTipoFactura;
@@ -1293,7 +1276,7 @@ public class XMLManager extends javax.swing.JFrame {
 
     }
 
-    public void guardarBDDTipos() {
+    /*public void guardarBDDTipos() {
 
         //TIpos de datos 
         try {
@@ -1322,7 +1305,7 @@ public class XMLManager extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(XMLManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
 
     public String convertFileToUTF8String(File file, String originalEncoding) {
 

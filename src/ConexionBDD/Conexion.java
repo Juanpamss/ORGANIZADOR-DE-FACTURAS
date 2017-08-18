@@ -89,7 +89,7 @@ public class Conexion {
         }
     }
 
-    public void insertarTipos(String producto, String tipo) {
+    /*public void insertarTipos(String producto, String tipo) {
 
         String query = "insert into 'main'.'Tipos' values ('" + producto + "','" + tipo + "')";
 
@@ -116,7 +116,7 @@ public class Conexion {
         
         
         
-    }
+    }*/
 
     public boolean esVacia() throws ClassNotFoundException {
 
@@ -644,7 +644,7 @@ public class Conexion {
 
             conn = Conexion.conecxionBDD();
 
-            String query = "SELECT item,proveedor.nombre, cantidad, totalgasto from detalle,factura,proveedor,cliente "
+            String query = "SELECT factura.id_factura,factura.fecha,item,proveedor.nombre, cantidad, totalgasto from detalle,factura,proveedor,cliente "
                     + "where detalle.tipogasto = '" + tipo + "'" + "and strftime('%Y',fecha) = '" + anio + "'"
                     + "and cliente.nombre = '" + cliente + "'"
                     + "and detalle.id_factura = factura.id_factura and factura.id_proveedor = proveedor.ruc and factura.id_cliente = cliente.ci group by item";
@@ -653,12 +653,14 @@ public class Conexion {
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
 
-                String temp[] = new String[4];
+                String temp[] = new String[6];
 
                 temp[0] = rs.getString(1);
                 temp[1] = rs.getString(2);
                 temp[2] = rs.getString(3);
                 temp[3] = rs.getString(4);
+                temp[4] = rs.getString(5);
+                temp[5] = rs.getString(6);
 
                 resultado.add(temp);
 

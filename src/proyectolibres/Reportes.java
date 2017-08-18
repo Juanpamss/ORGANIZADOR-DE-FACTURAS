@@ -556,17 +556,20 @@ public class Reportes extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel21)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel22)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4))
-                        .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel22)
+                                .addGap(708, 708, 708)
+                                .addComponent(jButton4))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPaneGastoNegocio, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1349,16 +1352,18 @@ public class Reportes extends javax.swing.JFrame {
                 jButton4.setVisible(true);
 
                 String header[] = {
+                    "Código Factura",
+                    "Fecha de Emisión",
                     "Nombre Producto",
                     "Nombre Proveedor",
-                    "Cantidad Comprada",
-                    "Valor Total"};
+                    "Cantidad",
+                    "Valor Pagado"};
 
                 Object[][] matriz = datos(datos);
                 String[] datosHead = {"Anio", "Cliente", "Tipo Gasto"};
                 String[][] datosCliente = {{year, cliente, tipoGasto}};
-                this.datosExportar.add(new SeccionReporte("Datos", datosHead, datosCliente));
-                this.datosExportar.add(new SeccionReporte("Resultados", header, matriz));
+                this.datosExportar.add(new SeccionReporte("Datos: \n", datosHead, datosCliente));
+                this.datosExportar.add(new SeccionReporte("Descripción: \n", header, matriz));
 
                 this.reporteMatriz = matriz;
                 this.reporteCabezera = header;
@@ -1379,18 +1384,24 @@ public class Reportes extends javax.swing.JFrame {
                 ((DefaultTableCellRenderer) reporteNegocio.getTableHeader().getDefaultRenderer())
                         .setHorizontalAlignment(JLabel.CENTER);
 
-                reporteNegocio.getColumnModel().getColumn(0).setMinWidth(400);
-                reporteNegocio.getColumnModel().getColumn(0).setMaxWidth(400);
+                reporteNegocio.getColumnModel().getColumn(0).setMinWidth(140);
+                reporteNegocio.getColumnModel().getColumn(0).setMaxWidth(140);
                 reporteNegocio.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-                reporteNegocio.getColumnModel().getColumn(1).setMinWidth(270);
-                reporteNegocio.getColumnModel().getColumn(1).setMaxWidth(270);
+                reporteNegocio.getColumnModel().getColumn(1).setMinWidth(120);
+                reporteNegocio.getColumnModel().getColumn(1).setMaxWidth(120);
                 reporteNegocio.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-                reporteNegocio.getColumnModel().getColumn(2).setMaxWidth(150);
-                reporteNegocio.getColumnModel().getColumn(2).setMaxWidth(150);
+                reporteNegocio.getColumnModel().getColumn(2).setMaxWidth(285);
+                reporteNegocio.getColumnModel().getColumn(2).setMaxWidth(285);
                 reporteNegocio.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-                reporteNegocio.getColumnModel().getColumn(3).setMaxWidth(80);
-                reporteNegocio.getColumnModel().getColumn(3).setMaxWidth(80);
+                reporteNegocio.getColumnModel().getColumn(3).setMaxWidth(251);
+                reporteNegocio.getColumnModel().getColumn(3).setMaxWidth(251);
                 reporteNegocio.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+                reporteNegocio.getColumnModel().getColumn(4).setMaxWidth(70);
+                reporteNegocio.getColumnModel().getColumn(4).setMaxWidth(70);
+                reporteNegocio.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+                reporteNegocio.getColumnModel().getColumn(5).setMaxWidth(90);
+                reporteNegocio.getColumnModel().getColumn(5).setMaxWidth(90);
+                reporteNegocio.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
 
             }
         }
@@ -1430,7 +1441,7 @@ public class Reportes extends javax.swing.JFrame {
                 "RUC",
                 "Nombre",
                 "Direccion",
-                "Tipo de gasto"};
+                "Tipo Gasto Proveedor"};
 
             Object[][] matriz = datos(datos);
             this.reporteMatriz = matriz;
@@ -1454,11 +1465,11 @@ public class Reportes extends javax.swing.JFrame {
             reporteInfoProveedor.getColumnModel().getColumn(1).setMinWidth(260);
             reporteInfoProveedor.getColumnModel().getColumn(1).setMaxWidth(260);
             reporteInfoProveedor.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-            reporteInfoProveedor.getColumnModel().getColumn(2).setMinWidth(470);
-            reporteInfoProveedor.getColumnModel().getColumn(2).setMaxWidth(470);
+            reporteInfoProveedor.getColumnModel().getColumn(2).setMinWidth(460);
+            reporteInfoProveedor.getColumnModel().getColumn(2).setMaxWidth(460);
             reporteInfoProveedor.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-            reporteInfoProveedor.getColumnModel().getColumn(3).setMinWidth(125);
-            reporteInfoProveedor.getColumnModel().getColumn(3).setMaxWidth(125);
+            reporteInfoProveedor.getColumnModel().getColumn(3).setMinWidth(135);
+            reporteInfoProveedor.getColumnModel().getColumn(3).setMaxWidth(135);
             reporteInfoProveedor.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
 
         }
